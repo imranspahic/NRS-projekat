@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
+import ba.etf.nrsprojekat.database.Firestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.util.regex.Pattern
@@ -85,13 +86,47 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
+        loginDugme.setOnClickListener {
+            Firestore.checkIfEmailExists(emailField.text.toString()) {emailExists ->
+                Log.d("login", "checkUser() finished")
+                if(emailExists) {
+                    //Login
+                    if(!linearLayout3.isVisible) {
+                        Firestore.checkIfPasswordCorrect(emailField.text.toString(), passwordField.text.toString()){
+                            success ->
+                            if(success) onSuccessLogin()
+                            else Log.d("login", "neispravna lozinka")
+                        }
+                    }
+                    //Registracija
+                    else {
+                        Log.d("login", "error email se već koristi")
+                    }
+                }
+                else {
+                    //Login
+                    if(!linearLayout3.isVisible) {
+                        Log.d("login", "error email ne postoji")
+                    }
+                    //Registracija
+                    else {
+                        Firestore.createUser(emailField.text.toString(), passwordField.text.toString())
+                        onSuccessLogin()
+                    }
+                }
+            }
+        }
     }
 
     private fun checkLoginButtonState() {
         var emailCondition = emailField.text.isNotEmpty() && emailPattern.matcher(emailField.text).matches()
         var passwordCondition = passwordField.text.isNotEmpty() && passwordField.text.length >=8
-        var confirmPasswordCondition = !linearLayout3.isVisible || confirmPasswordField.text.isNotEmpty() && confirmPasswordField.text == passwordField.text
+        var confirmPasswordCondition = !linearLayout3.isVisible || (confirmPasswordField.text.isNotEmpty() && confirmPasswordField.text.toString() == passwordField.text.toString())
         loginDugme.isEnabled = emailCondition && passwordCondition && confirmPasswordCondition
+    }
+
+    private fun onSuccessLogin() {
+
     }
 
     private fun toggleLoginState() {
