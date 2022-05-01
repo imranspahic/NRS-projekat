@@ -24,99 +24,75 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/linearLogin1"
+            app:layout_constraintBottom_toTopOf="@id/emailTextInputLayout"
             />
 
-        <LinearLayout
-            android:id="@+id/linearLogin1"
-            android:layout_width="0dp"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toTopOf="@id/linearLogin2"
+            android:layout_marginTop="16dp"
+
+            android:id="@+id/emailTextInputLayout"
+            android:hint="Unesi email"
+            app:layout_constraintBottom_toTopOf="@id/passwordTextInputLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/loginImage"
+            app:layout_constraintTop_toBottomOf="@id/loginImage"
             >
-            <TextView
-                android:id="@+id/emailLabel"
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="8dp"
-                android:layout_weight="0.2"
-                android:gravity="center"
-                android:text="Email:"
-                android:textSize="14dp" />
 
-            <EditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/emailField"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.8"
-                android:ems="10"
-                android:inputType="textEmailAddress" />
-        </LinearLayout>
+                android:inputType="textEmailAddress"
+                />
 
-        <LinearLayout
-            android:id="@+id/linearLogin2"
-            android:layout_width="0dp"
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/passwordTextInputLayout"
             android:layout_marginTop="8dp"
-            android:orientation="horizontal"
-            app:layout_constraintStart_toStartOf="parent"
+            android:hint="Unesi lozinku"
+            app:layout_constraintBottom_toTopOf="@id/confirmPasswordTextInputLayout"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/linearLogin1"
-            app:layout_constraintBottom_toTopOf="@id/loginDugme">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/emailTextInputLayout"
+            app:endIconMode="password_toggle">
 
-            <TextView
-                android:id="@+id/passwordLabel"
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.2"
-                android:textSize="14dp"
-                android:gravity="center"
-                android:layout_marginRight="8dp"
-                android:text="Password:" />
-
-            <EditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/passwordField"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.8"
-                android:ems="10"
-                android:inputType="textPassword" />
-        </LinearLayout>
+                android:inputType="textPassword"
+                />
 
-        <LinearLayout
-            android:id="@+id/linearLogin3"
-            android:visibility="gone"
-            android:layout_width="0dp"
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/confirmPasswordTextInputLayout"
             android:layout_marginTop="8dp"
-            android:orientation="horizontal"
-            app:layout_constraintStart_toStartOf="parent"
+            android:hint="Potvrdi lozinku"
+            app:layout_constraintBottom_toTopOf="@id/loginDugme"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/linearLogin2"
-            app:layout_constraintBottom_toTopOf="@id/loginDugme">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/passwordTextInputLayout"
+            app:endIconMode="password_toggle">
 
-            <TextView
-                android:id="@+id/confirmPasswordLabel"
-                android:layout_width="60dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.2"
-                android:textSize="14dp"
-                android:gravity="center"
-                android:layout_marginRight="8dp"
-                android:text="Confirm Password:" />
-
-            <EditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/confirmPasswordField"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.8"
-                android:ems="10"
-                android:inputType="textPassword" />
-        </LinearLayout>
+                android:inputType="textPassword"
+                />
 
+        </com.google.android.material.textfield.TextInputLayout>
 
 
         <Button
@@ -131,7 +107,7 @@
             android:enabled="true"
             android:backgroundTint="@color/button_state_colors"
             android:textColor="@color/white"
-            app:layout_constraintTop_toBottomOf="@id/linearLogin2"
+            app:layout_constraintTop_toBottomOf="@id/confirmPasswordTextInputLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_alignParentBottom="true"

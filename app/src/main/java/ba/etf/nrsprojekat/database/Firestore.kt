@@ -36,7 +36,9 @@ object Firestore {
             .whereEqualTo("password", password)
             .get().addOnSuccessListener { querySnapshot ->
                 callback(querySnapshot.documents.size > 0)
+                if(querySnapshot.documents.isNotEmpty()) {
+                    querySnapshot.documents.first().reference.update("isLogged", true)
+                }
             }
     }
-
 }
