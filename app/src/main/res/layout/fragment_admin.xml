@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:id="@+id/layout"
     android:padding="20dp"
-    tools:context=".admin_user_change" >
+    tools:context=".view.FragmentAdmin" >
 
       <androidx.recyclerview.widget.RecyclerView
         android:layout_below="@id/layout"

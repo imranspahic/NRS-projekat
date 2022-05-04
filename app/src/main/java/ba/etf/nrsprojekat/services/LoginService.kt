@@ -1,14 +1,14 @@
-package ba.etf.nrsprojekat.database
+package ba.etf.nrsprojekat.services
 
-import android.util.Log
+import ba.etf.nrsprojekat.data.models.Korisnik
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.util.*
-import java.util.concurrent.CompletableFuture
-import kotlin.system.*
 
-object Firestore {
+object LoginService {
     private val db = Firebase.firestore
+
+    var logovaniKorisnik: Korisnik? = null
 
     fun createUser(email: String, password: String) {
         val documentReference = db.collection("users").document()
@@ -20,6 +20,12 @@ object Firestore {
             "isLogged" to true
         )
         documentReference.set(user)
+        logovaniKorisnik = Korisnik(
+            documentReference.id,
+            email,
+            password,
+            false
+        )
     }
 
     fun checkIfEmailExists(email: String, callback: (result: Boolean) -> Unit) {
@@ -38,7 +44,16 @@ object Firestore {
                 callback(querySnapshot.documents.size > 0)
                 if(querySnapshot.documents.isNotEmpty()) {
                     querySnapshot.documents.first().reference.update("isLogged", true)
+                    logovaniKorisnik = Korisnik(
+                        querySnapshot.documents.first()["id"].toString(),
+                        email,
+                        password,
+                        false)
                 }
             }
+    }
+
+    fun logoutUser() {
+        db.collection("users").document(logovaniKorisnik!!.getID()).update("isLogged", false)
     }
 }
