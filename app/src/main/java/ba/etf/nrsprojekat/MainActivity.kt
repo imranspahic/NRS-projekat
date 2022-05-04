@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
+import ba.etf.nrsprojekat.data.models.Korisnik
 import ba.etf.nrsprojekat.services.LoginService
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -147,7 +148,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onSuccessLogin() {
-        //prebaciti na sljedeci screen
+        LoginService.logovaniKorisnik = Korisnik(
+            emailField.text!!.toString(),
+            passwordField.text!!.toString(),
+            false
+        );
         val intent = Intent(this, MainActivity2::class.java)
         startActivity(intent);
     }

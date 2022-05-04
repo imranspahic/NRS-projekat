@@ -1,11 +1,14 @@
 package ba.etf.nrsprojekat.services
 
+import ba.etf.nrsprojekat.data.models.Korisnik
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.util.*
 
 object LoginService {
     private val db = Firebase.firestore
+
+    var logovaniKorisnik: Korisnik? = null
 
     fun createUser(email: String, password: String) {
         val documentReference = db.collection("users").document()
@@ -38,4 +41,6 @@ object LoginService {
                 }
             }
     }
+
+
 }

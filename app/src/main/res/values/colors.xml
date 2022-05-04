@@ -11,4 +11,6 @@
     <color name="main_green">#6d9110</color>
     <color name="main_green_dark">#526e0b</color>
     <color name="disabled">#9fa19c</color>
+
+    <color name="red">#c20606</color>
 </resources>
