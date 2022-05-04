@@ -3,6 +3,7 @@ package ba.etf.nrsprojekat
 import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
+
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -34,9 +35,11 @@ class MainActivity : AppCompatActivity() {
 
     private var emailPattern = Pattern.compile("[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\\.[a-zA-Z]{2,4}")
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         emailField = findViewById(R.id.emailField)
         passwordField = findViewById(R.id.passwordField)
         confirmPasswordField = findViewById(R.id.confirmPasswordField)
