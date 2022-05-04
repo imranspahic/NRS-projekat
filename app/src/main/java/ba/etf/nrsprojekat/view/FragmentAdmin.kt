@@ -43,11 +43,6 @@ class FragmentAdmin : Fragment(R.layout.fragment_admin), KorisnikAdapter.OnItemC
             izmijeniSifru(emailTekst.text.toString(), lozinkaTekst.text.toString()) {}
 
         }
-
-
-
-
-
     }
 
     override fun onItemClick(position: Int) {
@@ -64,7 +59,11 @@ class FragmentAdmin : Fragment(R.layout.fragment_admin), KorisnikAdapter.OnItemC
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
-                    lista.add(Korisnik(document.data["email"].toString(), document.data["password"].toString(), (document.data["isAdmin"].toString().toBoolean())))
+                    lista.add(Korisnik(
+                        document.data["id"].toString(),
+                        document.data["email"].toString(),
+                        document.data["password"].toString(),
+                        (document.data["isAdmin"].toString().toBoolean())))
                   //  Log.d(TAG, "${document.id} => ${document.data}")
                 }
                 callback(lista)
@@ -86,6 +85,4 @@ class FragmentAdmin : Fragment(R.layout.fragment_admin), KorisnikAdapter.OnItemC
            callback(true)
        }
     }
-
-
 }

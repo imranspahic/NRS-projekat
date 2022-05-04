@@ -20,6 +20,12 @@ object LoginService {
             "isLogged" to true
         )
         documentReference.set(user)
+        logovaniKorisnik = Korisnik(
+            documentReference.id,
+            email,
+            password,
+            false
+        )
     }
 
     fun checkIfEmailExists(email: String, callback: (result: Boolean) -> Unit) {
@@ -38,9 +44,16 @@ object LoginService {
                 callback(querySnapshot.documents.size > 0)
                 if(querySnapshot.documents.isNotEmpty()) {
                     querySnapshot.documents.first().reference.update("isLogged", true)
+                    logovaniKorisnik = Korisnik(
+                        querySnapshot.documents.first()["id"].toString(),
+                        email,
+                        password,
+                        false)
                 }
             }
     }
 
-
+    fun logoutUser() {
+        db.collection("users").document(logovaniKorisnik!!.getID()).update("isLogged", false)
+    }
 }

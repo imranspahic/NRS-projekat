@@ -148,13 +148,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onSuccessLogin() {
-        LoginService.logovaniKorisnik = Korisnik(
-            emailField.text!!.toString(),
-            passwordField.text!!.toString(),
-            false
-        );
         val intent = Intent(this, MainActivity2::class.java)
         startActivity(intent);
+        finishActivity(10);
     }
 
     private fun toggleLoginState() {
