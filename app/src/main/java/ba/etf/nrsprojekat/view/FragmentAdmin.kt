@@ -1,35 +1,20 @@
-package ba.etf.nrsprojekat
+package ba.etf.nrsprojekat.view
 
 import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import ba.etf.nrsprojekat.data.Korisnik
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import ba.etf.nrsprojekat.R
+import ba.etf.nrsprojekat.data.models.Korisnik
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.SetOptions
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [admin_user_change.newInstance] factory method to
- * create an instance of this fragment.
- */
-class admin_user_change : Fragment(R.layout.fragment_admin_user_change), KorisnikAdapter.OnItemClickListener {
+class FragmentAdmin : Fragment(R.layout.fragment_admin), KorisnikAdapter.OnItemClickListener {
     // TODO: Rename and change types of parameters
     private lateinit var dbref: FirebaseFirestore
     private lateinit var recyclerView: RecyclerView
@@ -100,32 +85,7 @@ class admin_user_change : Fragment(R.layout.fragment_admin_user_change), Korisni
        }
            callback(true)
        }
-
-
-
-
-
-
-
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment admin_user_change.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            admin_user_change().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
+
 }

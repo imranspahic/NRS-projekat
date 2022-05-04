@@ -1,11 +1,12 @@
-package ba.etf.nrsprojekat
+package ba.etf.nrsprojekat.view
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import ba.etf.nrsprojekat.data.Korisnik
+import ba.etf.nrsprojekat.R
+import ba.etf.nrsprojekat.data.models.Korisnik
 
 class KorisnikAdapter(KorisnikList:List<Korisnik>,
                       private val listener: OnItemClickListener

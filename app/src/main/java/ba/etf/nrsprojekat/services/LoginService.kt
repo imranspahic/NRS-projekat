@@ -1,13 +1,10 @@
-package ba.etf.nrsprojekat.database
+package ba.etf.nrsprojekat.services
 
-import android.util.Log
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.util.*
-import java.util.concurrent.CompletableFuture
-import kotlin.system.*
 
-object Firestore {
+object LoginService {
     private val db = Firebase.firestore
 
     fun createUser(email: String, password: String) {

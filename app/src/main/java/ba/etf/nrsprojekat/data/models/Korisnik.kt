@@ -1,4 +1,4 @@
-package ba.etf.nrsprojekat.data
+package ba.etf.nrsprojekat.data.models
 
 class Korisnik {
     private var email: String

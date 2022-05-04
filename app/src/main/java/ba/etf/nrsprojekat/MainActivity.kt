@@ -1,21 +1,21 @@
 package ba.etf.nrsprojekat
 
+import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.util.Pair
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
-import ba.etf.nrsprojekat.database.Firestore
+import ba.etf.nrsprojekat.services.LoginService
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import java.util.regex.Pattern
 
 class MainActivity : AppCompatActivity() {
@@ -100,12 +100,12 @@ class MainActivity : AppCompatActivity() {
         })
 
         loginDugme.setOnClickListener {
-            Firestore.checkIfEmailExists(emailField.text.toString()) {emailExists ->
+            LoginService.checkIfEmailExists(emailField.text.toString()) { emailExists ->
                 Log.d("login", "checkUser() finished")
                 if(emailExists) {
                     //Login
                     if(!confirmPasswordTextInputLayout.isVisible) {
-                        Firestore.checkIfPasswordCorrect(emailField.text.toString(), passwordField.text.toString()){
+                        LoginService.checkIfPasswordCorrect(emailField.text.toString(), passwordField.text.toString()){
                             success ->
                             if(success) onSuccessLogin()
                             else {
@@ -131,7 +131,7 @@ class MainActivity : AppCompatActivity() {
                     }
                     //Registracija
                     else {
-                        Firestore.createUser(emailField.text.toString(), passwordField.text.toString())
+                        LoginService.createUser(emailField.text.toString(), passwordField.text.toString())
                         onSuccessLogin()
                     }
                 }
@@ -148,7 +148,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun onSuccessLogin() {
         //prebaciti na sljedeci screen
-        Toast.makeText(this@MainActivity, "Uspješno prijavljen korisnik", Toast.LENGTH_SHORT).show()
+        val intent = Intent(this, MainActivity2::class.java)
+        startActivity(intent);
     }
 
     private fun toggleLoginState() {

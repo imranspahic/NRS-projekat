@@ -7,9 +7,15 @@
     />
 
     <item
-        android:id="@+id/user"
-        android:icon="@drawable/ic_user"
-        android:title="User"
+        android:id="@+id/proizvodi"
+        android:icon="@drawable/store"
+        android:title="Proizvodi"
+        />
+
+    <item
+        android:id="@+id/profil"
+        android:icon="@drawable/account_circle"
+        android:title="Profil"
     />
 
 </menu>
