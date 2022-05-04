@@ -2,4 +2,8 @@
     <string name="app_name">NRS Projekat</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="admin_korisnik">
+        <item>Admin</item>
+        <item>Korisnik</item>
+    </string-array>
 </resources>
