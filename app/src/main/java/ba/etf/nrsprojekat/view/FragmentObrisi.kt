@@ -69,24 +69,6 @@ class FragmentObrisi : Fragment(R.layout.obrisi_fragment) {
 
     }
 
-    private fun getAllUsersFromDatabase() {
-        db = FirebaseFirestore.getInstance()
-        db.collection("users").addSnapshotListener(object : EventListener<QuerySnapshot> {
-            override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
-                if(error != null){
-                    Log.e("Firestore Error",error.message.toString())
-                    return
-                }
-                for(dc : DocumentChange in value?.documentChanges!!){
-                    if(dc.type == DocumentChange.Type.ADDED){
-                        userArrayList.add(dc.document.toObject(Korisnik::class.java))
-                    }
-                }
-                myAdapter.notifyDataSetChanged()
-            }
-
-        })
-    }
 
     private fun getUserData(callback: (result: MutableList<Korisnik>) -> Unit) {
         db = FirebaseFirestore.getInstance()
