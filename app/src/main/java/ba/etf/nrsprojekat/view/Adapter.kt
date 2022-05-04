@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ba.etf.nrsprojekat.R
 import ba.etf.nrsprojekat.data.models.Korisnik
 
-class Adapter(private val userList : ArrayList<Korisnik>) : RecyclerView.Adapter<Adapter.MyViewHolder>() {
+class Adapter(private var userList : List<Korisnik>) : RecyclerView.Adapter<Adapter.MyViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {

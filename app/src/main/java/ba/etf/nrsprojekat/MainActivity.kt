@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ba.etf.nrsprojekat.data.models.Korisnik
 import ba.etf.nrsprojekat.view.Adapter
+import ba.etf.nrsprojekat.view.FragmentObrisi
 import com.google.firebase.firestore.*
 
 class MainActivity : AppCompatActivity() {
@@ -23,7 +24,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+         val fragment = FragmentObrisi()
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.frame,fragment)
+            commit()
+        }
+    }
+/*
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.setHasFixedSize(true)
@@ -74,6 +81,6 @@ class MainActivity : AppCompatActivity() {
             }
 
         })
-    }
+    }*/
 
 }
