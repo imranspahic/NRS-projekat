@@ -1,5 +1,6 @@
 package ba.etf.nrsprojekat.data.models
 
+
 class Korisnik {
     private var id: String
     private var email: String
@@ -21,5 +22,4 @@ class Korisnik {
     fun isAdmin():Boolean { return isAdmin }
     fun setAdmin(IsAdmin: Boolean) { isAdmin = IsAdmin }
 }
-
 
