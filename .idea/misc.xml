@@ -3,12 +3,20 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+
         <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/activity_main.xml" value="0.22282608695652173" />
         <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/add_fragment.xml" value="0.22282608695652173" />
         <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/delete_fragment.xml" value="0.2" />
         <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/delete_user_fragment.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/korisnici_fragment.xml" value="0.22083333333333333" />
         <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/obrisi_fragment.xml" value="0.23854166666666668" />
+        <entry key="app/src/main/res/drawable/ic_admin.xml" value="0.1965" />
+        <entry key="app/src/main/res/drawable/ic_user.xml" value="0.1965" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.23415985107421877" />
+        <entry key="app/src/main/res/layout/activity_main2.xml" value="0.11956521739130435" />
+        <entry key="app/src/main/res/layout/fragment_products.xml" value="0.11956521739130435" />
+        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.1620867666719262" />
+        <entry key="app/src/main/res/menu/menu.xml" value="0.1" />
       </map>
     </option>
   </component>

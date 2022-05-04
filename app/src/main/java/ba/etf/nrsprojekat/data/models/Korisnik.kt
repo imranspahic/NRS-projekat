@@ -1,4 +1,25 @@
 package ba.etf.nrsprojekat.data.models
 
-data class Korisnik(val email : String="", val id : String="",val admin : Boolean=false, val login : Boolean=false, val password : String=""){
+
+class Korisnik {
+    private var id: String
+    private var email: String
+    private var password:String
+    private var isAdmin:Boolean
+
+    constructor(ID: String, Email: String, Password: String, IsAdmin:Boolean) {
+        email = Email
+        password = Password
+        isAdmin = IsAdmin
+        id = ID
+    }
+
+    fun getEmail():String { return email }
+    fun getPassword():String { return password }
+    fun getID():String {return id}
+    fun setPassword(Password: String) { password = Password }
+    fun setEmail(Email: String) { email = Email }
+    fun isAdmin():Boolean { return isAdmin }
+    fun setAdmin(IsAdmin: Boolean) { isAdmin = IsAdmin }
 }
+
