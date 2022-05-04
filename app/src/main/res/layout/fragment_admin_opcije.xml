@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="30dp"
+    tools:context=".view.FragmentOpcijeAdmin">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="25dp"
+        android:text="Dobro došao!"
+        android:layout_gravity="center"
+        />
+
+    <Button
+        android:id="@+id/btnOpcijaIzmijeni"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:width="200dp"
+        android:text="IZMIJENI"
+        />
+
+
+    <Button
+        android:id="@+id/btnOpcijaDodaj"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:width="200dp"
+        android:text="DODAJ"
+        />
+
+
+    <Button
+        android:id="@+id/btnOpcijaObrisi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:width="200dp"
+        android:text="OBRISI"
+        />
+
+    <Button
+        android:id="@+id/btnOpcijaLogOut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="250dp"
+        android:width="200dp"
+        android:text="Logout" />
+
+</LinearLayout>

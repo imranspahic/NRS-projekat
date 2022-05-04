@@ -26,7 +26,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var confirmPasswordField: TextInputEditText
     private lateinit var loginDugme: Button
     private lateinit var loginToggle: TextView
-
     private lateinit var emailTextInputLayout: TextInputLayout
     private lateinit var passwordTextInputLayout: TextInputLayout
     private lateinit var confirmPasswordTextInputLayout: TextInputLayout
@@ -49,7 +48,6 @@ class MainActivity : AppCompatActivity() {
         confirmPasswordTextInputLayout = findViewById(R.id.confirmPasswordTextInputLayout)
         loginDugme = findViewById(R.id.loginDugme)
         loginToggle = findViewById(R.id.loginToggle)
-
         confirmPasswordTextInputLayout.visibility = View.GONE
         loginDugme.isEnabled = false
         loginToggle.setOnClickListener {

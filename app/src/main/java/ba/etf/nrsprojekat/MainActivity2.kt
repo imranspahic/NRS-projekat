@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import ba.etf.nrsprojekat.view.FragmentAdmin
+import ba.etf.nrsprojekat.view.FragmentOpcijeAdmin
 import ba.etf.nrsprojekat.view.FragmentProducts
 import ba.etf.nrsprojekat.view.FragmentProfile
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -35,15 +36,16 @@ class MainActivity2 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
-
         bottomNavigation = findViewById(R.id.bottom_nav)
         bottomNavigation.setOnItemSelectedListener(mOnItemSelectedListener)
         bottomNavigation.selectedItemId = R.id.admin
-        val adminFragment = FragmentAdmin()
-        openFragment(adminFragment)
+       // val adminFragment = FragmentAdmin()
+       // openFragment(adminFragment)
+        val opcijeFragment = FragmentOpcijeAdmin()
+        openFragment(opcijeFragment)
     }
 
-    private fun openFragment(fragment: Fragment) {
+    public fun openFragment(fragment: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.frame, fragment)
         transaction.addToBackStack(null)
