@@ -36,6 +36,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val fragment = admin_user_change()
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.frame, fragment)
+            commit()
+        }
+=======
+
         emailField = findViewById(R.id.emailField)
         passwordField = findViewById(R.id.passwordField)
         confirmPasswordField = findViewById(R.id.confirmPasswordField)
@@ -174,5 +181,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
         checkLoginButtonState()
+
     }
 }
