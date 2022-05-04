@@ -1,5 +1,6 @@
 package ba.etf.nrsprojekat
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -30,19 +31,12 @@ class MainActivity : AppCompatActivity() {
 
 
 
+
     private var emailPattern = Pattern.compile("[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\\.[a-zA-Z]{2,4}")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        val fragment = admin_user_change()
-        supportFragmentManager.beginTransaction().apply {
-            replace(R.id.frame, fragment)
-            commit()
-        }
-=======
-
         emailField = findViewById(R.id.emailField)
         passwordField = findViewById(R.id.passwordField)
         confirmPasswordField = findViewById(R.id.confirmPasswordField)
@@ -57,6 +51,8 @@ class MainActivity : AppCompatActivity() {
         loginToggle.setOnClickListener {
             toggleLoginState()
         }
+
+
 
         emailField.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
