@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/arrow_left.xml" value="0.1955" />
         <entry key="app/src/main/res/drawable/ic_admin.xml" value="0.1965" />
         <entry key="app/src/main/res/drawable/ic_user.xml" value="0.1965" />
         <entry key="app/src/main/res/layout/activity_change_password.xml" value="0.20729166666666668" />

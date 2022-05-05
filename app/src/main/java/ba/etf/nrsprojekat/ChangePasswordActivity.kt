@@ -6,6 +6,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import androidx.core.view.isVisible
 import ba.etf.nrsprojekat.services.LoginService
+import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 
@@ -13,6 +14,7 @@ class ChangePasswordActivity : AppCompatActivity() {
     private lateinit var passwordField: TextInputEditText
     private lateinit var confirmPasswordField: TextInputEditText
     private lateinit var confirmSaveDugme: MaterialButton
+    private lateinit var toolbar: MaterialToolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,8 +23,13 @@ class ChangePasswordActivity : AppCompatActivity() {
         passwordField = findViewById(R.id.changePassword1Field)
         confirmPasswordField = findViewById(R.id.changePassword2Field)
         confirmSaveDugme = findViewById(R.id.changePasswordSaveDugme)
+        toolbar = findViewById(R.id.changePasswordToolbar)
 
         confirmSaveDugme.isEnabled = false
+
+        toolbar.setNavigationOnClickListener {
+            onToolbarBackButton()
+        }
 
         passwordField.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -67,5 +74,9 @@ class ChangePasswordActivity : AppCompatActivity() {
                 finish()
             }
         }
+    }
+
+    private fun onToolbarBackButton() {
+        finish()
     }
 }
