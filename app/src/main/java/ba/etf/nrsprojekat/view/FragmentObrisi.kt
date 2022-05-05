@@ -30,7 +30,6 @@ class FragmentObrisi : Fragment(R.layout.obrisi_fragment) {
 
         recyclerView = view.findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(view.context)
-      //  recyclerView.setHasFixedSize(true)
 
         userArrayList = arrayListOf()
 
@@ -41,9 +40,6 @@ class FragmentObrisi : Fragment(R.layout.obrisi_fragment) {
             recyclerView.adapter = myAdapter
         }
 
-       // myAdapter = Adapter(userArrayList)
-        //recyclerView.adapter = myAdapter
-        //getAllUsersFromDatabase()
 
         btnDelete = view.findViewById(R.id.deleteUser)
         email = view.findViewById(R.id.inputEmail)
@@ -81,19 +77,14 @@ class FragmentObrisi : Fragment(R.layout.obrisi_fragment) {
                         document.data["id"].toString(),
                         document.data["email"].toString(),
                         document.data["password"].toString(),
-                     //   document.data["password"].toString(),
                         (document.data["isAdmin"].toString().toBoolean())))
 
-                    //  Log.d(TAG, "${document.id} => ${document.data}")
-
                 }
-                println("********" + lista.size + "******")
                 callback(lista)
 
             }
             .addOnFailureListener { exception ->
                 Log.w(TAG, "Error getting documents.", exception)
-                println("---------Greska baze--------------------")
             }
     }
 
