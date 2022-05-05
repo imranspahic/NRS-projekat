@@ -34,6 +34,11 @@ class FragmentOpcijeAdmin : Fragment(R.layout.fragment_admin_opcije) {
             (activity as MainActivity2?)?.openFragment(FragmentDodajKorisnik())
 
         }
+        btnIzbrisi = view.findViewById(R.id.btnOpcijaObrisi)
+        btnIzbrisi.setOnClickListener {
+            (activity as MainActivity2?)?.openFragment(FragmentObrisi())
+
+        }
         /*
         bottomNavigation = findViewById(R.id.bottom_nav)
         bottomNavigation.setOnItemSelectedListener(mOnItemSelectedListener)

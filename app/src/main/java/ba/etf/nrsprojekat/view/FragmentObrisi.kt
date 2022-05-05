@@ -73,8 +73,8 @@ class FragmentObrisi : Fragment(R.layout.obrisi_fragment) {
             .addOnSuccessListener { result ->
                 for (document in result) {
                     lista.add(Korisnik(
-                        document.data["email"].toString(),
                         document.data["id"].toString(),
+                        document.data["email"].toString(),
                         document.data["password"].toString(),
                         (document.data["isAdmin"].toString().toBoolean())))
 
