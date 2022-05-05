@@ -4,23 +4,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="30dp"
     tools:context=".view.FragmentOpcijeAdmin">
 
+<!--
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="25dp"
         android:text="Dobro došao!"
         android:layout_gravity="center"
-        />
+        /> -->
 
     <Button
         android:id="@+id/btnOpcijaIzmijeni"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="60dp"
         android:width="200dp"
         android:text="IZMIJENI"
         />
@@ -31,7 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="60dp"
         android:width="200dp"
         android:text="DODAJ"
         />
@@ -42,7 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="60dp"
         android:width="200dp"
         android:text="OBRISI"
         />

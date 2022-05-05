@@ -7,12 +7,14 @@ import ba.etf.nrsprojekat.view.FragmentAdmin
 import ba.etf.nrsprojekat.view.FragmentOpcijeAdmin
 import ba.etf.nrsprojekat.view.FragmentProducts
 import ba.etf.nrsprojekat.view.FragmentProfile
+import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
 
 class MainActivity2 : AppCompatActivity() {
 
     private lateinit var bottomNavigation: BottomNavigationView
+    private lateinit var topNavigation: MaterialToolbar
     private val mOnItemSelectedListener = NavigationBarView.OnItemSelectedListener{ item ->
         when (item.itemId) {
             R.id.admin -> {
@@ -36,9 +38,16 @@ class MainActivity2 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
+        topNavigation = findViewById(R.id.mainActivity2Toolbar)
         bottomNavigation = findViewById(R.id.bottom_nav)
         bottomNavigation.setOnItemSelectedListener(mOnItemSelectedListener)
         bottomNavigation.selectedItemId = R.id.admin
+        topNavigation.setNavigationOnClickListener {
+            supportFragmentManager.popBackStack()
+          //  val trenutniFragment = supportFragmentManager.
+         //   if(trenutniFragment.tag.equals("FragmentAdmin")) finish()
+          //  finish()
+        }
        // val adminFragment = FragmentAdmin()
        // openFragment(adminFragment)
         val opcijeFragment = FragmentOpcijeAdmin()

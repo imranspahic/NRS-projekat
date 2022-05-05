@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ba.etf.nrsprojekat.R
 import ba.etf.nrsprojekat.data.models.Korisnik
+import com.google.android.material.appbar.MaterialToolbar
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 
@@ -22,16 +23,18 @@ class FragmentAdmin : Fragment(R.layout.fragment_admin), KorisnikAdapter.OnItemC
     private lateinit var emailTekst: EditText
     private lateinit var lozinkaTekst: EditText
     private lateinit var dugme: Button
+    private lateinit var topNavigation: MaterialToolbar
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        
+
         recyclerView =  view.findViewById(R.id.recyclerLista)
         emailTekst = view.findViewById(R.id.emailTekst)
         lozinkaTekst = view.findViewById(R.id.lozinkaTekst)
         dbref = FirebaseFirestore.getInstance()
         dugme = view.findViewById(R.id.dugmeIzmijeni)
         dugme.isEnabled = false
+
         recyclerView.layoutManager = LinearLayoutManager(view.context)
         getUserData {
             listaKorisnik2 -> if(listaKorisnik2 != null) {
@@ -44,6 +47,7 @@ class FragmentAdmin : Fragment(R.layout.fragment_admin), KorisnikAdapter.OnItemC
             izmijeniSifru(emailTekst.text.toString(), lozinkaTekst.text.toString()) {}
 
         }
+
     }
 
     override fun onItemClick(position: Int) {
