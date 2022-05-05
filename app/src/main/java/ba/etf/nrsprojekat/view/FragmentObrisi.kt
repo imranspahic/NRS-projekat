@@ -37,7 +37,7 @@ class FragmentObrisi : Fragment(R.layout.obrisi_fragment) {
 
         getUserData {
             result -> myAdapter=Adapter(result)
-            println(result[0].email)
+            println(result[0].getEmail())
             recyclerView.adapter = myAdapter
         }
 
@@ -78,8 +78,9 @@ class FragmentObrisi : Fragment(R.layout.obrisi_fragment) {
             .addOnSuccessListener { result ->
                 for (document in result) {
                     lista.add(Korisnik(
-                        document.data["email"].toString(),
                         document.data["id"].toString(),
+                        document.data["email"].toString(),
+                        document.data["password"].toString(),
                      //   document.data["password"].toString(),
                         (document.data["isAdmin"].toString().toBoolean())))
 

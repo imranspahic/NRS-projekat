@@ -66,10 +66,32 @@
         android:layout_marginHorizontal="16dp"
         />
 
+
+    <Button
+        android:id="@+id/changePasswordDugme"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Promijeni šifru"
+        app:cornerRadius = "10dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="25dp"
+        android:paddingVertical="10dp"
+        android:enabled="true"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/main_green"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profileDivider"
+        android:layout_alignParentBottom="true"
+        app:strokeColor="@color/main_green"
+        app:strokeWidth="1dp"
+        />
+
     <Button
         android:id="@+id/logoutDugme"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:text="Odjavi se"
         app:cornerRadius = "10dp"
         android:layout_marginBottom="8dp"
@@ -82,6 +104,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_alignParentBottom="true"
-
         />
 </androidx.constraintlayout.widget.ConstraintLayout>

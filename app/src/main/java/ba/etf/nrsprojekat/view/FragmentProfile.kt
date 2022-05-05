@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import ba.etf.nrsprojekat.ChangePasswordActivity
 import ba.etf.nrsprojekat.MainActivity
 import ba.etf.nrsprojekat.MainActivity2
 import ba.etf.nrsprojekat.R
@@ -17,6 +18,7 @@ import com.google.android.material.button.MaterialButton
 class FragmentProfile : Fragment() {
 
     private lateinit var logoutDugme: MaterialButton
+    private lateinit var changePasswordDugme: MaterialButton
     private lateinit var profileEmail: TextView
 
     override fun onCreateView(
@@ -27,10 +29,17 @@ class FragmentProfile : Fragment() {
 
         logoutDugme = view.findViewById(R.id.logoutDugme)
         profileEmail = view.findViewById(R.id.profileEmail)
+        changePasswordDugme = view.findViewById(R.id.changePasswordDugme)
         profileEmail.text = LoginService.logovaniKorisnik!!.getEmail()
         logoutDugme.setOnClickListener {
             onLogout()
         }
+
+        changePasswordDugme.setOnClickListener {
+            onChangePassword()
+        }
+
+
         return view
     }
 
@@ -39,5 +48,10 @@ class FragmentProfile : Fragment() {
         val intent = Intent(activity, MainActivity::class.java)
         startActivity(intent);
         activity?.finishActivity(10)
+    }
+
+    private fun onChangePassword() {
+        val intent = Intent(activity, ChangePasswordActivity::class.java)
+        startActivity(intent);
     }
 }

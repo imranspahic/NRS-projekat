@@ -18,7 +18,7 @@ class Adapter(private var userList : List<Korisnik>) : RecyclerView.Adapter<Adap
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val user : Korisnik = userList[position]
-        holder.email.text = user.email
+        holder.email.text = user.getEmail()
     }
 
     override fun getItemCount(): Int {
