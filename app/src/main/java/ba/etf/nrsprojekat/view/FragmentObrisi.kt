@@ -36,6 +36,7 @@ class FragmentObrisi : Fragment(R.layout.obrisi_fragment) {
 
         getUserData {
             result -> myAdapter=Adapter(result)
+            println(result[0].getEmail())
             recyclerView.adapter = myAdapter
         }
 

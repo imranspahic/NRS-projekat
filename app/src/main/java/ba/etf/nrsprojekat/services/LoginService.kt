@@ -1,5 +1,6 @@
 package ba.etf.nrsprojekat.services
 
+import android.util.Log
 import ba.etf.nrsprojekat.data.models.Korisnik
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -55,5 +56,17 @@ object LoginService {
 
     fun logoutUser() {
         db.collection("users").document(logovaniKorisnik!!.getID()).update("isLogged", false)
+    }
+
+    fun changePassword(newPassword: String, callback: (result: Boolean) -> Unit ) {
+        db.collection("users")
+            .document(logovaniKorisnik!!.getID()).update("password", newPassword)
+            .addOnSuccessListener {
+                Log.d("changePassword", "success");
+                callback(true)
+            }
+            .addOnFailureListener {
+                callback(false)
+            }
     }
 }
