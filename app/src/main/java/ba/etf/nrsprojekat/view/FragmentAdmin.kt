@@ -25,6 +25,7 @@ class FragmentAdmin : Fragment(R.layout.fragment_admin), KorisnikAdapter.OnItemC
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        
         recyclerView =  view.findViewById(R.id.recyclerLista)
         emailTekst = view.findViewById(R.id.emailTekst)
         lozinkaTekst = view.findViewById(R.id.lozinkaTekst)
@@ -59,6 +60,7 @@ class FragmentAdmin : Fragment(R.layout.fragment_admin), KorisnikAdapter.OnItemC
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
+                    if(document.data["isAdmin"].toString().toBoolean() == false)
                     lista.add(Korisnik(
                         document.data["id"].toString(),
                         document.data["email"].toString(),
