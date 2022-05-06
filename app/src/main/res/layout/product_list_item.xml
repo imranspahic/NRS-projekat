@@ -160,7 +160,6 @@
             app:iconGravity="textStart"
             android:padding="0dp"
             android:layout_marginRight="8dp"
-
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Circle"
             />
     </LinearLayout>
