@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import ba.etf.nrsprojekat.R
+import ba.etf.nrsprojekat.services.ProductsService
 
 class FragmentProducts : Fragment() {
 
@@ -14,6 +15,9 @@ class FragmentProducts : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         var view = inflater.inflate(R.layout.fragment_products, container, false)
+        ProductsService.fetchProducts() {v ->
+
+        }
         return view
     }
 
