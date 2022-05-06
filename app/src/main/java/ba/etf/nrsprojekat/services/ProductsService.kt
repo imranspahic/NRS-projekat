@@ -21,7 +21,8 @@ object ProductsService {
                          data["name"].toString(),
                          data["poslovnicaID"].toString(),
                         data["poslovnicaName"].toString(),
-                        data["quantity"].toString().toInt()
+                        data["quantity"].toString().toInt(),
+                         data["status"].toString()
                      )
                      products.add(newProduct)
                  }

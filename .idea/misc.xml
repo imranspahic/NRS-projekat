@@ -13,6 +13,10 @@
         <entry key="..\:/projektiAndroid/NRS-projekat/app/src/main/res/layout/fragment_products.xml" value="0.1" />
         <entry key="..\:/projektiAndroid/NRS-projekat/app/src/main/res/layout/user_item.xml" value="0.22826086956521738" />
         <entry key="..\:/projektiAndroid/NRS-projekat/app/src/main/res/menu/menu.xml" value="0.25416666666666665" />
+        <entry key="app/src/main/res/drawable/pencil.xml" value="0.205" />
+        <entry key="app/src/main/res/drawable/round.xml" value="0.16" />
+        <entry key="app/src/main/res/layout/fragment_products.xml" value="0.11986846923828125" />
+        <entry key="app/src/main/res/layout/product_list_item.xml" value="0.36704119850187267" />
       </map>
     </option>
   </component>

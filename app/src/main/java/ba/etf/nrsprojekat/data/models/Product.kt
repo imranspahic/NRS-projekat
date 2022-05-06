@@ -5,5 +5,12 @@ data class Product(
     var name: String,
     var poslovnicaID: String,
     var poslovnicaName: String,
-    var quantity: Int
-)
+    var quantity: Int,
+    var status: String
+) {
+    init {
+        if(poslovnicaName.isEmpty()) {
+            poslovnicaName = "Ime poslovnice"
+        }
+    }
+}
