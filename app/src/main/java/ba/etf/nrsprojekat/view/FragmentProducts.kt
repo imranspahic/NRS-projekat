@@ -1,5 +1,6 @@
 package ba.etf.nrsprojekat.view
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +9,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import ba.etf.nrsprojekat.AddProductActivity
+import ba.etf.nrsprojekat.MainActivity
 import ba.etf.nrsprojekat.R
 import ba.etf.nrsprojekat.services.ProductsService
 import com.google.android.material.button.MaterialButton
@@ -16,6 +19,7 @@ class FragmentProducts : Fragment() {
 
     private lateinit var brojProizvodaText: TextView
     private lateinit var refreshDugme: MaterialButton
+    private lateinit var addDugme: MaterialButton
     private lateinit var proizvodiRecyclerView: RecyclerView
     private lateinit var productListAdapter: ProductListAdapter
 
@@ -27,6 +31,7 @@ class FragmentProducts : Fragment() {
 
         brojProizvodaText = view.findViewById(R.id.brojProizvoda)
         refreshDugme = view.findViewById(R.id.refreshProductDugme)
+        addDugme = view.findViewById(R.id.addProductDugme)
         proizvodiRecyclerView = view.findViewById(R.id.proizvodiRecyclerView)
         proizvodiRecyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         productListAdapter = ProductListAdapter(ProductsService.products)
@@ -47,7 +52,17 @@ class FragmentProducts : Fragment() {
                 }
             }
         }
+
+        addDugme.setOnClickListener {
+            otvoriDodavanjeProizvoda()
+        }
+
         return view
+    }
+
+    private fun otvoriDodavanjeProizvoda() {
+        val intent = Intent(activity, AddProductActivity::class.java)
+        startActivity(intent);
     }
 
 }

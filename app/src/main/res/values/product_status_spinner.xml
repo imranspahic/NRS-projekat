@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="product_status_spinner_array">
+        <item>Dostupno</item>
+        <item>Nema na stanju</item>
+        <item>Nije dostupno</item>
+    </string-array>
+</resources>
