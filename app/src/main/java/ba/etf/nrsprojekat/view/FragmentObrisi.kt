@@ -77,8 +77,9 @@ class FragmentObrisi : Fragment(R.layout.obrisi_fragment) {
                         document.data["id"].toString(),
                         document.data["email"].toString(),
                         document.data["password"].toString(),
-                        (document.data["isAdmin"].toString().toBoolean())))
-
+                        document.data["isAdmin"].toString().toBoolean(),
+                        (document.data["updatedAt"] as com.google.firebase.Timestamp).toDate()
+                    ))
                 }
                 callback(lista)
 

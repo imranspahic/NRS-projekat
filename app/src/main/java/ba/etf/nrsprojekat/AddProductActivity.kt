@@ -88,7 +88,7 @@ class AddProductActivity : AppCompatActivity() {
             addProductNameField.text.toString(),
             addProductPoslovnicaSpinner.selectedItem as String,
              addProductQuantityField.text.toString().toInt(),
-            addProductStatusSpinner.selectedItem as String,
+            (addProductStatusSpinner.selectedItem as String).lowercase(),
         ) {
             result, mode ->
             if(result) {
