@@ -42,12 +42,13 @@ object ProductsService {
                    poslovnicaName: String,
                    quantity: Int,
                    status: String,
-                   callback: (result: Boolean) -> Unit) {
+                   callback: (result: Boolean, mode: String) -> Unit) {
 
         val updatedDate = Date()
 
         //Adding product
         if(id.isEmpty()) {
+            Log.d("products", "Dodavanje novog proizvoda")
             val documentReference = db.collection("products").document()
             val newProduct = Product(
                 documentReference.id,
@@ -68,32 +69,34 @@ object ProductsService {
             )
             documentReference.set(newProductData).addOnSuccessListener {
                 products.add(newProduct)
-                callback(true)
+                callback(true, "ADD")
             }.addOnFailureListener {
-                    callback(false)
+                    callback(false, "ADD")
                 }
         }
 
         //Editing product
         else {
-          val product: Product = products.firstOrNull { product -> product.id == id } ?: return
-            val editedProductData = hashMapOf(
+
+            val product: Product = products.firstOrNull { product -> product.id == id } ?: return
+            Log.d("products", "Ažuriranje postojećeg proizvoda")
+            val editedProductData = mapOf(
                 "name" to name,
                 "poslovnicaName" to poslovnicaName,
                 "quantity" to quantity,
                 "status" to status,
                 "updatedAt" to updatedDate
             )
-            db.collection("products").document(product.id).set(editedProductData).addOnSuccessListener {
+            db.collection("products").document(product.id).update(editedProductData).addOnSuccessListener {
                val index =  products.indexOfFirst { p -> p.id == product.id  }
                 products[index].name = name
                 products[index].poslovnicaName = poslovnicaName
                 products[index].quantity = quantity
                 products[index].status = status
                 products[index].updatedAt = updatedDate
-                callback(true)
+                callback(true, "EDIT")
             }.addOnFailureListener {
-                callback(false)
+                callback(false, "EDOT")
             }
         }
     }
