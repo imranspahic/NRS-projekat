@@ -1,5 +1,6 @@
 package ba.etf.nrsprojekat
 
+import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -80,6 +81,7 @@ class AddProductActivity : AppCompatActivity() {
         ) {
             result ->
             if(result) {
+                setResult(Activity.RESULT_OK)
                 finish()
             }
         }

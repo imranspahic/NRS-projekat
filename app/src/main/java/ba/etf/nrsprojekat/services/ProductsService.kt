@@ -29,6 +29,7 @@ object ProductsService {
                  }
              }
              Log.d("products", querySnapshot.documents.size.toString())
+             this.products = products.sortedWith(compareBy<Product> { it.updatedAt }.reversed()) .toMutableList()
              callback(true)
             }
             .addOnFailureListener {

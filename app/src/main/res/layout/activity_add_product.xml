@@ -41,7 +41,7 @@
             android:id="@+id/addProductNameField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
+            android:inputType="textCapSentences"
             />
 
     </com.google.android.material.textfield.TextInputLayout>

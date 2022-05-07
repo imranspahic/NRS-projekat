@@ -50,7 +50,7 @@ class ProductListAdapter(
         }
     }
     fun updateProducts(products: List<Product>) {
-        this.products = products
+        this.products = products.sortedWith(compareBy<Product> { it.updatedAt }.reversed())
         notifyDataSetChanged()
     }
     inner class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
