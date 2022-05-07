@@ -100,4 +100,14 @@ object ProductsService {
             }
         }
     }
+
+    fun deleteProduct(id: String, callback: (result: Boolean) -> Unit) {
+        db.collection("products").document(id).delete().addOnSuccessListener {
+            products.removeIf { product -> product.id == id }
+            callback(true)
+        }.addOnFailureListener {
+            callback(false)
+        }
+    }
+
 }
