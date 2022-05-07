@@ -10,6 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NRSProjekat">
         <activity
+            android:name=".AddProductActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"
+            />
+        <activity
             android:name=".ChangePasswordActivity"
             android:exported="false" />
         <activity

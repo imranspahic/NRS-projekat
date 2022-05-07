@@ -1,20 +1,89 @@
 package ba.etf.nrsprojekat.view
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import ba.etf.nrsprojekat.AddProductActivity
 import ba.etf.nrsprojekat.R
+import ba.etf.nrsprojekat.services.ProductsService
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.snackbar.Snackbar
+
 
 class FragmentProducts : Fragment() {
+
+    private lateinit var brojProizvodaText: TextView
+    private lateinit var refreshDugme: MaterialButton
+    private lateinit var addDugme: MaterialButton
+    private lateinit var proizvodiRecyclerView: RecyclerView
+    private lateinit var productListAdapter: ProductListAdapter
+
+    private var productActivityLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+
+        if (result.resultCode == Activity.RESULT_OK) {
+            Log.d("products", "result ok")
+            Snackbar.make(proizvodiRecyclerView, "Proizvod uspješno dodan!", Snackbar.LENGTH_LONG)
+                .setAction("OK") { }
+                .setActionTextColor(resources.getColor(R.color.main_green))
+                .show()
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         var view = inflater.inflate(R.layout.fragment_products, container, false)
+
+        brojProizvodaText = view.findViewById(R.id.brojProizvoda)
+        refreshDugme = view.findViewById(R.id.refreshProductDugme)
+        addDugme = view.findViewById(R.id.addProductDugme)
+        proizvodiRecyclerView = view.findViewById(R.id.proizvodiRecyclerView)
+        proizvodiRecyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+        productListAdapter = ProductListAdapter(ProductsService.products)
+        brojProizvodaText.text = ProductsService.products.size.toString()
+        proizvodiRecyclerView.adapter = productListAdapter
+        ProductsService.fetchProducts() {result ->
+            if(result) {
+                productListAdapter.updateProducts(ProductsService.products)
+                brojProizvodaText.text = ProductsService.products.size.toString()
+            }
+        }
+
+        refreshDugme.setOnClickListener {
+            ProductsService.fetchProducts() {result ->
+                if(result) {
+                    productListAdapter.updateProducts(ProductsService.products)
+                    brojProizvodaText.text = ProductsService.products.size.toString()
+                }
+            }
+        }
+
+        addDugme.setOnClickListener {
+            otvoriDodavanjeProizvoda()
+        }
+
         return view
+    }
+
+    private fun otvoriDodavanjeProizvoda() {
+        val intent = Intent(activity, AddProductActivity::class.java)
+        productActivityLauncher.launch(intent)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        productListAdapter.updateProducts(ProductsService.products)
+        brojProizvodaText.text = ProductsService.products.size.toString()
     }
 
 }

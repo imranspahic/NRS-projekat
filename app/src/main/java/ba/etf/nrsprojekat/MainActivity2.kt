@@ -38,16 +38,10 @@ class MainActivity2 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
-        topNavigation = findViewById(R.id.mainActivity2Toolbar)
         bottomNavigation = findViewById(R.id.bottom_nav)
         bottomNavigation.setOnItemSelectedListener(mOnItemSelectedListener)
         bottomNavigation.selectedItemId = R.id.admin
-        topNavigation.setNavigationOnClickListener {
-            supportFragmentManager.popBackStack()
-          //  val trenutniFragment = supportFragmentManager.
-         //   if(trenutniFragment.tag.equals("FragmentAdmin")) finish()
-          //  finish()
-        }
+
        // val adminFragment = FragmentAdmin()
        // openFragment(adminFragment)
         val opcijeFragment = FragmentOpcijeAdmin()
