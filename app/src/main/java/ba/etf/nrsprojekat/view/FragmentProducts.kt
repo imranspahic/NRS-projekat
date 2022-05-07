@@ -41,7 +41,6 @@ class FragmentProducts : Fragment() {
             Log.d("products", "result ok")
             Snackbar.make(proizvodiRecyclerView, message, Snackbar.LENGTH_LONG)
                 .setAction("OK") { }
-                .setActionTextColor(resources.getColor(R.color.main_green))
                 .show()
         }
     }
@@ -57,7 +56,13 @@ class FragmentProducts : Fragment() {
         addDugme = view.findViewById(R.id.addProductDugme)
         proizvodiRecyclerView = view.findViewById(R.id.proizvodiRecyclerView)
         proizvodiRecyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-        productListAdapter = ProductListAdapter(ProductsService.products, requireContext(), requireActivity(), productActivityLauncher)
+        productListAdapter = ProductListAdapter(
+            ProductsService.products,
+            requireContext(),
+            requireActivity(),
+            productActivityLauncher,
+            brojProizvodaText
+        )
         brojProizvodaText.text = ProductsService.products.size.toString()
         proizvodiRecyclerView.adapter = productListAdapter
         ProductsService.fetchProducts() {result ->
