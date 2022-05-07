@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ba.etf.nrsprojekat.AddProductActivity
 import ba.etf.nrsprojekat.R
 import ba.etf.nrsprojekat.data.models.Product
+import ba.etf.nrsprojekat.services.LoginService
 import com.google.android.material.button.MaterialButton
 
 class ProductListAdapter(
@@ -55,7 +56,11 @@ class ProductListAdapter(
         }
 
         holder.deleteDugme.setOnClickListener {
+        }
 
+        if(!LoginService.logovaniKorisnik!!.isAdmin()) {
+            holder.editDugme.visibility = View.GONE
+            holder.deleteDugme.visibility = View.GONE
         }
     }
     fun updateProducts(products: List<Product>) {

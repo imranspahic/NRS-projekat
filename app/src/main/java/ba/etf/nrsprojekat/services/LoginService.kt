@@ -18,6 +18,7 @@ object LoginService {
             "email" to email,
             "password" to password,
             "createdAt" to  Date(),
+            "updatedAt" to Date(),
             "isLogged" to true
         )
         documentReference.set(user)
@@ -25,7 +26,8 @@ object LoginService {
             documentReference.id,
             email,
             password,
-            false
+            false,
+            Date()
         )
     }
 
@@ -49,7 +51,9 @@ object LoginService {
                         querySnapshot.documents.first()["id"].toString(),
                         email,
                         password,
-                        false)
+                        querySnapshot.documents.first()["isAdmin"].toString().toBoolean(),
+                        (querySnapshot.documents.first()["updatedAt"] as com.google.firebase.Timestamp).toDate()
+                    )
                 }
             }
     }

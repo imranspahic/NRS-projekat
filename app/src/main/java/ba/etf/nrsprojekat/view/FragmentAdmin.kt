@@ -69,7 +69,9 @@ class FragmentAdmin : Fragment(R.layout.fragment_admin), KorisnikAdapter.OnItemC
                         document.data["id"].toString(),
                         document.data["email"].toString(),
                         document.data["password"].toString(),
-                        (document.data["isAdmin"].toString().toBoolean())))
+                        document.data["isAdmin"].toString().toBoolean(),
+                        (document.data["updatedAt"] as com.google.firebase.Timestamp).toDate()
+                    ))
                   //  Log.d(TAG, "${document.id} => ${document.data}")
                 }
                 callback(lista)

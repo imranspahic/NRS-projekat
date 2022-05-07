@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ba.etf.nrsprojekat.AddProductActivity
 import ba.etf.nrsprojekat.R
+import ba.etf.nrsprojekat.services.LoginService
 import ba.etf.nrsprojekat.services.ProductsService
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
@@ -77,6 +78,10 @@ class FragmentProducts : Fragment() {
 
         addDugme.setOnClickListener {
             otvoriDodavanjeProizvoda()
+        }
+
+        if(!LoginService.logovaniKorisnik!!.isAdmin()) {
+            addDugme.visibility = View.GONE
         }
 
         return view
