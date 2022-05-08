@@ -1,7 +1,12 @@
 package ba.etf.nrsprojekat
 
+import android.content.ClipData
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import androidx.core.view.get
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -45,8 +50,9 @@ class MainActivity2 : AppCompatActivity() {
         bottomNavigation = findViewById(R.id.bottom_nav)
         bottomNavigation.setOnItemSelectedListener(mOnItemSelectedListener)
         bottomNavigation.selectedItemId = R.id.admin
-       // val adminFragment = FragmentAdmin()
-       // openFragment(adminFragment)
+        val NavigationChildren = bottomNavigation.menu
+        if(status.equals("true")) NavigationChildren.findItem(R.id.narudzba).setVisible(false)
+        else NavigationChildren.findItem(R.id.admin).setVisible(false)
         val opcijeFragment = FragmentOpcijeAdmin()
         openFragment(opcijeFragment)
     }
