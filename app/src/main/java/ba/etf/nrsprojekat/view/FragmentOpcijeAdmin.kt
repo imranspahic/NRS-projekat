@@ -1,19 +1,36 @@
 package ba.etf.nrsprojekat.view
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AbsListView
 import android.widget.Button
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import ba.etf.nrsprojekat.AddUserActivity
 import ba.etf.nrsprojekat.MainActivity2
 import ba.etf.nrsprojekat.R
+import ba.etf.nrsprojekat.data.models.Korisnik
+import ba.etf.nrsprojekat.services.UserService
+import com.google.android.material.button.MaterialButton
 
 
 class FragmentOpcijeAdmin : Fragment(R.layout.fragment_admin_opcije) {
-    private lateinit var btnIzmijeni: Button
-    private lateinit var btnDodaj: Button
-    private lateinit var btnIzbrisi: Button
+  //  private lateinit var btnIzmijeni: Button
+  //  private lateinit var btnDodaj: Button
+  //  private lateinit var btnIzbrisi: Button
+    private lateinit var dodajDugme: MaterialButton
+    private lateinit var recyclerGlavni: RecyclerView
+    private lateinit var listaKorisnik: List<Korisnik>
+    private var productActivityLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        Log.d("OK", "Okej")
+
+    }
 
  /*   override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,6 +42,22 @@ class FragmentOpcijeAdmin : Fragment(R.layout.fragment_admin_opcije) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        dodajDugme = view.findViewById(R.id.addUserDugme)
+        recyclerGlavni = view.findViewById(R.id.recyclerListaGlavni)
+        recyclerGlavni.layoutManager = LinearLayoutManager(view.context)
+        UserService.getUserData { result ->
+            listaKorisnik = result
+            var adapterZaRecycler = KorisnikAdapter(listaKorisnik, requireActivity(), productActivityLauncher)
+            recyclerGlavni.adapter = adapterZaRecycler
+        }
+
+        dodajDugme.setOnClickListener {
+            val intent = Intent(requireActivity(), AddUserActivity::class.java)
+            intent.putExtra("Bool", "false")
+            startActivity(intent)
+        }
+
+        /*
         btnIzmijeni = view.findViewById(R.id.btnOpcijaIzmijeni)
         btnIzmijeni.setOnClickListener {
             (activity as MainActivity2?)?.openFragment(FragmentAdmin())
@@ -38,7 +71,8 @@ class FragmentOpcijeAdmin : Fragment(R.layout.fragment_admin_opcije) {
         btnIzbrisi.setOnClickListener {
             (activity as MainActivity2?)?.openFragment(FragmentObrisi())
 
-        }
+        } */
+
         /*
         bottomNavigation = findViewById(R.id.bottom_nav)
         bottomNavigation.setOnItemSelectedListener(mOnItemSelectedListener)
