@@ -23,15 +23,9 @@ import java.util.regex.Pattern
 class MainActivity : AppCompatActivity() {
     private lateinit var emailField: TextInputEditText
     private lateinit var passwordField: TextInputEditText
-    private lateinit var confirmPasswordField: TextInputEditText
     private lateinit var loginDugme: Button
-    private lateinit var loginToggle: TextView
     private lateinit var emailTextInputLayout: TextInputLayout
     private lateinit var passwordTextInputLayout: TextInputLayout
-    private lateinit var confirmPasswordTextInputLayout: TextInputLayout
-
-
-
 
     private var emailPattern = Pattern.compile("[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\\.[a-zA-Z]{2,4}")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,19 +33,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         emailField = findViewById(R.id.emailField)
         passwordField = findViewById(R.id.passwordField)
-        confirmPasswordField = findViewById(R.id.confirmPasswordField)
         emailTextInputLayout = findViewById(R.id.emailTextInputLayout)
         passwordTextInputLayout = findViewById(R.id.passwordTextInputLayout)
-        confirmPasswordTextInputLayout = findViewById(R.id.confirmPasswordTextInputLayout)
         loginDugme = findViewById(R.id.loginDugme)
-        loginToggle = findViewById(R.id.loginToggle)
-        confirmPasswordTextInputLayout.visibility = View.GONE
         loginDugme.isEnabled = false
-        loginToggle.setOnClickListener {
-            toggleLoginState()
-        }
-
-
 
         emailField.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -85,25 +70,10 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-
-        confirmPasswordField.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                checkLoginButtonState()
-            }
-        })
-
         loginDugme.setOnClickListener {
             LoginService.checkIfEmailExists(emailField.text.toString()) { emailExists ->
                 Log.d("login", "checkUser() finished")
                 if(emailExists) {
-                    //Login
-                    if(!confirmPasswordTextInputLayout.isVisible) {
                         LoginService.checkIfPasswordCorrect(emailField.text.toString(), passwordField.text.toString()){
                             success ->
                             if(success) onSuccessLogin()
@@ -113,26 +83,11 @@ class MainActivity : AppCompatActivity() {
                                 Log.d("login", "neispravna lozinka")
                             }
                         }
-                    }
-                    //Registracija
-                    else {
-                        emailTextInputLayout.isErrorEnabled = true
-                        emailTextInputLayout.error = "Email se već koristi"
-                        Log.d("login", "error email se već koristi")
-                    }
                 }
                 else {
-                    //Login
-                    if(!confirmPasswordTextInputLayout.isVisible) {
                         emailTextInputLayout.isErrorEnabled = true
                         emailTextInputLayout.error = "Email se ne koristi"
                         Log.d("login", "error email ne postoji")
-                    }
-                    //Registracija
-                    else {
-                        LoginService.createUser(emailField.text.toString(), passwordField.text.toString())
-                        onSuccessLogin()
-                    }
                 }
             }
         }
@@ -141,42 +96,12 @@ class MainActivity : AppCompatActivity() {
     private fun checkLoginButtonState() {
         var emailCondition = emailField.text?.isNotEmpty() ?: false && emailPattern.matcher(emailField.text).matches()
         var passwordCondition = passwordField.text?.isNotEmpty() ?: false && passwordField.text?.length!! >= 8
-        var confirmPasswordCondition = !confirmPasswordTextInputLayout.isVisible || (confirmPasswordField.text?.isNotEmpty() ?: false && confirmPasswordField.text.toString() == passwordField.text.toString())
-        loginDugme.isEnabled = emailCondition && passwordCondition && confirmPasswordCondition
+        loginDugme.isEnabled = emailCondition && passwordCondition
     }
 
     private fun onSuccessLogin() {
         val intent = Intent(this, MainActivity2::class.java)
         startActivity(intent);
         finishActivity(10);
-    }
-
-    private fun toggleLoginState() {
-        emailTextInputLayout.isErrorEnabled = false
-        passwordTextInputLayout.isErrorEnabled = false
-        if(confirmPasswordTextInputLayout.isVisible) {
-            loginToggle.text = "Nemate račun? Registrirajte se"
-            loginDugme.text = "PRIJAVI SE"
-            confirmPasswordTextInputLayout.visibility = View.GONE
-            passwordTextInputLayout.updateLayoutParams<ConstraintLayout.LayoutParams> {
-                bottomToTop = loginDugme.id
-            }
-            loginDugme.updateLayoutParams<ConstraintLayout.LayoutParams> {
-                topToBottom = passwordTextInputLayout.id
-            }
-        }
-        else {
-            loginToggle.text = "Već imate račun? Prijavite se"
-            loginDugme.text = "REGISTRIRAJ SE"
-            confirmPasswordTextInputLayout.visibility = View.VISIBLE
-            passwordTextInputLayout.updateLayoutParams<ConstraintLayout.LayoutParams> {
-                bottomToTop = confirmPasswordTextInputLayout.id
-            }
-            loginDugme.updateLayoutParams<ConstraintLayout.LayoutParams> {
-                topToBottom = confirmPasswordTextInputLayout.id
-            }
-        }
-        checkLoginButtonState()
-
     }
 }
