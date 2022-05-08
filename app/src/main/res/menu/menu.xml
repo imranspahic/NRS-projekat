@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
+        android:id="@+id/narudzba"
+        android:icon="@drawable/ic_order"
+        android:title="Narudzba"
+        />
+    <item
         android:id="@+id/admin"
         android:icon="@drawable/ic_admin"
         android:title="Admin"

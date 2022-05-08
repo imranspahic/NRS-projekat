@@ -76,7 +76,10 @@ class MainActivity : AppCompatActivity() {
                 if(emailExists) {
                         LoginService.checkIfPasswordCorrect(emailField.text.toString(), passwordField.text.toString()){
                             success ->
-                            if(success) onSuccessLogin()
+                            if(success) {
+                                onSuccessLogin()
+                            }
+
                             else {
                                 passwordTextInputLayout.isErrorEnabled = true
                                 passwordTextInputLayout.error = "Neispravna lozinka"
@@ -100,8 +103,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onSuccessLogin() {
-        val intent = Intent(this, MainActivity2::class.java)
-        startActivity(intent);
-        finishActivity(10);
+
+        LoginService.checkIfAdmin(emailField.text.toString()) {
+            it ->
+            val intent = Intent(this, MainActivity2::class.java)
+            intent.putExtra("Status", it.toString())
+            startActivity(intent);
+            finishActivity(10);
+        }
     }
 }

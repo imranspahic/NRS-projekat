@@ -2,6 +2,7 @@ package ba.etf.nrsprojekat.services
 
 import android.util.Log
 import ba.etf.nrsprojekat.data.models.Korisnik
+import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.util.*
@@ -71,6 +72,13 @@ object LoginService {
             }
             .addOnFailureListener {
                 callback(false)
+            }
+    }
+    fun checkIfAdmin(email: String , callback: (result: Boolean) -> Unit) {
+        db.collection("users").whereEqualTo("email", email)
+            .get().addOnSuccessListener {
+                QuerySnapshot ->
+                callback(QuerySnapshot.documents.first()["isAdmin"].toString().toBoolean())
             }
     }
 }
