@@ -3,13 +3,11 @@ package ba.etf.nrsprojekat
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import ba.etf.nrsprojekat.view.FragmentAdmin
-import ba.etf.nrsprojekat.view.FragmentOpcijeAdmin
-import ba.etf.nrsprojekat.view.FragmentProducts
-import ba.etf.nrsprojekat.view.FragmentProfile
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
+import ba.etf.nrsprojekat.services.LoginService
+import ba.etf.nrsprojekat.view.*
 
 class MainActivity2 : AppCompatActivity() {
 
@@ -17,6 +15,11 @@ class MainActivity2 : AppCompatActivity() {
     private lateinit var topNavigation: MaterialToolbar
     private val mOnItemSelectedListener = NavigationBarView.OnItemSelectedListener{ item ->
         when (item.itemId) {
+            R.id.narudzba -> {
+                val narudzbaFragment = FragmentOrder()
+                openFragment(narudzbaFragment)
+                return@OnItemSelectedListener true
+            }
             R.id.admin -> {
                 val adminFragment = FragmentAdmin()
                 openFragment(adminFragment)
@@ -38,10 +41,10 @@ class MainActivity2 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
+        val status = intent.getStringExtra("Status")
         bottomNavigation = findViewById(R.id.bottom_nav)
         bottomNavigation.setOnItemSelectedListener(mOnItemSelectedListener)
         bottomNavigation.selectedItemId = R.id.admin
-
        // val adminFragment = FragmentAdmin()
        // openFragment(adminFragment)
         val opcijeFragment = FragmentOpcijeAdmin()
