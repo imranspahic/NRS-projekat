@@ -29,6 +29,7 @@
         android:background="#ffffff"
         app:itemIconTint="@color/navigation_selected"
         app:itemTextColor="@color/navigation_selected"
+        app:labelVisibilityMode="labeled"
         />
 
 
