@@ -16,6 +16,10 @@
         android:icon="@drawable/store"
         android:title="Proizvodi"
         />
+    <item
+        android:id="@+id/dostava"
+        android:icon="@drawable/delivery"
+        android:title="Dostava" />
 
     <item
         android:id="@+id/profil"
