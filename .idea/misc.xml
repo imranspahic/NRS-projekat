@@ -28,13 +28,14 @@
         <entry key="app/src/main/res/drawable/store.xml" value="0.225" />
         <entry key="app/src/main/res/layout/activity_add_product.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_change_password.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_logging.xml" value="0.24139492753623187" />
+        <entry key="app/src/main/res/layout/activity_logging.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.18679351806640626" />
         <entry key="app/src/main/res/layout/dostava_fragment.xml" value="0.1" />
         <entry key="app/src/main/res/layout/dostava_proizvodi_fragment.xml" value="0.23505434782608695" />
-        <entry key="app/src/main/res/layout/fragment_products.xml" value="0.27640228271484374" />
+        <entry key="app/src/main/res/layout/fragment_products.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.23953488372093024" />
-        <entry key="app/src/main/res/layout/product_list_item.xml" value="0.36704119850187267" />
+        <entry key="app/src/main/res/layout/logs_list_item.xml" value="0.5950254096359503" />
+        <entry key="app/src/main/res/layout/product_list_item.xml" value="0.1" />
         <entry key="app/src/main/res/layout/promijeni_status_dostave_fragment.xml" value="0.1" />
         <entry key="app/src/main/res/menu/menu.xml" value="0.1" />
       </map>

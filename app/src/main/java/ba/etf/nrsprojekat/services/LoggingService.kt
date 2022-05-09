@@ -41,7 +41,8 @@ object LoggingService {
             querySnapshot.documents.forEach { document ->
                 val data = document.data
                 if(data != null) {
-                    val newLog = LogItem(data["id"].toString(),
+                    val newLog = LogItem(
+                        data["id"].toString(),
                         LogAction.valueOf(data["logAction"].toString(),),
                         data["text"].toString(),
                         (data["createdAt"]  as com.google.firebase.Timestamp).toDate()
