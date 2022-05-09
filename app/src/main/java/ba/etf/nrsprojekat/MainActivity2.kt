@@ -40,6 +40,11 @@ class MainActivity2 : AppCompatActivity() {
                 openFragment(profileFragment)
                 return@OnItemSelectedListener true
             }
+            R.id.dostava -> {
+                val deliveryFragment = FragmentDostava()
+                openFragment(deliveryFragment)
+                return@OnItemSelectedListener true
+            }
         }
         false
     }

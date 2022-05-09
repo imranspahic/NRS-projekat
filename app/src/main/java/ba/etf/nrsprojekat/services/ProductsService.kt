@@ -1,8 +1,10 @@
 package ba.etf.nrsprojekat.services
 
+import android.content.ContentValues
 import android.util.Log
 import ba.etf.nrsprojekat.data.models.Korisnik
 import ba.etf.nrsprojekat.data.models.Product
+import ba.etf.nrsprojekat.data.models.receivedProducts
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.util.*
@@ -10,6 +12,7 @@ import java.util.*
 object ProductsService {
     private val db = Firebase.firestore;
     var products: MutableList<Product> = mutableListOf()
+    var lista1 : MutableList<receivedProducts> = mutableListOf()
 
     fun fetchProducts(callback: (result: Boolean) -> Unit) {
          db.collection("products").get().addOnSuccessListener {
@@ -109,5 +112,77 @@ object ProductsService {
             callback(false)
         }
     }
+    fun getDeliveryProducts(callback: (result: MutableList<Product>) -> Unit) {
+        var lista: MutableList<Product> = mutableListOf()
+        db.collection("products")
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    lista.add(Product(
+                        document.data["id"].toString(),
+                        document.data["name"].toString(),
+                        document.data["poslovnicaName"].toString(),
+                        document.data["quantity"].toString().toInt(),
+                        document.data["status"].toString(),
+                        (document.data["updatedAt"] as com.google.firebase.Timestamp).toDate()
+                    ))
+                }
+                callback(lista)
+
+            }
+            .addOnFailureListener { exception ->
+                Log.w(ContentValues.TAG, "Error getting documents.", exception)
+            }
+    }
+    fun addToReceived(name: String,poslovnicaName: String,quantity: Int,status: String, callback: (result: Boolean) -> Unit) {
+        val proizvod1 = hashMapOf(
+            "name" to name ,
+            "poslovnicaName" to poslovnicaName,
+            "quantity" to quantity,
+            "status" to status
+        )
+
+        db.collection("receivedProducts")
+            .add(proizvod1)
+            .addOnSuccessListener { documentReference ->
+                Log.d(ContentValues.TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
+                callback(true)
+            }
+            .addOnFailureListener { e ->
+                Log.w(ContentValues.TAG, "Error adding document", e)
+                callback(false)
+            }
+    }
+    fun getReceivedProducts(callback: (result: MutableList<receivedProducts>) -> Unit) {
+        var lista: MutableList<receivedProducts> = mutableListOf()
+        db.collection("receivedProducts")
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    lista.add(
+                        receivedProducts(
+                            document.data["name"].toString(),
+                            document.data["poslovnicaName"].toString(),
+                            document.data["quantity"].toString().toInt(),
+                            document.data["status"].toString()
+                        )
+                    )
+                    lista1.add(
+                        receivedProducts(
+                            document.data["name"].toString(),
+                            document.data["poslovnicaName"].toString(),
+                            document.data["quantity"].toString().toInt(),
+                            document.data["status"].toString()
+                        )
+                    )
+                }
+                callback(lista)
+
+            }
+            .addOnFailureListener { exception ->
+                Log.w(ContentValues.TAG, "Error getting documents.", exception)
+            }
+    }
+
 
 }

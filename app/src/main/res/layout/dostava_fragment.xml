@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dostava"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="15dp"
+        android:gravity="center"
+        android:text="Status dostave"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:textStyle="bold" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:tabTextAppearance="@style/MineCustomTabText">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/sviProizvodi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Svi" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/primljeniProizvodi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Primljeni" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/poslaniProizvodi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Poslani" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/isporuceniProizvodi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Isporučeni" />
+
+    </com.google.android.material.tabs.TabLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerDostava"
+        android:layout_width="347dp"
+        android:layout_height="482dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="54dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tab_layout" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="402dp"
+        android:layout_height="500dp"
+        android:layout_marginTop="3dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tab_layout" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
