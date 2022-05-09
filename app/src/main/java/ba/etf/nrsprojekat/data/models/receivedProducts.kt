@@ -6,7 +6,7 @@ data class receivedProducts (
     var name: String,
     var poslovnicaName: String,
     var quantity: Int,
-    var status: String,
+    var status: String
 ) {
     init {
         if(poslovnicaName.isEmpty()) {
