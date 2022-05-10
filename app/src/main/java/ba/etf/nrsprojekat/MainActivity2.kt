@@ -40,6 +40,11 @@ class MainActivity2 : AppCompatActivity() {
                 openFragment(profileFragment)
                 return@OnItemSelectedListener true
             }
+            R.id.dostava -> {
+                val deliveryFragment = FragmentDostava()
+                openFragment(deliveryFragment)
+                return@OnItemSelectedListener true
+            }
         }
         false
     }
@@ -51,8 +56,17 @@ class MainActivity2 : AppCompatActivity() {
         bottomNavigation.setOnItemSelectedListener(mOnItemSelectedListener)
         bottomNavigation.selectedItemId = R.id.admin
         val NavigationChildren = bottomNavigation.menu
-        if(status.equals("true")) NavigationChildren.findItem(R.id.narudzba).setVisible(false)
-        else NavigationChildren.findItem(R.id.admin).setVisible(false)
+
+        //ADMIN
+        if(status.equals("true")) {
+            NavigationChildren.findItem(R.id.narudzba).setVisible(false)
+        }
+
+        //KORISNIK
+        else {
+            NavigationChildren.findItem(R.id.admin).setVisible(false)
+            NavigationChildren.findItem(R.id.dostava).setVisible(false)
+        }
         val opcijeFragment = FragmentOpcijeAdmin()
         openFragment(opcijeFragment)
     }

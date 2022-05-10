@@ -13,6 +13,9 @@
             android:name=".AddUserActivity"
             android:exported="false" />
         <activity
+            android:name=".LoggingActivity"
+            android:exported="false" />
+        <activity
             android:name=".AddProductActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
