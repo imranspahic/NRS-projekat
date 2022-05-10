@@ -13,6 +13,7 @@ object LoggingService {
 
     fun addLog(logAction: LogAction, text: String, callback: (result: Boolean) -> Unit) {
 
+
         val documentReference = db.collection("logs").document()
         val newLog = LogItem(
             documentReference.id,
@@ -43,7 +44,7 @@ object LoggingService {
                 if(data != null) {
                     val newLog = LogItem(
                         data["id"].toString(),
-                        LogAction.valueOf(data["logAction"].toString(),),
+                        LogAction.valueOf(data["logAction"].toString()),
                         data["text"].toString(),
                         (data["createdAt"]  as com.google.firebase.Timestamp).toDate()
                     )

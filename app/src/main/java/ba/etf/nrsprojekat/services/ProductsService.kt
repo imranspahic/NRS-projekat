@@ -2,6 +2,7 @@ package ba.etf.nrsprojekat.services
 
 import android.content.ContentValues
 import android.util.Log
+import ba.etf.nrsprojekat.data.enums.LogAction
 import ba.etf.nrsprojekat.data.models.Korisnik
 import ba.etf.nrsprojekat.data.models.Product
 import ba.etf.nrsprojekat.data.models.receivedProducts
@@ -72,6 +73,7 @@ object ProductsService {
             )
             documentReference.set(newProductData).addOnSuccessListener {
                 products.add(newProduct)
+                LoggingService.addLog(LogAction.CREATE, "Dodan proizvod ${newProduct.name}"){}
                 callback(true, "ADD")
             }.addOnFailureListener {
                     callback(false, "ADD")
@@ -97,6 +99,7 @@ object ProductsService {
                 products[index].quantity = quantity
                 products[index].status = status
                 products[index].updatedAt = updatedDate
+                LoggingService.addLog(LogAction.UPDATE, "Ažuriran proizvod ${name}"){}
                 callback(true, "EDIT")
             }.addOnFailureListener {
                 callback(false, "EDOT")
@@ -106,6 +109,8 @@ object ProductsService {
 
     fun deleteProduct(id: String, callback: (result: Boolean) -> Unit) {
         db.collection("products").document(id).delete().addOnSuccessListener {
+            val product = products.first { product -> product.id == id  }
+            LoggingService.addLog(LogAction.DELETE, "Izbrisan proizvod ${product.name}"){}
             products.removeIf { product -> product.id == id }
             callback(true)
         }.addOnFailureListener {
