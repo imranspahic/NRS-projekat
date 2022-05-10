@@ -3,7 +3,7 @@
     <item
         android:id="@+id/narudzba"
         android:icon="@drawable/ic_order"
-        android:title="Narudzba"
+        android:title="Narudžbe"
         />
     <item
         android:id="@+id/admin"
