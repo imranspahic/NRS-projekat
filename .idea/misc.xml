@@ -17,6 +17,11 @@
         <entry key="..\:/projektiAndroid/NRS-projekat/app/src/main/res/layout/user_item.xml" value="0.22826086956521738" />
         <entry key="..\:/projektiAndroid/NRS-projekat/app/src/main/res/menu/menu.xml" value="0.25416666666666665" />
         <entry key="app/src/main/res/drawable-v24/delivery.xml" value="0.225" />
+        <entry key="app/src/main/res/drawable/circle_blue.xml" value="0.2585" />
+        <entry key="app/src/main/res/drawable/circle_green.xml" value="0.2585" />
+        <entry key="app/src/main/res/drawable/circle_light_blue.xml" value="0.2585" />
+        <entry key="app/src/main/res/drawable/circle_orange.xml" value="0.2585" />
+        <entry key="app/src/main/res/drawable/circle_red.xml" value="0.2585" />
         <entry key="app/src/main/res/drawable/delivery.xml" value="0.225" />
         <entry key="app/src/main/res/drawable/history.xml" value="0.25" />
         <entry key="app/src/main/res/drawable/lock_reset.xml" value="0.25" />
@@ -28,13 +33,14 @@
         <entry key="app/src/main/res/drawable/store.xml" value="0.225" />
         <entry key="app/src/main/res/layout/activity_add_product.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_change_password.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_logging.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_logging.xml" value="0.21568627450980393" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.18679351806640626" />
         <entry key="app/src/main/res/layout/dostava_fragment.xml" value="0.1" />
         <entry key="app/src/main/res/layout/dostava_proizvodi_fragment.xml" value="0.23505434782608695" />
         <entry key="app/src/main/res/layout/fragment_products.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.23953488372093024" />
         <entry key="app/src/main/res/layout/logs_list_item.xml" value="0.5950254096359503" />
+        <entry key="app/src/main/res/layout/logs_spinner_filter_item.xml" value="0.33996683250414594" />
         <entry key="app/src/main/res/layout/product_list_item.xml" value="0.1" />
         <entry key="app/src/main/res/layout/promijeni_status_dostave_fragment.xml" value="0.1" />
         <entry key="app/src/main/res/menu/menu.xml" value="0.1" />

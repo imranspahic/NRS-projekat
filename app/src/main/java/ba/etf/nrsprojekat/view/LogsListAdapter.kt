@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat
 
 class LogsListAdapter(
     private var logs: List<LogItem>,
+    private var emptyView: TextView
 ) : RecyclerView.Adapter<LogsListAdapter.LogViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LogViewHolder {
@@ -57,6 +58,8 @@ class LogsListAdapter(
     }
     fun updateLogs(logs: List<LogItem>) {
         this.logs = logs.sortedWith(compareBy<LogItem> { it.createdAt }.reversed())
+        if(this.logs.isEmpty()) emptyView.visibility = View.VISIBLE
+        else emptyView.visibility = View.GONE
         notifyDataSetChanged()
     }
 

@@ -57,4 +57,26 @@ object LoggingService {
                 callback(false)
             }
     }
+
+    fun getLoginLogs(): List<LogItem> {
+        return logItems.filter { logItem -> logItem.logAction == LogAction.LOGIN  }
+    }
+
+    fun getLogoutLogs(): List<LogItem> {
+        return logItems.filter { logItem -> logItem.logAction == LogAction.LOGOUT  }
+    }
+
+    fun getCreateLogs(): List<LogItem> {
+        return logItems.filter { logItem -> logItem.logAction == LogAction.CREATE  }
+    }
+
+    fun getUpdateLogs(): List<LogItem> {
+        return logItems.filter { logItem -> logItem.logAction == LogAction.UPDATE  }
+    }
+
+    fun getDeleteLogs(): List<LogItem> {
+        return logItems.filter { logItem -> logItem.logAction == LogAction.DELETE  }
+    }
+
+
 }
