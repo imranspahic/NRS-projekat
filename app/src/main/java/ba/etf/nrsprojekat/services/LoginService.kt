@@ -26,13 +26,6 @@ object LoginService {
             "isLogged" to true
         )
         documentReference.set(user)
-        logovaniKorisnik = Korisnik(
-            documentReference.id,
-            email,
-            password,
-            false,
-            Date()
-        )
     }
 
 
