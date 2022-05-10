@@ -26,7 +26,7 @@ class MainActivity2 : AppCompatActivity() {
                 return@OnItemSelectedListener true
             }
             R.id.admin -> {
-                val adminFragment = FragmentAdmin()
+                val adminFragment = FragmentOpcijeAdmin()
                 openFragment(adminFragment)
                 return@OnItemSelectedListener true
             }

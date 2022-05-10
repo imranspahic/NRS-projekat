@@ -12,12 +12,13 @@ object LoginService {
 
     var logovaniKorisnik: Korisnik? = null
 
-    fun createUser(email: String, password: String) {
+    fun createUser(email: String, password: String, isAdmin: Boolean) {
         val documentReference = db.collection("users").document()
         val user = hashMapOf(
             "id" to documentReference.id,
             "email" to email,
             "password" to password,
+            "isAdmin" to isAdmin,
             "createdAt" to  Date(),
             "updatedAt" to Date(),
             "isLogged" to true

@@ -3,7 +3,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string-array name="admin_korisnik">
-        <item>Admin</item>
         <item>Korisnik</item>
+        <item>Admin</item>
     </string-array>
 </resources>

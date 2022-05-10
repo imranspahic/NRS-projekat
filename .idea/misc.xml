@@ -9,12 +9,14 @@
         <entry key="..\:/projektiAndroid/NRS-projekat/app/src/main/res/layout/activity_change_password.xml" value="0.23731884057971014" />
         <entry key="..\:/projektiAndroid/NRS-projekat/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
         <entry key="..\:/projektiAndroid/NRS-projekat/app/src/main/res/layout/activity_main2.xml" value="0.22826086956521738" />
-        <entry key="..\:/projektiAndroid/NRS-projekat/app/src/main/res/layout/fragment_admin.xml" value="0.1" />
+        <entry key="..\:/projektiAndroid/NRS-projekat/app/src/main/res/layout/fragment_admin.xml" value="0.4" />
         <entry key="..\:/projektiAndroid/NRS-projekat/app/src/main/res/layout/fragment_admin_opcije.xml" value="0.22826086956521738" />
         <entry key="..\:/projektiAndroid/NRS-projekat/app/src/main/res/layout/fragment_admin_user_change.xml" value="0.22826086956521738" />
         <entry key="..\:/projektiAndroid/NRS-projekat/app/src/main/res/layout/fragment_dodaj_korisnik.xml" value="0.22826086956521738" />
         <entry key="..\:/projektiAndroid/NRS-projekat/app/src/main/res/layout/fragment_order.xml" value="0.2" />
         <entry key="..\:/projektiAndroid/NRS-projekat/app/src/main/res/layout/fragment_products.xml" value="0.2" />
+        <entry key="..\:/projektiAndroid/NRS-projekat/app/src/main/res/layout/fragment_profile.xml" value="0.25416666666666665" />
+        <entry key="..\:/projektiAndroid/NRS-projekat/app/src/main/res/layout/korisnici_fragment.xml" value="0.25416666666666665" />
         <entry key="..\:/projektiAndroid/NRS-projekat/app/src/main/res/layout/obrisi_fragment.xml" value="0.25416666666666665" />
         <entry key="..\:/projektiAndroid/NRS-projekat/app/src/main/res/layout/product_list_item.xml" value="0.25416666666666665" />
         <entry key="..\:/projektiAndroid/NRS-projekat/app/src/main/res/layout/user_item.xml" value="0.22826086956521738" />

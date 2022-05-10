@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AbsListView
 import android.widget.Button
+import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,6 +28,7 @@ class FragmentOpcijeAdmin : Fragment(R.layout.fragment_admin_opcije) {
     private lateinit var dodajDugme: MaterialButton
     private lateinit var recyclerGlavni: RecyclerView
     private lateinit var listaKorisnik: List<Korisnik>
+    private lateinit var brojKorisnikaLabel: TextView
     private var productActivityLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         Log.d("OK", "Okej")
 
@@ -44,12 +46,15 @@ class FragmentOpcijeAdmin : Fragment(R.layout.fragment_admin_opcije) {
         super.onViewCreated(view, savedInstanceState)
         dodajDugme = view.findViewById(R.id.addUserDugme)
         recyclerGlavni = view.findViewById(R.id.recyclerListaGlavni)
+        brojKorisnikaLabel = view.findViewById(R.id.brojKorisnika)
         recyclerGlavni.layoutManager = LinearLayoutManager(view.context)
         UserService.getUserData { result ->
             listaKorisnik = result
-            var adapterZaRecycler = KorisnikAdapter(listaKorisnik, requireActivity(), productActivityLauncher)
+            var adapterZaRecycler = KorisnikAdapter(listaKorisnik, requireActivity(), productActivityLauncher, requireContext())
             recyclerGlavni.adapter = adapterZaRecycler
+            brojKorisnikaLabel.setText(listaKorisnik.size.toString())
         }
+
 
         dodajDugme.setOnClickListener {
             val intent = Intent(requireActivity(), AddUserActivity::class.java)

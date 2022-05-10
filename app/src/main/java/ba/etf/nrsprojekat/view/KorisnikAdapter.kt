@@ -1,5 +1,6 @@
 package ba.etf.nrsprojekat.view
 
+import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -12,11 +13,16 @@ import ba.etf.nrsprojekat.AddProductActivity
 import ba.etf.nrsprojekat.AddUserActivity
 import ba.etf.nrsprojekat.R
 import ba.etf.nrsprojekat.data.models.Korisnik
+import ba.etf.nrsprojekat.data.models.Product
+import ba.etf.nrsprojekat.services.ProductsService
+import ba.etf.nrsprojekat.services.UserService
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class KorisnikAdapter(KorisnikList:List<Korisnik>,
     private val fragmentActivity: FragmentActivity,
-    private val activityResultLauncher: ActivityResultLauncher<Intent>
+    private val activityResultLauncher: ActivityResultLauncher<Intent>,
+    private val context: Context
                   //    private val listener: OnItemClickListener
                      // private val fragmentActivity: FragmentActivity,
                     //  private val activityResultLauncher: ActivityResultLauncher<Intent>
@@ -51,6 +57,10 @@ class KorisnikAdapter(KorisnikList:List<Korisnik>,
         holder.editDugme.setOnClickListener {
             openEditUser(korisnikList[position].getID())
         }
+        holder.deleteDugme.setOnClickListener {
+            showConfirmation(korisnikList[position].getID(), position)
+
+        }
     }
 
     private fun openEditUser(id: String) {
@@ -58,9 +68,26 @@ class KorisnikAdapter(KorisnikList:List<Korisnik>,
             intent.putExtra("Bool", "true")
             intent.putExtra("userID", id)
         activityResultLauncher.launch(intent)
-
-
        // activityResultLauncher.launch(intent)
+    }
+
+    private fun showConfirmation(korisnikID: String, position: Int) {
+        //val product: Product = ProductsService.products.firstOrNull { product -> product.id == productID } ?: return
+        MaterialAlertDialogBuilder(context)
+            .setIconAttribute(android.R.attr.alertDialogIcon)
+            .setTitle("Izbriši korisnika?")
+            .setMessage("Da li želite izbrisati korisnika ${korisnikList[position].getEmail()}?")
+
+            .setNegativeButton("Odustani") { dialog, which ->
+                dialog.dismiss()
+            }
+            .setPositiveButton("Izbriši") { dialog, which ->
+                UserService.ObrisiKorisnika(korisnikID) {
+                    it ->
+                }
+
+            }
+            .show()
     }
 
     /*  interface OnItemClickListener {
