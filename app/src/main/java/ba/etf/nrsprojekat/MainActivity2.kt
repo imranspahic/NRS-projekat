@@ -54,21 +54,26 @@ class MainActivity2 : AppCompatActivity() {
         val status = intent.getStringExtra("Status")
         bottomNavigation = findViewById(R.id.bottom_nav)
         bottomNavigation.setOnItemSelectedListener(mOnItemSelectedListener)
-        bottomNavigation.selectedItemId = R.id.admin
+        //bottomNavigation.selectedItemId = R.id.admin
         val NavigationChildren = bottomNavigation.menu
 
         //ADMIN
         if(status.equals("true")) {
+            bottomNavigation.selectedItemId = R.id.admin
             NavigationChildren.findItem(R.id.narudzba).setVisible(false)
+            val opcijeFragment = FragmentOpcijeAdmin()
+            openFragment(opcijeFragment)
         }
 
         //KORISNIK
         else {
+            bottomNavigation.selectedItemId = R.id.narudzba
             NavigationChildren.findItem(R.id.admin).setVisible(false)
             NavigationChildren.findItem(R.id.dostava).setVisible(false)
+            val opcijeFragment = FragmentOrder()
+            openFragment(opcijeFragment)
         }
-        val opcijeFragment = FragmentOpcijeAdmin()
-        openFragment(opcijeFragment)
+
     }
 
     public fun openFragment(fragment: Fragment) {
