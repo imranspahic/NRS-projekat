@@ -187,6 +187,13 @@ object ProductsService {
                 Log.w(ContentValues.TAG, "Error getting documents.", exception)
             }
     }
+    fun getReceivedName(name : String ) : receivedProducts{
+        val test = receivedProducts("","",0,"")
+        val product: Product = products.firstOrNull { product -> product.name == name }?: return test
+        val receivedProducts1 = receivedProducts(product.name,product.poslovnicaName,product.quantity,product.status)
+        return receivedProducts1
+
+    }
 
 
 }
