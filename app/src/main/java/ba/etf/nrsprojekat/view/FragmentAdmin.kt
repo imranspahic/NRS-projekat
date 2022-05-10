@@ -15,7 +15,7 @@ import com.google.android.material.appbar.MaterialToolbar
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 
-class FragmentAdmin : Fragment(R.layout.fragment_admin), KorisnikAdapter.OnItemClickListener {
+class FragmentAdmin : Fragment(R.layout.fragment_admin)/*, KorisnikAdapter.OnItemClickListener */ {
     // TODO: Rename and change types of parameters
     private lateinit var dbref: FirebaseFirestore
     private lateinit var recyclerView: RecyclerView
@@ -35,14 +35,14 @@ class FragmentAdmin : Fragment(R.layout.fragment_admin), KorisnikAdapter.OnItemC
         dugme = view.findViewById(R.id.dugmeIzmijeni)
         dugme.isEnabled = false
 
-        recyclerView.layoutManager = LinearLayoutManager(view.context)
+     /*   recyclerView.layoutManager = LinearLayoutManager(view.context)
         getUserData {
             listaKorisnik2 -> if(listaKorisnik2 != null) {
-               var adapterZaRecycler = KorisnikAdapter(listaKorisnik2, this)
+               var adapterZaRecycler = KorisnikAdapter(listaKorisnik2/*, this*/)
                listaKorisnik = listaKorisnik2
                recyclerView.adapter = adapterZaRecycler
         }
-        }
+        } */
         dugme.setOnClickListener {
             izmijeniSifru(emailTekst.text.toString(), lozinkaTekst.text.toString()) {}
 
@@ -50,13 +50,13 @@ class FragmentAdmin : Fragment(R.layout.fragment_admin), KorisnikAdapter.OnItemC
 
     }
 
-    override fun onItemClick(position: Int) {
+ /*   override fun onItemClick(position: Int) {
             //Toast.makeText( "Korisnici ne postoje!", Toast.LENGTH_SHORT)
             dugme.isEnabled = true
             emailTekst.setText(listaKorisnik[position].getEmail().toString())
             lozinkaTekst.setText(listaKorisnik[position].getPassword().toString())
 
-    }
+    } */
 
     private fun getUserData(callback: (result: MutableList<Korisnik>) -> Unit) {
         var lista: MutableList<Korisnik> = mutableListOf()

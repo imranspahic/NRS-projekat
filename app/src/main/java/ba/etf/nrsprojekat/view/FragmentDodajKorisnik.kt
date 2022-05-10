@@ -40,12 +40,13 @@ class FragmentDodajKorisnik : Fragment() {
         btnDodaj = view.findViewById(R.id.btnDodajKorisnik)
         var emailPattern = Pattern.compile("[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\\.[a-zA-Z]{2,4}")
         btnDodaj.setOnClickListener {
-                    val admin: Boolean
-                     if(spiner.selectedItem.toString().equals("Admin")) admin = true else admin = false
-                    dodajUBazu(unosEmail.text.toString(), unosLozinka.text.toString(), admin) {}
+            val admin: Boolean
+            if(spiner.selectedItem.toString().equals("Admin")) admin = true else admin = false
+           // dodajUBazu(unosEmail.text.toString(), unosLozinka.text.toString(), admin) {}
         }
 
     }
+    /*
     private fun dodajUBazu(email: String, password: String, isAdmin: Boolean, callback: (result: Boolean) -> Unit) {
       //  println("U BAZA FUNK")
         val user = hashMapOf(
@@ -67,7 +68,7 @@ class FragmentDodajKorisnik : Fragment() {
                 Log.w(TAG, "Error adding document", e)
                 callback(false)
             }
-    }
+    }  */
     }
 
 

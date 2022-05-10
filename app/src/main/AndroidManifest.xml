@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NRSProjekat">
         <activity
+            android:name=".AddUserActivity"
+            android:exported="false" />
+        <activity
             android:name=".LoggingActivity"
             android:exported="false" />
         <activity
