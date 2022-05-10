@@ -16,7 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="Dodaj korisnik"
+        app:title="Dodaj korisnika"
         app:titleTextColor="@color/white"
         android:backgroundTint="@color/main_green_dark"
         app:navigationIcon="@drawable/arrow_left"
@@ -41,7 +41,7 @@
             android:id="@+id/unosEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textCapSentences"
+            android:inputType="textEmailAddress"
             />
 
     </com.google.android.material.textfield.TextInputLayout>
