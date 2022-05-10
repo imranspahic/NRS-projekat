@@ -75,7 +75,7 @@ class ProductListAdapter(
         notifyDataSetChanged()
     }
     inner class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var productDivider: View = itemView.findViewById(R.id.productDivider)
+        var productDivider: View = itemView.findViewById(R.id.orderDivider)
         var productName: TextView = itemView.findViewById(R.id.productName)
         var productQuantity: TextView = itemView.findViewById(R.id.productQuantity)
         var productPoslovnica: TextView = itemView.findViewById(R.id.productPoslovnica)
