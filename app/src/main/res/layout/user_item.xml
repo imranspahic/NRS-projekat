@@ -38,17 +38,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-
+        android:gravity="center"
         >
 
             <ImageView
                 android:id="@+id/slikaKorisnik"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_margin="10dp"
                 android:src="@drawable/ic_osoba"
                 android:layout_weight="0"
-
+                android:layout_marginLeft="8dp"
                 />
 
         <TextView
@@ -58,7 +57,7 @@
             android:layout_weight="2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_marginHorizontal="8dp"
             />
 
         <com.google.android.material.button.MaterialButton
@@ -76,7 +75,7 @@
             app:icon="@drawable/pencil"
             app:iconTint="@color/main_green_dark"
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Circle"
-            android:layout_margin="10dp"
+            android:layout_marginRight="8dp"
             android:layout_weight="0"
             />
 
@@ -94,7 +93,7 @@
             app:iconGravity="textStart"
             app:iconPadding="0dp"
             app:iconTint="@color/red"
-            android:layout_margin="10dp"
+            android:layout_marginRight="8dp"
             android:layout_weight="0"
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Circle" />
 

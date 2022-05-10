@@ -18,30 +18,20 @@ import ba.etf.nrsprojekat.services.ProductsService
 import ba.etf.nrsprojekat.services.UserService
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
 
-class KorisnikAdapter(KorisnikList:List<Korisnik>,
+class KorisnikAdapter(
+    private var korisnikList:List<Korisnik>,
     private val fragmentActivity: FragmentActivity,
     private val activityResultLauncher: ActivityResultLauncher<Intent>,
-    private val context: Context
-                  //    private val listener: OnItemClickListener
-                     // private val fragmentActivity: FragmentActivity,
-                    //  private val activityResultLauncher: ActivityResultLauncher<Intent>
+    private val context: Context,
+    private val brojKorisnikaTextView: TextView
 ): RecyclerView.Adapter<KorisnikAdapter.KorisnikViewHolder>() {
 
-    private var korisnikList = KorisnikList
-    inner class KorisnikViewHolder(KorisnikView: View) : RecyclerView.ViewHolder(KorisnikView)/*, View.OnClickListener*/ {
+    inner class KorisnikViewHolder(KorisnikView: View) : RecyclerView.ViewHolder(KorisnikView) {
     val emailTextView = itemView.findViewById<TextView>(R.id.emailTextView)
     val editDugme = itemView.findViewById<MaterialButton>(R.id.editKorisnikDugme)
     val deleteDugme = itemView.findViewById<MaterialButton>(R.id.deleteKorisnikDugme)
- /*       init {
-            itemView.setOnClickListener(this)
-        } */
-
-   /*     override fun onClick(p0: View?) {
-            val position = adapterPosition
-            if(position != RecyclerView.NO_POSITION)
-            listener.onItemClick(position)
-        } */
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): KorisnikViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.user_item, parent, false)
@@ -63,16 +53,20 @@ class KorisnikAdapter(KorisnikList:List<Korisnik>,
         }
     }
 
+    fun updateUsers(users: List<Korisnik>) {
+        korisnikList = users
+        brojKorisnikaTextView.text = users.size.toString()
+        notifyDataSetChanged()
+    }
+
     private fun openEditUser(id: String) {
         val intent = Intent(fragmentActivity, AddUserActivity::class.java)
             intent.putExtra("Bool", "true")
             intent.putExtra("userID", id)
         activityResultLauncher.launch(intent)
-       // activityResultLauncher.launch(intent)
     }
 
     private fun showConfirmation(korisnikID: String, position: Int) {
-        //val product: Product = ProductsService.products.firstOrNull { product -> product.id == productID } ?: return
         MaterialAlertDialogBuilder(context)
             .setIconAttribute(android.R.attr.alertDialogIcon)
             .setTitle("Izbriši korisnika?")
@@ -82,17 +76,17 @@ class KorisnikAdapter(KorisnikList:List<Korisnik>,
                 dialog.dismiss()
             }
             .setPositiveButton("Izbriši") { dialog, which ->
-                UserService.ObrisiKorisnika(korisnikID) {
-                    it ->
+                UserService.deleteUser(korisnikID) {result ->
+                    if(result) {
+                        dialog.dismiss()
+                        updateUsers(UserService.users)
+                        Snackbar.make(brojKorisnikaTextView, "Korisnik uspješno obrisan!", Snackbar.LENGTH_LONG)
+                            .setAction("OK") { }
+                            .show()
+                    }
                 }
-
             }
             .show()
     }
-
-    /*  interface OnItemClickListener {
-          fun onItemClick(position: Int)
-      }   */
-
-    }
+}
 
