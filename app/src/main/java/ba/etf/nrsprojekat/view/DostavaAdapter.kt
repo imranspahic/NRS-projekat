@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
 import ba.etf.nrsprojekat.AddProductActivity
 import ba.etf.nrsprojekat.MainActivity2
+import ba.etf.nrsprojekat.PromijeniStatusDostaveActivity
 import ba.etf.nrsprojekat.R
 import ba.etf.nrsprojekat.data.models.Product
 
@@ -32,8 +33,9 @@ class DostavaAdapter(private var productList : List<Product>) : RecyclerView.Ada
         holder.itemView.setOnClickListener(object : View.OnClickListener{
             override fun onClick(v:View?){
                 val activity=v!!.context as AppCompatActivity
-                val newFragment = FragmentStatusDostave(proizvodi)
-                (activity as MainActivity2?)?.openFragment(newFragment)
+                val intent = Intent(v.getContext(), PromijeniStatusDostaveActivity::class.java)
+                intent.putExtra("Proizvodi",proizvodi.name);
+                v.getContext().startActivity(intent)
             }
         })
     }
