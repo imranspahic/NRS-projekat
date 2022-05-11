@@ -102,7 +102,7 @@
                 android:layout_width="88dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="5dp"
-                android:text="Kolicina"
+                android:text="Količina"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -159,27 +159,35 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginLeft="10sp"
             android:layout_marginTop="75dp"
+            android:layout_marginRight="10sp"
             android:orientation="vertical">
 
             <Button
                 android:id="@+id/btnPoslani"
-                android:layout_width="match_parent"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp"
+                android:layout_marginRight="60dp"
                 android:text="Dodaj u poslane proizvode" />
 
             <Button
                 android:id="@+id/btnIsporuceni"
-                android:layout_width="match_parent"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp"
                 android:layout_marginTop="20dp"
-                android:text="Dodaj u isporucene proizvode" />
+                android:layout_marginRight="60dp"
+                android:text="Dodaj u isporučene proizvode" />
 
             <Button
                 android:id="@+id/btnPrimljeni"
-                android:layout_width="match_parent"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginRight="60dp"
                 android:text="Dodaj u primljene proizvode" />
         </LinearLayout>
 
