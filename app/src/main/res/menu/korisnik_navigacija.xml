@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/narudzba"
+        android:icon="@drawable/ic_order"
+        android:title="Narudžbe"
+        />
+
+    <item
+        android:id="@+id/proizvodi"
+        android:icon="@drawable/store"
+        android:title="Proizvodi"
+        />
+
+    <item
+        android:id="@+id/profil"
+        android:icon="@drawable/account_circle"
+        android:title="Profil"
+        />
+
+</menu>

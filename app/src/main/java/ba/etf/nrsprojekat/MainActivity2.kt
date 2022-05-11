@@ -31,11 +31,12 @@ class MainActivity2 : AppCompatActivity() {
                 openFragment(adminFragment)
                 return@OnItemSelectedListener true
             }
-           /* R.id.proizvodi -> {
+            R.id.proizvodi -> {
                 val productsFragment = FragmentProducts()
                 openFragment(productsFragment)
                 return@OnItemSelectedListener true
-            }*/
+            }
+
             R.id.poslovnice -> {
                 val branchesFragment = FragmentBranches()
                 openFragment(branchesFragment)
@@ -60,11 +61,11 @@ class MainActivity2 : AppCompatActivity() {
         val status = intent.getStringExtra("Status")
         bottomNavigation = findViewById(R.id.bottom_nav)
         bottomNavigation.setOnItemSelectedListener(mOnItemSelectedListener)
-        val NavigationChildren = bottomNavigation.menu
+        bottomNavigation.menu.clear()
 
         //ADMIN
         if(status.equals("true")) {
-            NavigationChildren.findItem(R.id.narudzba).setVisible(false)
+            bottomNavigation.inflateMenu(R.menu.admin_navigacija)
             val opcijeFragment = FragmentOpcijeAdmin()
             bottomNavigation.selectedItemId = R.id.admin
             openFragment(opcijeFragment)
@@ -72,16 +73,15 @@ class MainActivity2 : AppCompatActivity() {
 
         //KORISNIK
         else {
-            NavigationChildren.findItem(R.id.admin).setVisible(false)
-            NavigationChildren.findItem(R.id.dostava).setVisible(false)
-            val opcijeFragment = FragmentOrder()
+            bottomNavigation.inflateMenu(R.menu.korisnik_navigacija)
+            val orderFragment = FragmentOrder()
             bottomNavigation.selectedItemId = R.id.narudzba
-            openFragment(opcijeFragment)
+            openFragment(orderFragment)
         }
 
     }
 
-    public fun openFragment(fragment: Fragment) {
+     fun openFragment(fragment: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.frame, fragment)
         transaction.addToBackStack(null)
