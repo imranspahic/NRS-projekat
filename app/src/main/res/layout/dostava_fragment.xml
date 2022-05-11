@@ -4,34 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/dostava"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="15dp"
-        android:gravity="center"
-        android:text="Status dostave"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:textStyle="bold" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="27dp"
         android:layout_marginEnd="5dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:tabTextAppearance="@style/MineCustomTabText">
+        app:tabTextAppearance="@style/MineCustomTabText"
+        tools:layout_editor_absoluteY="48dp">
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/sviProizvodi"
@@ -58,7 +44,6 @@
             android:text="Isporučeni" />
 
     </com.google.android.material.tabs.TabLayout>
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerDostava"

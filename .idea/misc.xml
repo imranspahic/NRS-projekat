@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/dostava_fragment.xml" value="0.19791666666666666" />
+        <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/dostava_proizvodi_fragment.xml" value="0.19791666666666666" />
+        <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/promijeni_status_dostave_activity.xml" value="0.19791666666666666" />
         <entry key="..\:/projektiAndroid/NRS-projekat/app/src/main/res/layout/activity_change_password.xml" value="0.23731884057971014" />
         <entry key="..\:/projektiAndroid/NRS-projekat/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
         <entry key="..\:/projektiAndroid/NRS-projekat/app/src/main/res/layout/activity_main2.xml" value="0.22826086956521738" />
