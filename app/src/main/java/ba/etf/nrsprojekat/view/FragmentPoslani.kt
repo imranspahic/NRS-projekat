@@ -10,23 +10,23 @@ import ba.etf.nrsprojekat.services.ProductsService
 
 class FragmentPoslani : Fragment(R.layout.poslani_proizvodi_fragment) {
     private lateinit var recyclerViewSent: RecyclerView
-   // private lateinit var sentAdapter: SentAdapter
+    private lateinit var sentAdapter: SentAdapter
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
 
         recyclerViewSent = view.findViewById(R.id.recyclerPoslani)
         recyclerViewSent.layoutManager = LinearLayoutManager(view.context)
-      //  sentAdapter = SentAdapter(mutableListOf())
+        sentAdapter = SentAdapter(mutableListOf())
 
-      //  ProductsService.getSentProducts { result ->
-        //    val myAdapter = SentAdapter(result)
-          //  recyclerViewSent.adapter = myAdapter
-      //  }
+        ProductsService.getSentProducts { result ->
+            val myAdapter = SentAdapter(result)
+            recyclerViewSent.adapter = myAdapter
+        }
     }
 
     override fun onResume() {
         super.onResume()
-     //   sentAdapter.updateProducts(ProductsService.lista2)
+        sentAdapter.updateProducts(ProductsService.lista2)
     }
 }

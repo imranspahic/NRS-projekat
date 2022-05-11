@@ -18,8 +18,6 @@ import com.google.android.material.textfield.TextInputEditText
 
 class PromijeniStatusDostaveActivity :AppCompatActivity()  {
 
-        // val proizvod = intent.extras
-
         private lateinit var toolbar2: MaterialToolbar
 
         private lateinit var nazivProizvoda: TextView
@@ -27,8 +25,7 @@ class PromijeniStatusDostaveActivity :AppCompatActivity()  {
         private lateinit var kolicina: TextView
         private lateinit var status: TextView
         private lateinit var btnPrimljeni : Button
-        // val proizvod = product
-
+        private lateinit var btnPoslani : Button
 
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
@@ -55,6 +52,11 @@ class PromijeniStatusDostaveActivity :AppCompatActivity()  {
             btnPrimljeni = findViewById(R.id.btnPrimljeni)
             btnPrimljeni.setOnClickListener{
                 ProductsService.addToReceived(nazivProizvoda.text.toString(),nazivPoslovnice.text.toString(),kolicina.text.toString().toInt(),status.text.toString(),{})
+            }
+
+            btnPoslani = findViewById(R.id.btnPoslani)
+            btnPoslani.setOnClickListener{
+                ProductsService.addToSent(nazivProizvoda.text.toString(),nazivPoslovnice.text.toString(),kolicina.text.toString().toInt(),status.text.toString(),{})
             }
 
         }
