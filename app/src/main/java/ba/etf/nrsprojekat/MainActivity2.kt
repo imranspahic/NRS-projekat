@@ -1,5 +1,6 @@
 package ba.etf.nrsprojekat
 
+import FragmentBranches
 import android.content.ClipData
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -30,9 +31,14 @@ class MainActivity2 : AppCompatActivity() {
                 openFragment(adminFragment)
                 return@OnItemSelectedListener true
             }
-            R.id.proizvodi -> {
+           /* R.id.proizvodi -> {
                 val productsFragment = FragmentProducts()
                 openFragment(productsFragment)
+                return@OnItemSelectedListener true
+            }*/
+            R.id.poslovnice -> {
+                val branchesFragment = FragmentBranches()
+                openFragment(branchesFragment)
                 return@OnItemSelectedListener true
             }
             R.id.profil -> {
