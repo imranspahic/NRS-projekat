@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/admin"
+        android:icon="@drawable/ic_admin"
+        android:title="Admin"
+        />
+
+    <item
+        android:id="@+id/proizvodi"
+        android:icon="@drawable/store"
+        android:title="Proizvodi"
+        />
+
+    <item
+        android:id="@+id/poslovnice"
+        android:icon="@drawable/ic_branch"
+        android:title="Poslovnice"
+        />
+
+    <item
+        android:id="@+id/dostava"
+        android:icon="@drawable/delivery"
+        android:title="Dostava"
+        />
+
+    <item
+        android:id="@+id/profil"
+        android:icon="@drawable/account_circle"
+        android:title="Profil"
+        />
+</menu>
