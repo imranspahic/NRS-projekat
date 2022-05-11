@@ -26,6 +26,7 @@ class PromijeniStatusDostaveActivity :AppCompatActivity()  {
         private lateinit var status: TextView
         private lateinit var btnPrimljeni : Button
         private lateinit var btnPoslani : Button
+        private lateinit var btnIsporuceni : Button
 
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
@@ -58,7 +59,10 @@ class PromijeniStatusDostaveActivity :AppCompatActivity()  {
             btnPoslani.setOnClickListener{
                 ProductsService.addToSent(nazivProizvoda.text.toString(),nazivPoslovnice.text.toString(),kolicina.text.toString().toInt(),status.text.toString(),{})
             }
-
+            btnIsporuceni = findViewById(R.id.btnIsporuceni)
+            btnIsporuceni.setOnClickListener{
+                ProductsService.addToDelivered(nazivProizvoda.text.toString(),nazivPoslovnice.text.toString(),kolicina.text.toString().toInt(),status.text.toString(),{})
+            }
         }
         private fun onToolbarBackButton() {
             finish()
