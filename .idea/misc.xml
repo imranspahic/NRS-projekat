@@ -3,6 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndroidStudioProjects/NRS-projekat11.05/app/src/main/res/drawable/ic_branch.xml" value="0.1" />
+        <entry key="..\:/AndroidStudioProjects/NRS-projekat11.05/app/src/main/res/layout/branch_item.xml" value="0.1" />
+        <entry key="..\:/AndroidStudioProjects/NRS-projekat11.05/app/src/main/res/layout/fragment_branches.xml" value="0.1" />
+        <entry key="..\:/AndroidStudioProjects/NRS-projekat11.05/app/src/main/res/menu/menu.xml" value="0.1" />
         <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat1/app/src/main/res/layout/isporuceni_proizvodi_fragment.xml" value="0.1" />
         <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat1/app/src/main/res/layout/poslani_proizvodi_fragment.xml" value="0.1" />
         <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat456/app/src/main/res/layout/promijeni_status_dostave_activity.xml" value="0.1" />

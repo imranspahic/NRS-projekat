@@ -12,9 +12,9 @@
     />
 
     <item
-        android:id="@+id/proizvodi"
-        android:icon="@drawable/store"
-        android:title="Proizvodi"
+        android:id="@+id/poslovnice"
+        android:icon="@drawable/ic_branch"
+        android:title="Poslovnice"
         />
     <item
         android:id="@+id/dostava"
