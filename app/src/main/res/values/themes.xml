@@ -15,5 +15,14 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="Theme.NRSProjekat.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.NRSProjekat.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.NRSProjekat.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
 
 </resources>

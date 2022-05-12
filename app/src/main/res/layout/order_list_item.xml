@@ -37,14 +37,15 @@
             >
 
             <TextView
-                android:id="@+id/productName"
+                android:id="@+id/orderName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="18dp"
                 android:layout_marginBottom="4dp"
                 android:textStyle="bold"
-                android:text="Naziv proizvoda" />
+                android:text="Naziv narudžbe" />
 
+            <!--
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -69,8 +70,8 @@
                     android:textSize="15dp"
                     android:layout_weight="1"
                     android:text="TextView" />
-            </LinearLayout>
-
+            </LinearLayout> -->
+            <!--
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -94,7 +95,7 @@
                     android:textSize="15dp"
                     android:layout_weight="1"
                     android:text="Naziv poslovnice" />
-            </LinearLayout>
+            </LinearLayout>   -->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -103,7 +104,7 @@
                 >
 
                 <TextView
-                    android:id="@+id/productStatusLabel"
+                    android:id="@+id/orderStatusLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
@@ -113,21 +114,22 @@
                     android:text="Status: " />
 
                 <TextView
-                    android:id="@+id/productStatus"
+                    android:id="@+id/orderStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textColor="@color/main_green"
                     android:textSize="15dp"
-                    android:text="Dostupno" />
+                    android:text="Isporučeno" />
             </LinearLayout>
 
 
 
 
         </LinearLayout>
+
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/substractProductToOrderDugme"
+            android:id="@+id/InfoOrderDugme"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
             android:layout_width="40dp"
             android:layout_height="40dp"
@@ -138,43 +140,14 @@
             android:insetBottom="0dp"
             app:iconGravity="textStart"
             android:padding="0dp"
-            app:icon="@drawable/ic_minus"
-            app:iconTint="@color/black"
+            app:icon="@drawable/ic_info"
+            app:iconTint="@color/siva"
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Circle"
             android:layout_marginRight="8dp"
             />
-
-        <EditText
-            android:id="@+id/quantityEdit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:layout_weight="1"
-            android:enabled="false"
-            android:ems="10"
-            android:inputType="none" />
-
+        <!--
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/addProductToOrderDugme"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            app:iconPadding="0dp"
-            android:insetLeft="0dp"
-            android:insetTop="0dp"
-            android:insetRight="0dp"
-            android:insetBottom="0dp"
-            app:iconGravity="textStart"
-            android:padding="0dp"
-            app:icon="@drawable/plus"
-            app:iconTint="@color/black"
-            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Circle"
-            android:layout_marginRight="8dp"
-            />
-
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/editProductDugme"
+            android:id="@+id/editOrderDugme"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
             android:layout_width="40dp"
             android:layout_height="40dp"
@@ -189,10 +162,10 @@
             app:iconTint="@color/main_green_dark"
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Circle"
             android:layout_marginRight="8dp"
-            />
+            />   -->
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/deleteProductDugme"
+            android:id="@+id/deleteOrderDugme"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
             android:layout_width="40dp"
             android:layout_height="40dp"

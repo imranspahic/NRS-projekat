@@ -38,6 +38,70 @@
             android:textSize="16dp"
             android:textStyle="bold"
             android:text="17" />
+        <!--
+        <EditText
+            android:id="@+id/brojProizvoda"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            /> -->
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/discardOrderDugme"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:icon="@drawable/ic_discard_order"
+            app:iconTint="@color/red"
+            app:iconPadding="0dp"
+            android:insetLeft="0dp"
+            android:insetTop="0dp"
+            android:insetRight="0dp"
+            android:insetBottom="0dp"
+            app:iconGravity="textStart"
+            android:padding="0dp"
+            android:layout_marginRight="8dp"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Circle"
+            />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/saveOrderDugme"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:icon="@drawable/ic_save"
+            app:iconTint="@color/main_green"
+            app:iconPadding="0dp"
+            android:insetLeft="0dp"
+            android:insetTop="0dp"
+            android:insetRight="0dp"
+            android:insetBottom="0dp"
+            app:iconGravity="textStart"
+            android:padding="0dp"
+            android:layout_marginRight="8dp"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Circle"
+            />
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/addOrderDugme"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:icon="@drawable/ic_add_order"
+            app:iconTint="@color/black"
+            app:iconPadding="0dp"
+            android:insetLeft="0dp"
+            android:insetTop="0dp"
+            android:insetRight="0dp"
+            android:insetBottom="0dp"
+            app:iconGravity="textStart"
+            android:padding="0dp"
+            android:layout_marginRight="8dp"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Circle"
+            />
 
 
 
@@ -76,6 +140,8 @@
             android:layout_marginRight="8dp"
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Circle"
             />
+
+
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

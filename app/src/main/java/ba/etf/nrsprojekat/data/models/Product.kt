@@ -10,6 +10,7 @@ data class Product(
     var status: String,
     var updatedAt: Date
 ) {
+    public var kolicinaNarudzbe: Int = 0
     init {
         if(poslovnicaName.isEmpty()) {
             poslovnicaName = "Ime poslovnice"

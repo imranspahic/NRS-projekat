@@ -10,15 +10,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NRSProjekat">
         <activity
+            android:name=".OrderInfoActivity"
+            android:exported="false"
+            android:label="@string/title_activity_order_info"
+            android:theme="@style/Theme.NRSProjekat.NoActionBar" />
+        <activity
             android:name=".AddUserActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize"
-            />
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".PromijeniStatusDostaveActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize"
-            />
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".LoggingActivity"
             android:exported="false" />
