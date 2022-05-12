@@ -291,5 +291,29 @@ object ProductsService {
             }
     }
 
+ //funkcija dodjele
+    fun FilterProducts(imePoslovnice : String, callback: (result: MutableList<Product>) -> Unit){
+
+        var listafilter: MutableList<Product> = mutableListOf()
+        db.collection("products").whereEqualTo("poslovnicaName", imePoslovnice).
+        get().
+        addOnSuccessListener { it ->
+            for(document in it)
+               // println(""+ document.data["poslovnicaName"].toString() + "  " + document.data["name"].toString())
+                listafilter.add(Product(
+                        document.data["id"].toString(),
+                        document.data["name"].toString(),
+                        document.data["poslovnicaName"].toString(),
+                        document.data["quantity"].toString().toInt(),
+                        document.data["status"].toString(),
+                       (document.data["updatedAt"] as com.google.firebase.Timestamp).toDate()
+                   // (document.data["createdAt"] as com.google.firebase.Timestamp).toDate()
+                    )
+            )
+        }
+     callback(listafilter)
+
+    }
+
 
 }

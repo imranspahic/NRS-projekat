@@ -3,9 +3,22 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/dostava_fragment.xml" value="0.19791666666666666" />
-        <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/dostava_proizvodi_fragment.xml" value="0.19791666666666666" />
-        <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/promijeni_status_dostave_activity.xml" value="0.19791666666666666" />
+        <entry key="..\:/AndroidStudioProjects/NRS-projekat11.05/app/src/main/res/drawable/ic_branch.xml" value="0.1" />
+        <entry key="..\:/AndroidStudioProjects/NRS-projekat11.05/app/src/main/res/layout/activity_add_product.xml" value="0.23867753623188406" />
+        <entry key="..\:/AndroidStudioProjects/NRS-projekat11.05/app/src/main/res/layout/activity_logging.xml" value="0.23867753623188406" />
+        <entry key="..\:/AndroidStudioProjects/NRS-projekat11.05/app/src/main/res/layout/activity_proizvodi_u_poslovnicama.xml" value="0.23867753623188406" />
+        <entry key="..\:/AndroidStudioProjects/NRS-projekat11.05/app/src/main/res/layout/branch_item.xml" value="0.1" />
+        <entry key="..\:/AndroidStudioProjects/NRS-projekat11.05/app/src/main/res/layout/dostava_proizvodi_fragment.xml" value="0.1" />
+        <entry key="..\:/AndroidStudioProjects/NRS-projekat11.05/app/src/main/res/layout/fragment_branches.xml" value="0.1" />
+        <entry key="..\:/AndroidStudioProjects/NRS-projekat11.05/app/src/main/res/layout/fragment_products.xml" value="0.23867753623188406" />
+        <entry key="..\:/AndroidStudioProjects/NRS-projekat11.05/app/src/main/res/layout/fragment_proizvodi_u_poslovnicama.xml" value="0.24003623188405798" />
+        <entry key="..\:/AndroidStudioProjects/NRS-projekat11.05/app/src/main/res/layout/logs_spinner_filter_item.xml" value="0.24003623188405798" />
+        <entry key="..\:/AndroidStudioProjects/NRS-projekat11.05/app/src/main/res/layout/product_list_item.xml" value="0.23867753623188406" />
+        <entry key="..\:/AndroidStudioProjects/NRS-projekat11.05/app/src/main/res/layout/svi_proizvodi_fragment.xml" value="0.24003623188405798" />
+        <entry key="..\:/AndroidStudioProjects/NRS-projekat11.05/app/src/main/res/menu/menu.xml" value="0.1" />
+        <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat1/app/src/main/res/layout/isporuceni_proizvodi_fragment.xml" value="0.1" />
+        <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat1/app/src/main/res/layout/poslani_proizvodi_fragment.xml" value="0.1" />
+        <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat456/app/src/main/res/layout/promijeni_status_dostave_activity.xml" value="0.1" />
         <entry key="..\:/projektiAndroid/NRS-projekat/app/src/main/res/layout/activity_change_password.xml" value="0.23731884057971014" />
         <entry key="..\:/projektiAndroid/NRS-projekat/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
         <entry key="..\:/projektiAndroid/NRS-projekat/app/src/main/res/layout/activity_main2.xml" value="0.22826086956521738" />
@@ -49,8 +62,6 @@
         <entry key="app/src/main/res/layout/product_list_item.xml" value="0.1" />
         <entry key="app/src/main/res/layout/promijeni_status_dostave_fragment.xml" value="0.1" />
         <entry key="app/src/main/res/layout/user_item.xml" value="0.10726072607260725" />
-        <entry key="app/src/main/res/menu/admin_navigacija.xml" value="0.2265625" />
-        <entry key="app/src/main/res/menu/korisnik_navigacija.xml" value="0.2265625" />
         <entry key="app/src/main/res/menu/menu.xml" value="0.1" />
       </map>
     </option>
