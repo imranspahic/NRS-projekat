@@ -19,12 +19,14 @@ import androidx.recyclerview.widget.RecyclerView
 import ba.etf.nrsprojekat.AddProductActivity
 import ba.etf.nrsprojekat.R
 import ba.etf.nrsprojekat.services.LoginService
+import ba.etf.nrsprojekat.services.OrderServices
 import ba.etf.nrsprojekat.services.ProductsService
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
+import com.google.firestore.v1.StructuredQuery
 
 
-class FragmentProducts : Fragment() {
+class FragmentProducts : Fragment(), ProductListAdapter.IHide {
 
     private lateinit var brojProizvodaText: TextView
     private lateinit var refreshDugme: MaterialButton
@@ -75,7 +77,9 @@ class FragmentProducts : Fragment() {
             requireContext(),
             requireActivity(),
             productActivityLauncher,
-            brojProizvodaText
+            brojProizvodaText,
+            saveOrderDugme,
+            this
         )
         brojProizvodaText.text = ProductsService.products.size.toString()
         proizvodiRecyclerView.adapter = productListAdapter
@@ -118,11 +122,22 @@ class FragmentProducts : Fragment() {
                 brojProizvodaLabel.text = "Broj proizvoda:"
                 brojProizvodaText.text = ProductsService.products.size.toString()
                 discardOrderDugme.visibility = View.GONE
-
+                OrderServices.imeTrenutneNarudzbe = null
+              //  productListAdapter.notifyDataSetChanged()
+                onResume()
             }
-            saveOrderDugme.setOnClickListener {
+        /*    if(OrderServices.imeTrenutneNarudzbe == null) {
+                discardOrderDugme.visibility = View.GONE
+                saveOrderDugme.visibility = View.GONE
+                brojProizvodaLabel.text = "Broj proizvoda:"
+                brojProizvodaText.text = ProductsService.products.size.toString()
+                addOrderDugme.visibility = View.VISIBLE
+            }  */
+         /*   saveOrderDugme.setOnClickListener {
+                println("save order iz fragmenta")
 
-            }
+            }  */
+          //  if(OrderServices.imeTrenutneNarudzbe != null)
 
 
         }
@@ -154,6 +169,9 @@ class FragmentProducts : Fragment() {
             saveOrderDugme.visibility = View.VISIBLE
             brojProizvodaLabel.text="Ime narudžbe: "
             brojProizvodaText.text=m_Text
+            OrderServices.imeTrenutneNarudzbe = m_Text
+           // productListAdapter.notifyDataSetChanged()
+            onResume()
         })
         builder.setNegativeButton("Odustani", DialogInterface.OnClickListener {
                 dialog, which -> dialog.cancel()
@@ -161,6 +179,16 @@ class FragmentProducts : Fragment() {
         })
         builder.show()
         return m_Text
+    }
+
+
+
+    override fun HideBtn() {
+        discardOrderDugme.visibility = View.GONE
+        saveOrderDugme.visibility = View.GONE
+        brojProizvodaLabel.text = "Broj proizvoda:"
+        brojProizvodaText.text = ProductsService.products.size.toString()
+        addOrderDugme.visibility = View.VISIBLE
     }
 
 }

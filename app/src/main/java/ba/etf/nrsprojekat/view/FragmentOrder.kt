@@ -15,7 +15,11 @@ import android.widget.EditText
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.FragmentActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import ba.etf.nrsprojekat.R
+import ba.etf.nrsprojekat.data.models.Narudzba
+import ba.etf.nrsprojekat.services.OrderServices
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.button.MaterialButton
@@ -23,7 +27,10 @@ import com.google.android.material.button.MaterialButton
 
 class FragmentOrder() : Fragment() {
     private lateinit var btnDodajOrder: MaterialButton
-    private lateinit var bottomNavigation: BottomNavigationView
+    private lateinit var narudzbeRecyclerView: RecyclerView
+    private lateinit var ordersList: List<Narudzba>
+    private var productActivityLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        Log.d("OK", "Okej") }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +46,7 @@ class FragmentOrder() : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        narudzbeRecyclerView = view.findViewById(R.id.narudzbeRecyclerView)
         btnDodajOrder = view.findViewById<MaterialButton>(R.id.addNarudzbuDugme)
       //  bottomNavigation = view.findViewById(R.id.bottom_nav)
         btnDodajOrder.setOnClickListener {
@@ -46,6 +54,16 @@ class FragmentOrder() : Fragment() {
      //   dialog.show(requireActivity().supportFragmentManager, "customDialog")
             //bottomNavigation.selectedItemId = R.id.proizvodi
         }
+        narudzbeRecyclerView.layoutManager = LinearLayoutManager(view.context)
+        OrderServices.getOrders { it->
+            ordersList = it
+            var adapterZaRecycler = OrderListAdapter(ordersList, requireContext(), requireActivity(), productActivityLauncher)
+            narudzbeRecyclerView.adapter = adapterZaRecycler
+
+        }
+
+
+
 
     }
 

@@ -7,7 +7,7 @@ class Narudzba(
     var nazivNarudzbe: String,
     var status: String,
     var idKupca: String,
-    var nizMapa: ArrayMap<String, Int>
+    var nizMapa: MutableMap<String, Any>
 ) {
 
 }
