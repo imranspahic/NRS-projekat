@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.FragmentActivity
@@ -29,6 +30,7 @@ class FragmentOrder() : Fragment() {
     private lateinit var btnDodajOrder: MaterialButton
     private lateinit var narudzbeRecyclerView: RecyclerView
     private lateinit var ordersList: List<Narudzba>
+    private lateinit var brojNarudzbi: TextView
     private var productActivityLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         Log.d("OK", "Okej") }
 
@@ -47,16 +49,18 @@ class FragmentOrder() : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         narudzbeRecyclerView = view.findViewById(R.id.narudzbeRecyclerView)
-        btnDodajOrder = view.findViewById<MaterialButton>(R.id.addNarudzbuDugme)
+        brojNarudzbi = view.findViewById(R.id.brojNarudzbi)
+       // btnDodajOrder = view.findViewById<MaterialButton>(R.id.addNarudzbuDugme)
       //  bottomNavigation = view.findViewById(R.id.bottom_nav)
-        btnDodajOrder.setOnClickListener {
+      //  btnDodajOrder.setOnClickListener {
      //   var dialog = FragmentAddOrderDialog()
      //   dialog.show(requireActivity().supportFragmentManager, "customDialog")
             //bottomNavigation.selectedItemId = R.id.proizvodi
-        }
+     //   }
         narudzbeRecyclerView.layoutManager = LinearLayoutManager(view.context)
         OrderServices.getOrders { it->
             ordersList = it
+            brojNarudzbi.text = ordersList.size.toString()
             var adapterZaRecycler = OrderListAdapter(ordersList, requireContext(), requireActivity(), productActivityLauncher)
             narudzbeRecyclerView.adapter = adapterZaRecycler
 

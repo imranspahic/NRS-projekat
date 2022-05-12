@@ -3,9 +3,7 @@ package ba.etf.nrsprojekat.services
 import android.content.ContentValues
 import android.util.Log
 import ba.etf.nrsprojekat.data.enums.LogAction
-import ba.etf.nrsprojekat.data.models.Korisnik
-import ba.etf.nrsprojekat.data.models.Product
-import ba.etf.nrsprojekat.data.models.receivedProducts
+import ba.etf.nrsprojekat.data.models.*
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.util.*
@@ -14,6 +12,8 @@ object ProductsService {
     private val db = Firebase.firestore;
     var products: MutableList<Product> = mutableListOf()
     var lista1 : MutableList<receivedProducts> = mutableListOf()
+    var lista2 : MutableList<sentProducts> = mutableListOf()
+    var lista3 : MutableList<deliveredProducts> = mutableListOf()
 
     fun fetchProducts(callback: (result: Boolean) -> Unit) {
          db.collection("products").get().addOnSuccessListener {
@@ -174,6 +174,109 @@ object ProductsService {
                     )
                     lista1.add(
                         receivedProducts(
+                            document.data["name"].toString(),
+                            document.data["poslovnicaName"].toString(),
+                            document.data["quantity"].toString().toInt(),
+                            document.data["status"].toString()
+                        )
+                    )
+                }
+                callback(lista)
+            }
+            .addOnFailureListener { exception ->
+                Log.w(ContentValues.TAG, "Error getting documents.", exception)
+            }
+    }
+    fun getReceivedName(name : String ) : receivedProducts{
+        val test = receivedProducts("","",0,"")
+        val product: Product = products.firstOrNull { product -> product.name == name }?: return test
+        val receivedProducts1 = receivedProducts(product.name,product.poslovnicaName,product.quantity,product.status)
+        return receivedProducts1
+
+    }
+    fun addToSent(name: String,poslovnicaName: String,quantity: Int,status: String, callback: (result: Boolean) -> Unit) {
+        val proizvod2 = hashMapOf(
+            "name" to name ,
+            "poslovnicaName" to poslovnicaName,
+            "quantity" to quantity,
+            "status" to status
+        )
+
+        db.collection("sentProducts")
+            .add(proizvod2)
+            .addOnSuccessListener { documentReference ->
+                Log.d(ContentValues.TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
+                callback(true)
+            }
+            .addOnFailureListener { e ->
+                Log.w(ContentValues.TAG, "Error adding document", e)
+                callback(false)
+            }
+    }
+    fun getSentProducts(callback: (result: MutableList<sentProducts>) -> Unit) {
+        var lista: MutableList<sentProducts> = mutableListOf()
+        db.collection("sentProducts")
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    lista.add(
+                        sentProducts(
+                            document.data["name"].toString(),
+                            document.data["poslovnicaName"].toString(),
+                            document.data["quantity"].toString().toInt(),
+                            document.data["status"].toString()
+                        )
+                    )
+                    lista2.add(
+                        sentProducts(
+                            document.data["name"].toString(),
+                            document.data["poslovnicaName"].toString(),
+                            document.data["quantity"].toString().toInt(),
+                            document.data["status"].toString()
+                        )
+                    )
+                }
+                callback(lista)
+            }
+            .addOnFailureListener { exception ->
+                Log.w(ContentValues.TAG, "Error getting documents.", exception)
+            }
+    }
+    fun addToDelivered(name: String,poslovnicaName: String,quantity: Int,status: String, callback: (result: Boolean) -> Unit) {
+        val proizvod3 = hashMapOf(
+            "name" to name ,
+            "poslovnicaName" to poslovnicaName,
+            "quantity" to quantity,
+            "status" to status
+        )
+
+        db.collection("deliveredProducts")
+            .add(proizvod3)
+            .addOnSuccessListener { documentReference ->
+                Log.d(ContentValues.TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
+                callback(true)
+            }
+            .addOnFailureListener { e ->
+                Log.w(ContentValues.TAG, "Error adding document", e)
+                callback(false)
+            }
+    }
+    fun getDeliveredProducts(callback: (result: MutableList<deliveredProducts>) -> Unit) {
+        var lista: MutableList<deliveredProducts> = mutableListOf()
+        db.collection("deliveredProducts")
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    lista.add(
+                        deliveredProducts(
+                            document.data["name"].toString(),
+                            document.data["poslovnicaName"].toString(),
+                            document.data["quantity"].toString().toInt(),
+                            document.data["status"].toString()
+                        )
+                    )
+                    lista3.add(
+                        deliveredProducts(
                             document.data["name"].toString(),
                             document.data["poslovnicaName"].toString(),
                             document.data["quantity"].toString().toInt(),

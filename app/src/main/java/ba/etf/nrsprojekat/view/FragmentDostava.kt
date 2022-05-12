@@ -46,7 +46,7 @@ class FragmentDostava : Fragment(R.layout.dostava_fragment) {
                     tab.text = "Poslani"
                 }
                 3->{
-                    tab.text = "Isporuceni"
+                    tab.text = "Isporučeni"
                 }
             }
         }.attach()

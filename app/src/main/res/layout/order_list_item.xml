@@ -145,7 +145,7 @@
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Circle"
             android:layout_marginRight="8dp"
             />
-
+        <!--
         <com.google.android.material.button.MaterialButton
             android:id="@+id/editOrderDugme"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
@@ -162,7 +162,7 @@
             app:iconTint="@color/main_green_dark"
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Circle"
             android:layout_marginRight="8dp"
-            />
+            />   -->
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/deleteOrderDugme"

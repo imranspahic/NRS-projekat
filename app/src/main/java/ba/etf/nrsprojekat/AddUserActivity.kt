@@ -1,17 +1,20 @@
 package ba.etf.nrsprojekat
 
+import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
-import android.widget.Toast
+import ba.etf.nrsprojekat.data.models.Korisnik
 import ba.etf.nrsprojekat.services.LoginService
 import ba.etf.nrsprojekat.services.UserService
 import com.google.android.material.appbar.MaterialToolbar
-import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputLayout
-import org.w3c.dom.Text
 import java.util.regex.Pattern
 
 class AddUserActivity : AppCompatActivity() {
@@ -23,11 +26,11 @@ class AddUserActivity : AppCompatActivity() {
     private lateinit var addUserEmailTextInput: TextInputLayout
     private lateinit var addUserPasswordTextInput: TextInputLayout
     var emailPattern = Pattern.compile("[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\\.[a-zA-Z]{2,4}")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_user)
-        val test = intent.getStringExtra("Bool")
-        // validirati polja
+
         toolbar = findViewById(R.id.addUserToolbar)
         spiner = findViewById(R.id.spiner)
         unosEmail = findViewById(R.id.unosEmail)
@@ -35,71 +38,125 @@ class AddUserActivity : AppCompatActivity() {
         btnDodaj = findViewById(R.id.btnDodajKorisnik)
         addUserEmailTextInput = findViewById(R.id.addUserEmailTextInput)
         addUserPasswordTextInput = findViewById(R.id.addUserPasswordTextInput)
+
+        val userID: String? = intent.getStringExtra("userID")
+
+        btnDodaj.isEnabled = false
+
+        if(userID != null) {
+            Log.d("users", "userID nije null, ažuriranje usera")
+            initializeUserData(userID)
+        }
+
         toolbar.setNavigationOnClickListener {
             finish()
         }
-        if(test.equals("false")) {
-            btnDodaj.setOnClickListener {
-                addUserEmailTextInput.isErrorEnabled=false
-                addUserPasswordTextInput.isErrorEnabled=false
-                if (!checkEmail()) {
+
+        btnDodaj.setOnClickListener {
+            onAddUser(userID)
+        }
+
+        unosEmail.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                addUserEmailTextInput.isErrorEnabled = false
+                addUserEmailTextInput.error = null
+                checkButtonState(userID)
+            }
+        })
+
+        unosLozinka.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                checkButtonState(userID)
+            }
+        })
+    }
+
+    private fun onAddUser(userID: String?) {
+        val admin: Boolean = spiner.selectedItem.toString().equals("Admin")
+
+        //DODAVANJE KORISNIKA
+        if(userID == null) {
+
+            LoginService.checkIfEmailExists(unosEmail.text.toString()) {result ->
+                if(result)
+                {
                     addUserEmailTextInput.isErrorEnabled = true
-                    addUserEmailTextInput.error = "Neispravan e-mail"
-                }
-                if(!checkPass()) {
-                    addUserPasswordTextInput.isErrorEnabled = true
-                    addUserPasswordTextInput.error = "Neispravna lozinka"
-                }
-                    else {
-                    val admin: Boolean
-                    if (spiner.selectedItem.toString().equals("Admin")) admin = true else admin = false
-                    // UserService.dodajUBazu(
-                    LoginService.createUser(
+                    addUserEmailTextInput.error = "Email se već koristi"
+                } else {
+                    UserService.createUser(
                         unosEmail.text.toString(),
                         unosLozinka.text.toString(),
                         admin
-                    )  //it ->
-                    //   if(it) Toast.makeText(this, "Korisnik dodan!", Toast.LENGTH_SHORT).show()
+                    ){result ->
+                        if(result) {
+                            val output = Intent().apply {
+                                putExtra("mode", "ADD")
+                            }
+                            setResult(Activity.RESULT_OK, output)
+                            finish()
+                        }
+                    }
                 }
-
-
-            }
-         //   Toast.makeText(applicationContext, "TOAAAST", Toast.LENGTH_LONG).show()
+                }
         }
-        else if(test.equals("true")) {
-            toolbar.title="Ažuriraj korisnika"
-            btnDodaj.text="SAČUVAJ"
-            val id = intent.getStringExtra("userID")
-            if (id != null) {
-                UserService.dajKorisnika(id) { rez ->
-                    unosEmail.setText(rez.getEmail())
-                    unosLozinka.setText(rez.getPassword())
-                }
-            }
-            btnDodaj.setOnClickListener {
-              //  spiner.getItemAtPosition(0)
-                if(!checkPass()) {
-                    addUserPasswordTextInput.isErrorEnabled = true
-                    addUserPasswordTextInput.error = "Neispravna lozinka"
-                }
-                else {
-                    UserService.izmijeniSifru(id.toString(), unosLozinka.text.toString()) {}
-                    if (spiner.selectedItem.toString().equals("Admin")) UserService.izmijeniStatus(
-                        id.toString(),
-                        true
-                    ) {}
-                }
 
+        //AŽURIRANJE KORISNIKA
+        else {
+            UserService.updateUser(
+                userID,
+                unosLozinka.text.toString(),
+                admin
+            ) {result ->
+                if(result) {
+                    val output = Intent().apply {
+                        putExtra("mode", "EDIT")
+                    }
+                    setResult(Activity.RESULT_OK, output)
+                    finish()
+                }
             }
         }
     }
 
-    private fun checkEmail(): Boolean {
-        if(unosEmail.text.isNotEmpty() && emailPattern.matcher(unosEmail.text).matches()) return true
-        return false
+    private fun checkButtonState(userID: String?) {
+        var emailCondition = userID != null || emailPattern.matcher(unosEmail.text).matches()
+        var passwordCondition = unosLozinka.text.length >= 8
+        btnDodaj.isEnabled = emailCondition && passwordCondition
     }
-    private fun checkPass(): Boolean {
-        if(unosLozinka.text.isNotEmpty() && unosLozinka.text.length >= 8) return true
-        return false
+
+    private fun initializeUserData(userID: String) {
+        val user: Korisnik = UserService.users.firstOrNull { user -> user.getID() == userID } ?: return
+        Log.d("users", "Pronađen user sa id = ${userID}")
+
+        unosEmail.setText(user.getEmail())
+        unosEmail.isEnabled = false
+
+        unosLozinka.setText(user.getPassword())
+
+        Log.d("users", user.isAdmin().toString())
+
+        if(user.isAdmin()) {
+            spiner.setSelection(1)
+        }
+        else {
+            spiner.setSelection(0)
+        }
+
+        toolbar.title="Ažuriraj korisnika"
+        btnDodaj.text="SAČUVAJ"
+        btnDodaj.isEnabled = true
     }
+
 }

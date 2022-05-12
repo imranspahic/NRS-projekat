@@ -8,7 +8,9 @@ class Narudzba(
     var status: String,
     var idKupca: String,
     var nizMapa: MutableMap<String, Any>
+
 ) {
+    var isDeleted: Boolean = false
 
 }
 

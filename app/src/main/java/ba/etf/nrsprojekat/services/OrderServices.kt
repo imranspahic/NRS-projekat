@@ -20,6 +20,7 @@ object OrderServices {
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
+                    if(document.data["isDeleted"].toString().toBoolean() == false)
                    // val mapa: MutableList<MutableMap<String, Any>> = document.data["listaProizvoda"] as MutableList<MutableMap<String, Any>>
                    // for(item in mapa) println("ITEM U MAPI ----------------->" + item)
                   //  var niz: ArrayMap<String, Int> = (ArrayMap<String, Int>()) (document.data("listaProizvoda"))
@@ -60,9 +61,19 @@ object OrderServices {
             "datumNarudzbe" to Date(),
             "nazivNarudzbe" to nazivNarudzbe,
             "statusNarudzbe" to status,
+            "isDeleted" to false,
             "listaProizvoda" to mapa
         )
         documentReference.set(order)
+    }
+    fun updateOrder(id: String) { // staviti id
+        val updateOrder = mapOf(
+            "isDeleted" to true
+        )
+        db.collection("orders").document(id).update(updateOrder).addOnSuccessListener {
+
+        }
+
     }
 
 /*
