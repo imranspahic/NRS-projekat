@@ -17,6 +17,7 @@ import ba.etf.nrsprojekat.MainActivity2
 import ba.etf.nrsprojekat.R
 import ba.etf.nrsprojekat.data.models.Branch
 import ba.etf.nrsprojekat.data.models.Product
+import ba.etf.nrsprojekat.services.ProductsService
 
 class BranchListAdapter(private var branches : List<Branch>,
 
@@ -34,6 +35,9 @@ class BranchListAdapter(private var branches : List<Branch>,
     override fun onBindViewHolder(holder: BranchViewHolder, position: Int) {
         val branch : Branch = branches[position]
         holder.branchName.text =branch.nazivPoslovnice
+        ProductsService.FilterProducts("Mostar"){
+            //it ->
+        }
     }
 
 

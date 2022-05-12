@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="poslovnica_spinner_array">
-        <item>Poslovnica 1</item>
-        <item>Poslovnica 2</item>
-        <item>Poslovnica 3</item>
+        <item>Mostar</item>
+        <item>Donji Vakuf</item>
+        <item>Cazin</item>
+        <item>Travnik</item>
+        <item>Sarajevo</item>
+        <item>Banja Luka</item>
     </string-array>
 </resources>
