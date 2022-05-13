@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardElevation="10dp"
+    android:layout_marginVertical="8dp"
+    android:layout_marginHorizontal="16dp"
+    app:cardCornerRadius="10dp"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:gravity="center"
+        >
+
+        <View
+            android:id="@+id/pdvCategoryDivider"
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:background="@color/main_green"
+            android:layout_marginRight="16dp"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            >
+
+            <TextView
+                android:id="@+id/pdvCategoryName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18dp"
+                android:layout_marginBottom="4dp"
+                android:textStyle="bold"
+                android:text="Naziv  kategorije" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="4dp"
+                >
+
+                <TextView
+                    android:id="@+id/pdvCategoryPercentLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:layout_marginRight="8dp"
+                    android:textSize="15dp"
+                    android:textColor="@color/disabled"
+                    android:text="PDV: " />
+
+                <TextView
+                    android:id="@+id/pdvCategoryPercent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textStyle="bold"
+                    android:textColor="@color/orange"
+                    android:textSize="15dp"
+                    android:text="17%" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="4dp"
+                >
+
+                <TextView
+                    android:id="@+id/pdvCategoryProductNumberLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:layout_marginRight="8dp"
+                    android:textSize="15dp"
+                    android:textColor="@color/disabled"
+                    android:text="Broj proizvoda: " />
+
+                <TextView
+                    android:id="@+id/pdvCategoryProductNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textStyle="bold"
+                    android:textSize="15dp"
+                    android:text="45" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="4dp"
+                >
+
+                <TextView
+                    android:id="@+id/pdvCategoryDateUpdatedLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:layout_marginRight="8dp"
+                    android:textSize="15dp"
+                    android:textColor="@color/disabled"
+                    android:text="Datum ažuriranja: " />
+
+                <TextView
+                    android:id="@+id/pdvCategoryDateUpdated"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="15dp"
+                    android:text="15.05.2022." />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="4dp"
+                >
+
+                <TextView
+                    android:id="@+id/pdvCategoryDateCreatedLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:layout_marginRight="8dp"
+                    android:textSize="15dp"
+                    android:textColor="@color/disabled"
+                    android:text="Datum kreiranja: " />
+
+                <TextView
+                    android:id="@+id/pdvCategoryDateCreated"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="15dp"
+                    android:text="13.05.2022." />
+            </LinearLayout>
+
+
+
+
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/editPdvCategoryDugme"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:iconPadding="0dp"
+            android:insetLeft="0dp"
+            android:insetTop="0dp"
+            android:insetRight="0dp"
+            android:insetBottom="0dp"
+            app:iconGravity="textStart"
+            android:padding="0dp"
+            app:icon="@drawable/pencil"
+            app:iconTint="@color/main_green_dark"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Circle"
+            android:layout_marginRight="8dp"
+            />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/deletePdvCategoryDugme"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:icon="@drawable/delete"
+            app:iconTint="@color/red"
+            app:iconPadding="0dp"
+            android:insetLeft="0dp"
+            android:insetTop="0dp"
+            android:insetRight="0dp"
+            android:insetBottom="0dp"
+            app:iconGravity="textStart"
+            android:padding="0dp"
+            android:layout_marginRight="8dp"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Circle"
+            />
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
