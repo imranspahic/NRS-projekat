@@ -17,13 +17,13 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ba.etf.nrsprojekat.AddProductActivity
+import ba.etf.nrsprojekat.PdvCategoriesActivity
 import ba.etf.nrsprojekat.R
 import ba.etf.nrsprojekat.services.LoginService
 import ba.etf.nrsprojekat.services.OrderServices
 import ba.etf.nrsprojekat.services.ProductsService
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
-import com.google.firestore.v1.StructuredQuery
 
 
 class FragmentProducts : Fragment(), ProductListAdapter.IHide {
@@ -36,6 +36,7 @@ class FragmentProducts : Fragment(), ProductListAdapter.IHide {
     private lateinit var addOrderDugme: MaterialButton
     private lateinit var discardOrderDugme: MaterialButton
     private lateinit var saveOrderDugme: MaterialButton
+    private lateinit var pdvCategoriesDugme: MaterialButton
     private lateinit var brojProizvodaLabel: TextView
 
     private var productActivityLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -68,6 +69,8 @@ class FragmentProducts : Fragment(), ProductListAdapter.IHide {
         addOrderDugme = view.findViewById(R.id.addOrderDugme)
         discardOrderDugme = view.findViewById(R.id.discardOrderDugme)
         saveOrderDugme = view.findViewById(R.id.saveOrderDugme)
+        pdvCategoriesDugme = view.findViewById(R.id.pdvCategoriesDugme)
+
         addOrderDugme.visibility = View.GONE
         discardOrderDugme.visibility = View.GONE
         saveOrderDugme.visibility = View.GONE
@@ -103,8 +106,13 @@ class FragmentProducts : Fragment(), ProductListAdapter.IHide {
             otvoriDodavanjeProizvoda()
         }
 
+        pdvCategoriesDugme.setOnClickListener {
+            otvoriPdvKategorije()
+        }
+
         if(!LoginService.logovaniKorisnik!!.isAdmin()) {
             addDugme.visibility = View.GONE
+            pdvCategoriesDugme.visibility = View.GONE
             addOrderDugme.visibility = View.VISIBLE
         }
 
@@ -141,6 +149,11 @@ class FragmentProducts : Fragment(), ProductListAdapter.IHide {
 
 
         }
+    }
+
+    private fun otvoriPdvKategorije() {
+        val intent = Intent(activity, PdvCategoriesActivity::class.java)
+        productActivityLauncher.launch(intent)
     }
 
     private fun otvoriDodavanjeProizvoda() {
