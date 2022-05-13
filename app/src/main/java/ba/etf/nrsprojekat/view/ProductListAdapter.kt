@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.core.content.ContextCompat
@@ -21,10 +22,13 @@ import ba.etf.nrsprojekat.R
 import ba.etf.nrsprojekat.data.models.Product
 import ba.etf.nrsprojekat.services.LoginService
 import ba.etf.nrsprojekat.services.OrderServices
+import ba.etf.nrsprojekat.services.PdvCategoriesService
 import ba.etf.nrsprojekat.services.ProductsService
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
+import java.text.DecimalFormat
+import java.text.NumberFormat
 
 class ProductListAdapter(
     private var products: List<Product>,
@@ -37,6 +41,11 @@ class ProductListAdapter(
 
 ) : RecyclerView.Adapter<ProductListAdapter.ProductViewHolder>() {
     val mapaProizvodaZaNarudzbu = mutableMapOf<String, Any>()
+    private val noDecimalFormat: NumberFormat = DecimalFormat.getInstance()
+
+    init {
+        noDecimalFormat.maximumFractionDigits = 0
+    }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
@@ -70,6 +79,17 @@ class ProductListAdapter(
 
         holder.deleteDugme.setOnClickListener {
             showConfirmationDialog(product.id)
+        }
+
+        if(product.pdvCategoryName == null) {
+            holder.productPdvlinear.visibility = View.GONE
+        }
+        else {
+            holder.productPdvlinear.visibility = View.VISIBLE
+            holder.productPdvName.text = product.pdvCategoryName
+            holder.productPdvPercent.text = noDecimalFormat.format(
+                PdvCategoriesService.pdvCategories.first { category -> category.name == product.pdvCategoryName }.pdvPercent
+            )+ "%"
         }
 
         if(!LoginService.logovaniKorisnik!!.isAdmin()) {
@@ -162,6 +182,9 @@ class ProductListAdapter(
         var substractProductToOrderDugme: MaterialButton = itemView.findViewById(R.id.substractProductToOrderDugme)
         var quantityEdit: EditText = itemView.findViewById(R.id.quantityEdit)
 
+        var productPdvlinear: LinearLayout = itemView.findViewById(R.id.productPdvLinear)
+        var productPdvName: TextView = itemView.findViewById(R.id.productPdvName)
+        var productPdvPercent: TextView = itemView.findViewById(R.id.productPdvPercent)
     }
 
     private fun openEditProduct(productID: String) {

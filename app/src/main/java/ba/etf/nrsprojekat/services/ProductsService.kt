@@ -25,6 +25,7 @@ object ProductsService {
                      val newProduct = Product(data["id"].toString(),
                          data["name"].toString(),
                          data["poslovnicaName"].toString(),
+                         data["pdvCategoryName"]?.toString(),
                          data["quantity"].toString().toInt(),
                          data["status"].toString(),
                          (data["updatedAt"]  as com.google.firebase.Timestamp).toDate()
@@ -44,6 +45,7 @@ object ProductsService {
     fun addProduct(id: String,
                    name: String,
                    poslovnicaName: String,
+                   pdvCategoryName: String?,
                    quantity: Int,
                    status: String,
                    callback: (result: Boolean, mode: String) -> Unit) {
@@ -58,6 +60,7 @@ object ProductsService {
                 documentReference.id,
                 name,
                 poslovnicaName,
+                pdvCategoryName,
                 quantity,
                 status.lowercase(),
                 updatedDate
@@ -66,6 +69,7 @@ object ProductsService {
                 "id" to newProduct.id,
                 "name" to newProduct.name,
                 "poslovnicaName" to newProduct.poslovnicaName,
+                "pdvCategoryName" to newProduct.pdvCategoryName,
                 "quantity" to newProduct.quantity,
                 "status" to newProduct.status,
                 "createdAt" to Date(),
@@ -88,6 +92,7 @@ object ProductsService {
             val editedProductData = mapOf(
                 "name" to name,
                 "poslovnicaName" to poslovnicaName,
+                "pdvCategoryName" to pdvCategoryName,
                 "quantity" to quantity,
                 "status" to status,
                 "updatedAt" to updatedDate
@@ -96,6 +101,7 @@ object ProductsService {
                val index =  products.indexOfFirst { p -> p.id == product.id  }
                 products[index].name = name
                 products[index].poslovnicaName = poslovnicaName
+                products[index].pdvCategoryName = pdvCategoryName
                 products[index].quantity = quantity
                 products[index].status = status
                 products[index].updatedAt = updatedDate
@@ -127,6 +133,7 @@ object ProductsService {
                         document.data["id"].toString(),
                         document.data["name"].toString(),
                         document.data["poslovnicaName"].toString(),
+                        document.data["pdvCategoryName"].toString(),
                         document.data["quantity"].toString().toInt(),
                         document.data["status"].toString(),
                         (document.data["updatedAt"] as com.google.firebase.Timestamp).toDate()
@@ -304,6 +311,7 @@ object ProductsService {
                         document.data["id"].toString(),
                         document.data["name"].toString(),
                         document.data["poslovnicaName"].toString(),
+                        document.data["pdvCategoryName"].toString(),
                         document.data["quantity"].toString().toInt(),
                         document.data["status"].toString(),
                        (document.data["updatedAt"] as com.google.firebase.Timestamp).toDate()

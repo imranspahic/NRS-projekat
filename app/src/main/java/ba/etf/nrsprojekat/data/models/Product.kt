@@ -6,6 +6,7 @@ data class Product(
     val id: String,
     var name: String,
     var poslovnicaName: String,
+    var pdvCategoryName: String?,
     var quantity: Int,
     var status: String,
     var updatedAt: Date
