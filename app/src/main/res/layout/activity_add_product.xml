@@ -80,7 +80,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/addProductQuantityTextInput"
-        app:layout_constraintBottom_toTopOf="@id/addProductStatusLinearLayout"
+        app:layout_constraintBottom_toTopOf="@id/addProductPdvLinearLayout"
         android:gravity="center"
        >
 
@@ -103,7 +103,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/addProductStatusLinearLayout"
+        android:id="@+id/addProductPdvLinearLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -112,6 +112,37 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/addProductPoslovnicaLinearLayout"
+        app:layout_constraintBottom_toTopOf="@id/addProductStatusLinearLayout"
+        android:gravity="center"
+        >
+
+        <TextView
+            android:id="@+id/addProductPdvLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:layout_marginRight="8dp"
+            android:text="PDV kategorija: " />
+
+        <Spinner
+            android:id="@+id/addProductPdvSpinner"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/addProductStatusLinearLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
+        android:layout_marginHorizontal="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/addProductPdvLinearLayout"
         android:gravity="center"
         >
 

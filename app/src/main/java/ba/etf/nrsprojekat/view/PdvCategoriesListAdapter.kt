@@ -2,15 +2,18 @@ package ba.etf.nrsprojekat.view
 
 import android.content.Context
 import android.content.DialogInterface
+import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import ba.etf.nrsprojekat.R
 import ba.etf.nrsprojekat.data.models.PdvCategory
 import ba.etf.nrsprojekat.services.PdvCategoriesService
+import ba.etf.nrsprojekat.services.ProductsService
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
@@ -52,6 +55,20 @@ class PdvCategoriesListAdapter(
         holder.pdvCategoryDateCreated.text = simpleDateFormat.format(pdvCategory.createdAt)
 
         holder.pdvCategoryPercent.text = noDecimalFormat.format(pdvCategory.pdvPercent) + "%"
+
+        val categoryProductsCount = ProductsService.products.filter { product ->
+            product.pdvCategoryName != null
+                    &&  product.pdvCategoryName == pdvCategory.name }.size
+
+        holder.pdvCategoryProductNumber.text = categoryProductsCount.toString()
+
+        if(categoryProductsCount == 0) {
+            holder.pdvCategoryDivider.setBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.red))
+            holder.pdvCategoryProductNumber.setTextColor(ColorStateList.valueOf(ContextCompat.getColor(holder.itemView.context, R.color.red)))
+        } else {
+            holder.pdvCategoryDivider.setBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.main_green))
+            holder.pdvCategoryProductNumber.setTextColor(ColorStateList.valueOf(ContextCompat.getColor(holder.itemView.context, R.color.main_green)))
+        }
 
         holder.pdvCategoryEditDugme.setOnClickListener {
             openEditPdvCategory(pdvCategory.id)

@@ -21,6 +21,7 @@ import ba.etf.nrsprojekat.PdvCategoriesActivity
 import ba.etf.nrsprojekat.R
 import ba.etf.nrsprojekat.services.LoginService
 import ba.etf.nrsprojekat.services.OrderServices
+import ba.etf.nrsprojekat.services.PdvCategoriesService
 import ba.etf.nrsprojekat.services.ProductsService
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
@@ -70,6 +71,10 @@ class FragmentProducts : Fragment(), ProductListAdapter.IHide {
         discardOrderDugme = view.findViewById(R.id.discardOrderDugme)
         saveOrderDugme = view.findViewById(R.id.saveOrderDugme)
         pdvCategoriesDugme = view.findViewById(R.id.pdvCategoriesDugme)
+
+        if(PdvCategoriesService.pdvCategories.isEmpty()) {
+            PdvCategoriesService.fetchPdvCategories {  }
+        }
 
         addOrderDugme.visibility = View.GONE
         discardOrderDugme.visibility = View.GONE

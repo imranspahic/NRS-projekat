@@ -6,9 +6,11 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
 import ba.etf.nrsprojekat.data.models.Product
+import ba.etf.nrsprojekat.services.PdvCategoriesService
 import ba.etf.nrsprojekat.services.ProductsService
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
@@ -21,6 +23,7 @@ class AddProductActivity : AppCompatActivity() {
     private lateinit var addProductNameField: TextInputEditText
     private lateinit var addProductQuantityField: TextInputEditText
     private lateinit var addProductPoslovnicaSpinner: Spinner
+    private lateinit var addProductPdvSpinner: Spinner
     private lateinit var addProductStatusSpinner: Spinner
     private lateinit var addProductSaveDugme: MaterialButton
 
@@ -31,12 +34,24 @@ class AddProductActivity : AppCompatActivity() {
         addProductNameField = findViewById(R.id.addProductNameField)
         addProductQuantityField = findViewById(R.id.addProductQuantityField)
         addProductPoslovnicaSpinner = findViewById(R.id.addProductPoslovnicaSpinner)
+        addProductPdvSpinner = findViewById(R.id.addProductPdvSpinner)
         addProductStatusSpinner = findViewById(R.id.addProductStatusSpinner)
         addProductSaveDugme = findViewById(R.id.addProductSaveDugme)
 
         val productID: String? = intent.getStringExtra("productID")
 
         addProductSaveDugme.isEnabled = false
+
+        val pdvCategoryList = mutableListOf<String>("Nema kategorije")
+        PdvCategoriesService.pdvCategories.forEach { category -> pdvCategoryList.add(category.toString()) }
+
+        val pdvSpinnerAdapter = ArrayAdapter(
+            this,
+            android.R.layout.simple_spinner_dropdown_item,
+            pdvCategoryList
+        )
+
+        addProductPdvSpinner.adapter = pdvSpinnerAdapter
 
         if(productID != null) {
             Log.d("products", "productID nije null, ažuriranje proizvoda")
@@ -83,10 +98,14 @@ class AddProductActivity : AppCompatActivity() {
     }
 
     private fun onAddProduct(productID: String?) {
+        var pdvCategoryName =
+            if((addProductPdvSpinner.selectedItem as String) == "Nema kategorije") null
+            else (addProductPdvSpinner.selectedItem as String).split(Regex(" \\("))[0].trim()
         ProductsService.addProduct(
             productID ?: "",
             addProductNameField.text.toString(),
             addProductPoslovnicaSpinner.selectedItem as String,
+            pdvCategoryName,
              addProductQuantityField.text.toString().toInt(),
             (addProductStatusSpinner.selectedItem as String).lowercase(),
         ) {
@@ -122,6 +141,8 @@ class AddProductActivity : AppCompatActivity() {
     private fun initializeProductData(productID: String) {
         val product: Product = ProductsService.products.firstOrNull { product -> product.id == productID } ?: return
         Log.d("products", "Pronađen proizvod sa id = ${productID}")
+        Log.d("products", "Pronađen proizvod sa pdvKategorijom = ${product.pdvCategoryName}")
+
 
         addProductNameField.setText(product.name)
         addProductQuantityField.setText(product.quantity.toString())
@@ -137,6 +158,14 @@ class AddProductActivity : AppCompatActivity() {
         toolbar.title = "Ažuriraj proizvod"
         addProductSaveDugme.text = "SAČUVAJ"
         addProductSaveDugme.isEnabled = true
+
+        if(product.pdvCategoryName == null) {
+            addProductPdvSpinner.setSelection(0)
+        }
+        else addProductPdvSpinner.setSelection(
+            PdvCategoriesService.pdvCategories.indexOfFirst { category ->
+                category.name == product.pdvCategoryName!! }+1
+        )
 
         //POVEZATI I addProductPoslovnicaSpinner sa produt.poslovnicaName
         //Trenutno su dummy vrijednosti u spinneru
