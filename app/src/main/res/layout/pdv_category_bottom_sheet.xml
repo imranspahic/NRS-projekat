@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/TextInputLayoutAppearance"
+        android:id="@+id/addPdvCategoryNameInput"
+        android:layout_marginTop="32dp"
+        android:layout_marginHorizontal="16dp"
+        android:hint="Naziv PDV kategorije"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:hintTextColor="@color/main_green_dark"
+        app:boxStrokeColor="@color/main_green_dark"
+        app:layout_constraintBottom_toTopOf="@id/addPdvCategoryPercentInput"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/addPdvCategoryNameField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textCapSentences"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_weight="1"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="match_parent"
+        android:theme="@style/TextInputLayoutAppearance"
+        android:layout_height="wrap_content"
+        android:id="@+id/addPdvCategoryPercentInput"
+        android:layout_marginTop="8dp"
+        android:layout_marginHorizontal="16dp"
+        android:hint="Iznos PDV-a (%)"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:hintTextColor="@color/main_green_dark"
+        app:boxStrokeColor="@color/main_green_dark"
+        app:layout_constraintTop_toBottomOf="@id/addPdvCategoryNameInput"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/addPdvCategoryPercentField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/addPdvCategorySaveDugme"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Dodaj"
+        app:cornerRadius = "10dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginHorizontal="16dp"
+        android:paddingVertical="10dp"
+        android:enabled="true"
+        android:backgroundTint="@color/button_state_colors"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/addPdvCategoryPercentInput"
+        android:layout_alignParentBottom="true"
+
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/addPdvCategorySaveDugme"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
