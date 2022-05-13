@@ -67,8 +67,9 @@
         <entry key="app/src/main/res/drawable/plus.xml" value="0.2405" />
         <entry key="app/src/main/res/drawable/refresh.xml" value="0.2155" />
         <entry key="app/src/main/res/drawable/round.xml" value="0.16" />
+        <entry key="app/src/main/res/drawable/rounded_corner_dialog.xml" value="0.2345" />
         <entry key="app/src/main/res/drawable/store.xml" value="0.225" />
-        <entry key="app/src/main/res/layout/activity_add_product.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_add_product.xml" value="0.27810211181640626" />
         <entry key="app/src/main/res/layout/activity_add_user.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_change_password.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_logging.xml" value="0.21568627450980393" />
@@ -81,6 +82,7 @@
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.23953488372093024" />
         <entry key="app/src/main/res/layout/logs_list_item.xml" value="0.5950254096359503" />
         <entry key="app/src/main/res/layout/logs_spinner_filter_item.xml" value="0.33996683250414594" />
+        <entry key="app/src/main/res/layout/pdv_category_bottom_sheet.xml" value="0.23255813953488372" />
         <entry key="app/src/main/res/layout/pdv_category_item.xml" value="0.3271133422851561" />
         <entry key="app/src/main/res/layout/product_list_item.xml" value="0.37186126708984374" />
         <entry key="app/src/main/res/layout/promijeni_status_dostave_fragment.xml" value="0.1" />

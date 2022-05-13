@@ -7,6 +7,7 @@ import ba.etf.nrsprojekat.data.models.Product
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import java.util.*
 
 object PdvCategoriesService {
     private val db = Firebase.firestore;
@@ -42,6 +43,54 @@ object PdvCategoriesService {
             val category = pdvCategories.first { category -> category.id == id  }
             LoggingService.addLog(LogAction.DELETE, "Izbrisana PDV kategorija ${category.name}"){}
             pdvCategories.removeIf { category -> category.id == id }
+            callback(true)
+        }.addOnFailureListener {
+            callback(false)
+        }
+    }
+
+    fun addCategory(name: String, percent: String, callback: (result: Boolean) -> Unit) {
+        Log.d("pdvCategories", "Dodavanje nove kategorije")
+        val documentReference = db.collection("pdvCategories").document()
+        var currentDate = Date()
+        val newCategory = PdvCategory(
+            documentReference.id,
+            name,
+            percent.toDouble(),
+            currentDate,
+            currentDate
+        )
+        val newCategoryData = hashMapOf(
+            "id" to newCategory.id,
+            "name" to newCategory.name,
+            "pdvPercent" to newCategory.pdvPercent,
+            "createdAt" to newCategory.createdAt,
+            "updatedAt" to newCategory.updatedAt
+        )
+        documentReference.set(newCategoryData).addOnSuccessListener {
+            pdvCategories.add(newCategory)
+            LoggingService.addLog(LogAction.CREATE, "Dodana PDV kategorija ${newCategory.name}"){}
+            callback(true)
+        }.addOnFailureListener {
+            callback(false)
+        }
+    }
+
+    fun updateCategory(categoryID: String, name: String, percent: String, callback: (result: Boolean) -> Unit) {
+        val pdvCategory: PdvCategory = pdvCategories.firstOrNull { category -> category.id == categoryID } ?: return
+        var currentDate = Date()
+        Log.d("pdvCategories", "Ažuriranje postojeće kategorije")
+        val editedCategoryData = mapOf(
+            "name" to name,
+            "pdvPercent" to percent.toDouble(),
+            "updatedAt" to currentDate
+        )
+       db.collection("pdvCategories").document(pdvCategory.id).update(editedCategoryData).addOnSuccessListener {
+            val index =  pdvCategories.indexOfFirst { c -> c.id == pdvCategory.id  }
+           pdvCategories[index].name = name
+           pdvCategories[index].pdvPercent = percent.toDouble()
+           pdvCategories[index].updatedAt = currentDate
+            LoggingService.addLog(LogAction.UPDATE, "Ažurirana PDV kategorija ${name}"){}
             callback(true)
         }.addOnFailureListener {
             callback(false)

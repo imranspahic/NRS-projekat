@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import ba.etf.nrsprojekat.R
 import ba.etf.nrsprojekat.data.models.PdvCategory
@@ -20,12 +21,17 @@ import java.text.SimpleDateFormat
 class PdvCategoriesListAdapter(
     private var pdvCategories: List<PdvCategory>,
     private val context: Context,
+    private val supportFragmentManager: FragmentManager,
     private val brojKategorijaTextView: TextView,
 
 ) : RecyclerView.Adapter<PdvCategoriesListAdapter.PdvCategoryViewHolder>() {
 
     private val simpleDateFormat = SimpleDateFormat("dd.MM.yyyy")
+    private val noDecimalFormat: NumberFormat = DecimalFormat.getInstance()
 
+    init {
+        noDecimalFormat.maximumFractionDigits = 0
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PdvCategoryViewHolder {
         val view = LayoutInflater
@@ -45,9 +51,7 @@ class PdvCategoriesListAdapter(
 
         holder.pdvCategoryDateCreated.text = simpleDateFormat.format(pdvCategory.createdAt)
 
-        val nf: NumberFormat = DecimalFormat.getInstance()
-        nf.setMaximumFractionDigits(0)
-        holder.pdvCategoryPercent.text = nf.format(pdvCategory.pdvPercent) + "%"
+        holder.pdvCategoryPercent.text = noDecimalFormat.format(pdvCategory.pdvPercent) + "%"
 
         holder.pdvCategoryEditDugme.setOnClickListener {
             openEditPdvCategory(pdvCategory.id)
@@ -76,7 +80,8 @@ class PdvCategoriesListAdapter(
     }
 
     private fun openEditPdvCategory(pdvCategoryID: String) {
-
+        val pdvCategoryBottomSheet = PdvCategoryBottomSheetFragment(pdvCategoryID, brojKategorijaTextView, this)
+        pdvCategoryBottomSheet.show(supportFragmentManager, PdvCategoryBottomSheetFragment.TAG)
     }
 
     private fun showConfirmationDialog(pdvCategoryID: String) {

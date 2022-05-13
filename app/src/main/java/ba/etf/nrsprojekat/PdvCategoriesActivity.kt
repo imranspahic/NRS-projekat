@@ -1,16 +1,19 @@
 package ba.etf.nrsprojekat
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.WindowManager
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import ba.etf.nrsprojekat.R
 import ba.etf.nrsprojekat.services.PdvCategoriesService
 import ba.etf.nrsprojekat.services.ProductsService
 import ba.etf.nrsprojekat.view.PdvCategoriesListAdapter
+import ba.etf.nrsprojekat.view.PdvCategoryBottomSheetFragment
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
+
 
 class PdvCategoriesActivity : AppCompatActivity() {
 
@@ -38,6 +41,7 @@ class PdvCategoriesActivity : AppCompatActivity() {
         pdvCategoriesListAdapter = PdvCategoriesListAdapter(
             PdvCategoriesService.pdvCategories,
             this,
+            supportFragmentManager,
             brojKategorijaText
         )
         pdvCategoriesRecylclerView.adapter = pdvCategoriesListAdapter
@@ -57,10 +61,24 @@ class PdvCategoriesActivity : AppCompatActivity() {
             }
         }
 
+        addPdvCategoryDugme.setOnClickListener {
+            onAddPdvCategoryButton()
+        }
+
     }
 
     private fun onToolbarBackButton() {
         finish()
+    }
+
+    private fun onAddPdvCategoryButton() {
+        val pdvCategoryBottomSheet = PdvCategoryBottomSheetFragment(null, brojKategorijaText, pdvCategoriesListAdapter)
+        pdvCategoryBottomSheet.show(supportFragmentManager, PdvCategoryBottomSheetFragment.TAG)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        pdvCategoriesListAdapter.updatePdvCategories(PdvCategoriesService.pdvCategories)
     }
 
 }
