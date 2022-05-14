@@ -70,6 +70,7 @@
                     android:layout_weight="1"
                     android:text="TextView" />
             </LinearLayout>
+            
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -175,87 +176,127 @@
 
 
         </LinearLayout>
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/substractProductToOrderDugme"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            app:iconPadding="0dp"
-            android:insetLeft="0dp"
-            android:insetTop="0dp"
-            android:insetRight="0dp"
-            android:insetBottom="0dp"
-            app:iconGravity="textStart"
-            android:padding="0dp"
-            app:icon="@drawable/ic_minus"
-            app:iconTint="@color/black"
-            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Circle"
-            android:layout_marginRight="8dp"
-            />
 
-        <EditText
-            android:id="@+id/quantityEdit"
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:layout_weight="1"
-            android:enabled="false"
-            android:ems="10"
-            android:inputType="none" />
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="0"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:gravity="center"
+            >
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/addProductToOrderDugme"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            app:iconPadding="0dp"
-            android:insetLeft="0dp"
-            android:insetTop="0dp"
-            android:insetRight="0dp"
-            android:insetBottom="0dp"
-            app:iconGravity="textStart"
-            android:padding="0dp"
-            app:icon="@drawable/plus"
-            app:iconTint="@color/black"
-            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Circle"
-            android:layout_marginRight="8dp"
-            />
+            <TextView
+                android:id="@+id/productPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:gravity="top"
+                android:layout_gravity="end"
+                android:layout_weight="0"
+                android:layout_marginBottom="4dp"
+                android:layout_marginRight="16dp"
+                android:textStyle="normal"
+                android:textColor="@color/yellow"
+                android:text="23.99 KM" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight="1"
+                android:gravity="center"
+                >
 
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/editProductDugme"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            app:iconPadding="0dp"
-            android:insetLeft="0dp"
-            android:insetTop="0dp"
-            android:insetRight="0dp"
-            android:insetBottom="0dp"
-            app:iconGravity="textStart"
-            android:padding="0dp"
-            app:icon="@drawable/pencil"
-            app:iconTint="@color/main_green_dark"
-            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Circle"
-            android:layout_marginRight="8dp"
-            />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/substractProductToOrderDugme"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    app:iconPadding="0dp"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    app:iconGravity="textStart"
+                    android:padding="0dp"
+                    app:icon="@drawable/ic_minus"
+                    app:iconTint="@color/black"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Circle"
+                    android:layout_marginRight="8dp"
+                    />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/deleteProductDugme"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            app:icon="@drawable/delete"
-            app:iconTint="@color/red"
-            app:iconPadding="0dp"
-            android:insetLeft="0dp"
-            android:insetTop="0dp"
-            android:insetRight="0dp"
-            android:insetBottom="0dp"
-            app:iconGravity="textStart"
-            android:padding="0dp"
-            android:layout_marginRight="8dp"
-            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Circle"
-            />
+                <EditText
+                    android:id="@+id/quantityEdit"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:layout_weight="0"
+                    android:enabled="false"
+                    android:ems="10"
+                    android:inputType="none" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/addProductToOrderDugme"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    app:iconPadding="0dp"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    app:iconGravity="textStart"
+                    android:padding="0dp"
+                    app:icon="@drawable/plus"
+                    app:iconTint="@color/black"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Circle"
+                    android:layout_marginRight="8dp"
+                    />
+
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/editProductDugme"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    app:iconPadding="0dp"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    app:iconGravity="textStart"
+                    android:padding="0dp"
+                    app:icon="@drawable/pencil"
+                    app:iconTint="@color/main_green_dark"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Circle"
+                    android:layout_marginRight="8dp"
+                    />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/deleteProductDugme"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    app:icon="@drawable/delete"
+                    app:iconTint="@color/red"
+                    app:iconPadding="0dp"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    app:iconGravity="textStart"
+                    android:padding="0dp"
+                    android:layout_marginRight="8dp"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Circle"
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
     </LinearLayout>
 </androidx.cardview.widget.CardView>

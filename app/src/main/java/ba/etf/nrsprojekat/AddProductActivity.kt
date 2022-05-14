@@ -15,6 +15,8 @@ import ba.etf.nrsprojekat.services.ProductsService
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
+import java.math.RoundingMode
+import java.text.DecimalFormat
 
 
 class AddProductActivity : AppCompatActivity() {
@@ -22,6 +24,8 @@ class AddProductActivity : AppCompatActivity() {
 
     private lateinit var addProductNameField: TextInputEditText
     private lateinit var addProductQuantityField: TextInputEditText
+    private lateinit var addProductPriceField: TextInputEditText
+
     private lateinit var addProductPoslovnicaSpinner: Spinner
     private lateinit var addProductPdvSpinner: Spinner
     private lateinit var addProductStatusSpinner: Spinner
@@ -33,6 +37,7 @@ class AddProductActivity : AppCompatActivity() {
         toolbar = findViewById(R.id.addProductToolbar)
         addProductNameField = findViewById(R.id.addProductNameField)
         addProductQuantityField = findViewById(R.id.addProductQuantityField)
+        addProductPriceField = findViewById(R.id.addProductPriceField)
         addProductPoslovnicaSpinner = findViewById(R.id.addProductPoslovnicaSpinner)
         addProductPdvSpinner = findViewById(R.id.addProductPdvSpinner)
         addProductStatusSpinner = findViewById(R.id.addProductStatusSpinner)
@@ -91,6 +96,19 @@ class AddProductActivity : AppCompatActivity() {
                 checkButtonState()
             }
         })
+
+        addProductPriceField.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                setProductStatus()
+                checkButtonState()
+            }
+        })
     }
 
     private fun onToolbarBackButton() {
@@ -101,12 +119,16 @@ class AddProductActivity : AppCompatActivity() {
         var pdvCategoryName =
             if((addProductPdvSpinner.selectedItem as String) == "Nema kategorije") null
             else (addProductPdvSpinner.selectedItem as String).split(Regex(" \\("))[0].trim()
+        val df = DecimalFormat("#.##")
+        df.roundingMode = RoundingMode.HALF_EVEN
+        val roundedPrice = df.format(addProductPriceField.text.toString().replace(",", ".").toDouble())
         ProductsService.addProduct(
             productID ?: "",
             addProductNameField.text.toString(),
             addProductPoslovnicaSpinner.selectedItem as String,
             pdvCategoryName,
              addProductQuantityField.text.toString().toInt(),
+            roundedPrice.replace(",", ".").toDouble(),
             (addProductStatusSpinner.selectedItem as String).lowercase(),
         ) {
             result, mode ->
@@ -135,7 +157,12 @@ class AddProductActivity : AppCompatActivity() {
     private fun checkButtonState() {
         var productNameCondition = addProductNameField.text?.isNotEmpty() ?: false
         var productQuantityCondition =  addProductQuantityField.text?.isNotEmpty() ?: false
-        addProductSaveDugme.isEnabled = productNameCondition && productQuantityCondition
+        var productPriceCondition =  addProductPriceField.text?.isNotEmpty() ?: false
+
+        addProductSaveDugme.isEnabled =
+            productNameCondition
+                    && productQuantityCondition
+                    && productPriceCondition
     }
 
     private fun initializeProductData(productID: String) {
@@ -146,6 +173,7 @@ class AddProductActivity : AppCompatActivity() {
 
         addProductNameField.setText(product.name)
         addProductQuantityField.setText(product.quantity.toString())
+        addProductPriceField.setText(String.format("%.2f", product.price) )
         Log.d("products", product.status)
         when (product.status.lowercase()) {
             "dostupno" ->

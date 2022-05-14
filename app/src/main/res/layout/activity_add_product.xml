@@ -70,6 +70,29 @@
     </com.google.android.material.textfield.TextInputLayout>
 
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_weight="1"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/addProductPriceTextInput"
+        android:layout_marginTop="8dp"
+        android:layout_marginHorizontal="16dp"
+        android:hint="Cijena"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/addProductQuantityTextInput"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/addProductPriceField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
     <LinearLayout
         android:id="@+id/addProductPoslovnicaLinearLayout"
         android:layout_width="0dp"
@@ -79,7 +102,7 @@
         android:layout_marginHorizontal="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/addProductQuantityTextInput"
+        app:layout_constraintTop_toBottomOf="@id/addProductPriceTextInput"
         app:layout_constraintBottom_toTopOf="@id/addProductPdvLinearLayout"
         android:gravity="center"
        >

@@ -62,6 +62,8 @@ class ProductListAdapter(
         holder.productQuantity.text = product.quantity.toString()
         holder.productStatus.text = product.status
 
+        holder.productPrice.text = String.format("%.2f", product.price) + " KM"
+
         if(product.status.lowercase() != "dostupno") {
             holder.productDivider.setBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.red))
             holder.productStatus.setTextColor(ColorStateList.valueOf(ContextCompat.getColor(holder.itemView.context, R.color.red)))
@@ -184,6 +186,7 @@ class ProductListAdapter(
         var productPdvlinear: LinearLayout = itemView.findViewById(R.id.productPdvLinear)
         var productPdvName: TextView = itemView.findViewById(R.id.productPdvName)
         var productPdvPercent: TextView = itemView.findViewById(R.id.productPdvPercent)
+        var productPrice: TextView = itemView.findViewById(R.id.productPrice)
     }
 
     private fun openEditProduct(productID: String) {

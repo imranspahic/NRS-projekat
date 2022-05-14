@@ -27,6 +27,7 @@ object ProductsService {
                          data["poslovnicaName"].toString(),
                          data["pdvCategoryName"]?.toString(),
                          data["quantity"].toString().toInt(),
+                         data["price"]?.toString()?.toDouble() ?: 0.0,
                          data["status"].toString(),
                          (data["updatedAt"]  as com.google.firebase.Timestamp).toDate()
                      )
@@ -47,6 +48,7 @@ object ProductsService {
                    poslovnicaName: String,
                    pdvCategoryName: String?,
                    quantity: Int,
+                   price: Double,
                    status: String,
                    callback: (result: Boolean, mode: String) -> Unit) {
 
@@ -62,6 +64,7 @@ object ProductsService {
                 poslovnicaName,
                 pdvCategoryName,
                 quantity,
+                price,
                 status.lowercase(),
                 updatedDate
             )
@@ -71,6 +74,7 @@ object ProductsService {
                 "poslovnicaName" to newProduct.poslovnicaName,
                 "pdvCategoryName" to newProduct.pdvCategoryName,
                 "quantity" to newProduct.quantity,
+                "price" to newProduct.price,
                 "status" to newProduct.status,
                 "createdAt" to Date(),
                 "updatedAt" to updatedDate
@@ -94,6 +98,7 @@ object ProductsService {
                 "poslovnicaName" to poslovnicaName,
                 "pdvCategoryName" to pdvCategoryName,
                 "quantity" to quantity,
+                "price" to price,
                 "status" to status,
                 "updatedAt" to updatedDate
             )
@@ -103,6 +108,7 @@ object ProductsService {
                 products[index].poslovnicaName = poslovnicaName
                 products[index].pdvCategoryName = pdvCategoryName
                 products[index].quantity = quantity
+                products[index].price = price
                 products[index].status = status
                 products[index].updatedAt = updatedDate
                 LoggingService.addLog(LogAction.UPDATE, "Ažuriran proizvod ${name}"){}
@@ -135,6 +141,7 @@ object ProductsService {
                         document.data["poslovnicaName"].toString(),
                         document.data["pdvCategoryName"].toString(),
                         document.data["quantity"].toString().toInt(),
+                        document.data["price"]?.toString()?.toDouble() ?: 0.0,
                         document.data["status"].toString(),
                         (document.data["updatedAt"] as com.google.firebase.Timestamp).toDate()
                     ))
@@ -313,6 +320,7 @@ object ProductsService {
                         document.data["poslovnicaName"].toString(),
                         document.data["pdvCategoryName"].toString(),
                         document.data["quantity"].toString().toInt(),
+                    document.data["price"]?.toString()?.toDouble() ?: 0.0,
                         document.data["status"].toString(),
                        (document.data["updatedAt"] as com.google.firebase.Timestamp).toDate()
                    // (document.data["createdAt"] as com.google.firebase.Timestamp).toDate()
@@ -320,7 +328,6 @@ object ProductsService {
             )
         }
      callback(listafilter)
-
     }
 
 

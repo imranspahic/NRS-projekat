@@ -8,10 +8,11 @@ data class Product(
     var poslovnicaName: String,
     var pdvCategoryName: String?,
     var quantity: Int,
+    var price: Double,
     var status: String,
     var updatedAt: Date
 ) {
-    public var kolicinaNarudzbe: Int = 0
+    var kolicinaNarudzbe: Int = 0
     init {
         if(poslovnicaName.isEmpty()) {
             poslovnicaName = "Ime poslovnice"
