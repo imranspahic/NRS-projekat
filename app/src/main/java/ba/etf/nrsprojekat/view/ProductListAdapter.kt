@@ -181,7 +181,6 @@ class ProductListAdapter(
         var addProductToOrderDugme: MaterialButton = itemView.findViewById(R.id.addProductToOrderDugme)
         var substractProductToOrderDugme: MaterialButton = itemView.findViewById(R.id.substractProductToOrderDugme)
         var quantityEdit: EditText = itemView.findViewById(R.id.quantityEdit)
-
         var productPdvlinear: LinearLayout = itemView.findViewById(R.id.productPdvLinear)
         var productPdvName: TextView = itemView.findViewById(R.id.productPdvName)
         var productPdvPercent: TextView = itemView.findViewById(R.id.productPdvPercent)

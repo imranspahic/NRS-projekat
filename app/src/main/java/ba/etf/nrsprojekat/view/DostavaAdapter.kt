@@ -1,12 +1,14 @@
 package ba.etf.nrsprojekat.view
 
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
@@ -30,6 +32,15 @@ class DostavaAdapter(private var productList : List<Product>) : RecyclerView.Ada
         holder.poslovnica.text = proizvodi.poslovnicaName
         holder.kolicina.text= proizvodi.quantity.toString()
         holder.status.text = proizvodi.status
+        if(proizvodi.status.lowercase() != "dostupno") {
+            holder.divider.setBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.red))
+            holder.status.setTextColor(ColorStateList.valueOf(ContextCompat.getColor(holder.itemView.context, R.color.red)))
+
+        }
+        else {
+            holder.divider.setBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.main_green))
+            holder.status.setTextColor(ColorStateList.valueOf(ContextCompat.getColor(holder.itemView.context, R.color.main_green)))
+        }
         holder.itemView.setOnClickListener(object : View.OnClickListener{
             override fun onClick(v:View?){
                 val activity=v!!.context as AppCompatActivity
@@ -48,6 +59,7 @@ class DostavaAdapter(private var productList : List<Product>) : RecyclerView.Ada
         val poslovnica : TextView = itemView.findViewById(R.id.poslovnicaDostava)
         val kolicina : TextView = itemView.findViewById(R.id.kolicinaDostava)
         val status : TextView = itemView.findViewById(R.id.statusDostava)
+        var divider: View = itemView.findViewById(R.id.orderDivider)
 
     }
 }

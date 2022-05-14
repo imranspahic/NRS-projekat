@@ -1,9 +1,11 @@
 package ba.etf.nrsprojekat.view
 
+import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import ba.etf.nrsprojekat.R
 import ba.etf.nrsprojekat.data.models.sentProducts
@@ -21,7 +23,17 @@ class SentAdapter(private var sentList : List<sentProducts>) : RecyclerView.Adap
         holder.poslovnica.text = proizvodi.poslovnicaName
         holder.kolicina.text= proizvodi.quantity.toString()
         holder.status.text = proizvodi.status
+        if(proizvodi.status.lowercase() != "dostupno") {
+            holder.divider.setBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.red))
+            holder.status.setTextColor(ColorStateList.valueOf(ContextCompat.getColor(holder.itemView.context, R.color.red)))
+
+        }
+        else {
+            holder.divider.setBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.main_green))
+            holder.status.setTextColor(ColorStateList.valueOf(ContextCompat.getColor(holder.itemView.context, R.color.main_green)))
+        }
     }
+
 
     override fun getItemCount(): Int {
         return sentList.size
@@ -31,6 +43,7 @@ class SentAdapter(private var sentList : List<sentProducts>) : RecyclerView.Adap
         val poslovnica : TextView = itemView.findViewById(R.id.poslovnicaDostava)
         val kolicina : TextView = itemView.findViewById(R.id.kolicinaDostava)
         val status : TextView = itemView.findViewById(R.id.statusDostava)
+        var divider: View = itemView.findViewById(R.id.orderDivider)
 
     }
     fun updateProducts(products: List<sentProducts>) {

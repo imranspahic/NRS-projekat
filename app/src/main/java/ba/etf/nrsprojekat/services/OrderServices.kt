@@ -30,10 +30,10 @@ object OrderServices {
                                 document.data["nazivNarudzbe"].toString(),
                                 document.data["statusNarudzbe"].toString(),
                                 document.data["idKupca"].toString(),
-                                document.data["listaProizvoda"] as MutableMap<String, Any>
-
-                            )
+                                document.data["listaProizvoda"] as MutableMap<String, Any>,
+                                (document.data["datumNarudzbe"] as com.google.firebase.Timestamp).toDate()
                         )
+                            )
                     //  Log.d(TAG, "${document.id} => ${document.data}")
                 }
                 callback(lista)

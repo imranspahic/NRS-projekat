@@ -16,6 +16,8 @@ import ba.etf.nrsprojekat.data.models.Narudzba
 import ba.etf.nrsprojekat.data.models.Product
 import ba.etf.nrsprojekat.services.OrderServices
 import com.google.android.material.button.MaterialButton
+import java.text.DateFormat
+import java.time.format.DateTimeFormatter
 
 class OrderListAdapter(
     private var orders: List<Narudzba>,
@@ -33,10 +35,13 @@ class OrderListAdapter(
     override fun getItemCount(): Int = orders.size
 
     override fun onBindViewHolder(holder: OrderListAdapter.OrderViewHolder, position: Int) {
+        this.orders = orders.sortedWith(compareBy<Narudzba> { it.datumNarucivanja }.reversed())
 
             if(orders[position].isDeleted == false) {
                 holder.orderName.text = orders[position].nazivNarudzbe
                 holder.orderStatus.text = orders[position].status
+                holder.datumNarucivanja.text = DateFormat.getDateInstance()
+                    .format(orders[position].datumNarucivanja)
             }
 
         holder.deleteOrderButton.setOnClickListener {
@@ -56,6 +61,7 @@ class OrderListAdapter(
         val orderStatus: TextView = itemView.findViewById(R.id.orderStatus)
         val deleteOrderButton: MaterialButton = itemView.findViewById(R.id.deleteOrderDugme)
         val infoOrderButton: MaterialButton = itemView.findViewById(R.id.InfoOrderDugme)
+        val datumNarucivanja: TextView = itemView.findViewById(R.id.orderDateText)
 
 
     }
@@ -67,11 +73,11 @@ class OrderListAdapter(
         activityResultLauncher.launch(intent)
     }
 
- /*   fun updateProducts(products: List<Product>) {
-        this.products = products.sortedWith(compareBy<Product> { it.updatedAt }.reversed())
-        brojProizvodaTextView.text = products.size.toString()
+    fun updateOrders(products: List<Product>) {
+        this.orders = orders.sortedWith(compareBy<Narudzba> { it.datumNarucivanja }.reversed())
+      //  brojProizvodaTextView.text = products.size.toString()
         notifyDataSetChanged()
-    } */
+    }
 
 
     }

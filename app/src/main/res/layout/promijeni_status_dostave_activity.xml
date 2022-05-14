@@ -25,8 +25,8 @@
 
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="404dp"
+        android:layout_height="576dp"
         android:layout_marginVertical="6dp"
         android:layout_marginBottom="400dp"
         android:orientation="vertical"
@@ -35,160 +35,159 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="88dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="5dp"
-                android:text="Proizvod"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/proizvodDostava1"
-                android:layout_width="312dp"
-                android:layout_height="match_parent"
-                android:text="TextView"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="88dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="5dp"
-                android:text="Poslovnica"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <View
-                android:id="@+id/divider3"
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="?android:attr/listDivider" />
-
-            <TextView
-                android:id="@+id/poslovnicaDostava1"
-                android:layout_width="312dp"
-                android:layout_height="match_parent"
-                android:text="TextView"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="88dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="5dp"
-                android:text="Količina"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/kolicinaDostava1"
-                android:layout_width="312dp"
-                android:layout_height="match_parent"
-                android:text="TextView"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="88dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="5dp"
-                android:text="Status"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/statusDostava1"
-                android:layout_width="312dp"
-                android:layout_height="match_parent"
-                android:text="TextView"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:orientation="horizontal">
-
-        </LinearLayout>
-
-        <View
-            android:id="@+id/divider"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/nazivProizvodaTextInput"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="?android:attr/listDivider" />
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="10dp"
+            android:enabled="false"
+            android:hint="Naziv proizvoda"
+            android:textColorHint="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbarStatusDostave">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/proizvodDostava1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapSentences"
+                android:textColor="@color/black"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/nazivPoslovniceTextInput"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="10dp"
+            android:enabled="false"
+            android:hint="Naziv poslovnice"
+            android:textColorHint="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/nazivProizvodaTextInput">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/poslovnicaDostava1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapSentences"
+                android:textColor="@color/black" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/kolicinaTextInput"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="10dp"
+            android:enabled="false"
+            android:hint="Količina"
+            android:textColorHint="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/nazivPoslovniceTextInput">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/kolicinaDostava1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapSentences"
+                android:textColor="@color/black" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/statusTextInput"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="10dp"
+            android:enabled="false"
+            android:hint="Status"
+            android:textColorHint="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/kolicinaTextInput">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/statusDostava1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapSentences"
+                android:textColor="@color/black" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <LinearLayout
+            android:id="@+id/linearButton"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="10sp"
-            android:layout_marginTop="75dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="10sp"
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/btnPoslani"
-                android:layout_width="300dp"
+                android:id="@+id/btnPrimljeni"
+                android:layout_width="160dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="35dp"
-                android:layout_marginRight="60dp"
-                android:text="Dodaj u poslane proizvode" />
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="105dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="8dp"
+                android:backgroundTint="@color/button_state_colors"
+                android:enabled="true"
+                android:text="Primljeno"
+                android:textColor="@color/white"
+                app:cornerRadius="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <Button
+                android:id="@+id/btnPoslani"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="105dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="8dp"
+                android:backgroundTint="@color/button_state_colors"
+                android:enabled="true"
+                android:text="Poslano"
+                android:textColor="@color/white"
+                app:cornerRadius="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <Button
                 android:id="@+id/btnIsporuceni"
-                android:layout_width="300dp"
+                android:layout_width="160dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="35dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="60dp"
-                android:text="Dodaj u isporučene proizvode" />
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="105dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="8dp"
+                android:backgroundTint="@color/button_state_colors"
+                android:enabled="true"
+                android:text="Isporučeno"
+                android:textColor="@color/white"
+                app:cornerRadius="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
-            <Button
-                android:id="@+id/btnPrimljeni"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="35dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="60dp"
-                android:text="Dodaj u primljene proizvode" />
         </LinearLayout>
 
     </LinearLayout>
