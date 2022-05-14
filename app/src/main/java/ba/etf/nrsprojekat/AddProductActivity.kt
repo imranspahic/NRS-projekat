@@ -15,6 +15,8 @@ import ba.etf.nrsprojekat.services.ProductsService
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
+import java.math.RoundingMode
+import java.text.DecimalFormat
 
 
 class AddProductActivity : AppCompatActivity() {
@@ -117,13 +119,16 @@ class AddProductActivity : AppCompatActivity() {
         var pdvCategoryName =
             if((addProductPdvSpinner.selectedItem as String) == "Nema kategorije") null
             else (addProductPdvSpinner.selectedItem as String).split(Regex(" \\("))[0].trim()
+        val df = DecimalFormat("#.##")
+        df.roundingMode = RoundingMode.HALF_EVEN
+        val roundedPrice = df.format(addProductPriceField.text.toString().replace(",", ".").toDouble())
         ProductsService.addProduct(
             productID ?: "",
             addProductNameField.text.toString(),
             addProductPoslovnicaSpinner.selectedItem as String,
             pdvCategoryName,
              addProductQuantityField.text.toString().toInt(),
-            addProductPriceField.text.toString().toDouble(),
+            roundedPrice.replace(",", ".").toDouble(),
             (addProductStatusSpinner.selectedItem as String).lowercase(),
         ) {
             result, mode ->
@@ -168,7 +173,7 @@ class AddProductActivity : AppCompatActivity() {
 
         addProductNameField.setText(product.name)
         addProductQuantityField.setText(product.quantity.toString())
-        addProductPriceField.setText(product.price.toString())
+        addProductPriceField.setText(String.format("%.2f", product.price) )
         Log.d("products", product.status)
         when (product.status.lowercase()) {
             "dostupno" ->
