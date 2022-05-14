@@ -46,6 +46,7 @@ class PromijeniStatusDostaveActivity :AppCompatActivity()  {
             kolicina.text= proizvod.quantity.toString()
             status.text = proizvod.status
 
+
             toolbar2.setNavigationOnClickListener {
                 onToolbarBackButton()
             }
@@ -53,15 +54,21 @@ class PromijeniStatusDostaveActivity :AppCompatActivity()  {
             btnPrimljeni = findViewById(R.id.btnPrimljeni)
             btnPrimljeni.setOnClickListener{
                 ProductsService.addToReceived(nazivProizvoda.text.toString(),nazivPoslovnice.text.toString(),kolicina.text.toString().toInt(),status.text.toString(),{})
+                btnPoslani.setEnabled(false)
+                btnIsporuceni.setEnabled(false)
             }
 
             btnPoslani = findViewById(R.id.btnPoslani)
             btnPoslani.setOnClickListener{
                 ProductsService.addToSent(nazivProizvoda.text.toString(),nazivPoslovnice.text.toString(),kolicina.text.toString().toInt(),status.text.toString(),{})
+                btnPrimljeni.setEnabled(false)
+                btnIsporuceni.setEnabled(false)
             }
             btnIsporuceni = findViewById(R.id.btnIsporuceni)
             btnIsporuceni.setOnClickListener{
                 ProductsService.addToDelivered(nazivProizvoda.text.toString(),nazivPoslovnice.text.toString(),kolicina.text.toString().toInt(),status.text.toString(),{})
+                btnPoslani.setEnabled(false)
+                btnPrimljeni.setEnabled(false)
             }
         }
         private fun onToolbarBackButton() {
