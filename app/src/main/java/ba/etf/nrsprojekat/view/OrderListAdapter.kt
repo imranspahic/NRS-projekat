@@ -33,6 +33,7 @@ class OrderListAdapter(
     override fun getItemCount(): Int = orders.size
 
     override fun onBindViewHolder(holder: OrderListAdapter.OrderViewHolder, position: Int) {
+        this.orders = orders.sortedWith(compareBy<Narudzba> { it.datumNarucivanja }.reversed())
 
             if(orders[position].isDeleted == false) {
                 holder.orderName.text = orders[position].nazivNarudzbe
@@ -67,11 +68,11 @@ class OrderListAdapter(
         activityResultLauncher.launch(intent)
     }
 
- /*   fun updateProducts(products: List<Product>) {
-        this.products = products.sortedWith(compareBy<Product> { it.updatedAt }.reversed())
-        brojProizvodaTextView.text = products.size.toString()
+    fun updateOrders(products: List<Product>) {
+        this.orders = orders.sortedWith(compareBy<Narudzba> { it.datumNarucivanja }.reversed())
+      //  brojProizvodaTextView.text = products.size.toString()
         notifyDataSetChanged()
-    } */
+    }
 
 
     }
