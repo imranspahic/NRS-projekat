@@ -22,6 +22,8 @@ class AddProductActivity : AppCompatActivity() {
 
     private lateinit var addProductNameField: TextInputEditText
     private lateinit var addProductQuantityField: TextInputEditText
+    private lateinit var addProductPriceField: TextInputEditText
+
     private lateinit var addProductPoslovnicaSpinner: Spinner
     private lateinit var addProductPdvSpinner: Spinner
     private lateinit var addProductStatusSpinner: Spinner
@@ -33,6 +35,7 @@ class AddProductActivity : AppCompatActivity() {
         toolbar = findViewById(R.id.addProductToolbar)
         addProductNameField = findViewById(R.id.addProductNameField)
         addProductQuantityField = findViewById(R.id.addProductQuantityField)
+        addProductPriceField = findViewById(R.id.addProductPriceField)
         addProductPoslovnicaSpinner = findViewById(R.id.addProductPoslovnicaSpinner)
         addProductPdvSpinner = findViewById(R.id.addProductPdvSpinner)
         addProductStatusSpinner = findViewById(R.id.addProductStatusSpinner)
@@ -91,6 +94,19 @@ class AddProductActivity : AppCompatActivity() {
                 checkButtonState()
             }
         })
+
+        addProductPriceField.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                setProductStatus()
+                checkButtonState()
+            }
+        })
     }
 
     private fun onToolbarBackButton() {
@@ -107,6 +123,7 @@ class AddProductActivity : AppCompatActivity() {
             addProductPoslovnicaSpinner.selectedItem as String,
             pdvCategoryName,
              addProductQuantityField.text.toString().toInt(),
+            addProductPriceField.text.toString().toDouble(),
             (addProductStatusSpinner.selectedItem as String).lowercase(),
         ) {
             result, mode ->
@@ -135,7 +152,12 @@ class AddProductActivity : AppCompatActivity() {
     private fun checkButtonState() {
         var productNameCondition = addProductNameField.text?.isNotEmpty() ?: false
         var productQuantityCondition =  addProductQuantityField.text?.isNotEmpty() ?: false
-        addProductSaveDugme.isEnabled = productNameCondition && productQuantityCondition
+        var productPriceCondition =  addProductPriceField.text?.isNotEmpty() ?: false
+
+        addProductSaveDugme.isEnabled =
+            productNameCondition
+                    && productQuantityCondition
+                    && productPriceCondition
     }
 
     private fun initializeProductData(productID: String) {
@@ -146,6 +168,7 @@ class AddProductActivity : AppCompatActivity() {
 
         addProductNameField.setText(product.name)
         addProductQuantityField.setText(product.quantity.toString())
+        addProductPriceField.setText(product.price.toString())
         Log.d("products", product.status)
         when (product.status.lowercase()) {
             "dostupno" ->
