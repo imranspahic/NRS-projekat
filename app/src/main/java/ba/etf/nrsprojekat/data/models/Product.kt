@@ -10,7 +10,8 @@ data class Product(
     var quantity: Int,
     var price: Double,
     var status: String,
-    var updatedAt: Date
+    var mjernaJedinica: String?,
+    var updatedAt: Date,
 ) {
     var kolicinaNarudzbe: Int = 0
     init {

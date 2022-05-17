@@ -29,6 +29,7 @@ object ProductsService {
                          data["quantity"].toString().toInt(),
                          data["price"]?.toString()?.toDouble() ?: 0.0,
                          data["status"].toString(),
+                         data["mjernaJedinica"]?.toString(),
                          (data["updatedAt"]  as com.google.firebase.Timestamp).toDate()
                      )
                      products.add(newProduct)
@@ -50,6 +51,7 @@ object ProductsService {
                    quantity: Int,
                    price: Double,
                    status: String,
+                   mjernaJedinica: String?,
                    callback: (result: Boolean, mode: String) -> Unit) {
 
         val updatedDate = Date()
@@ -66,6 +68,7 @@ object ProductsService {
                 quantity,
                 price,
                 status.lowercase(),
+                mjernaJedinica,
                 updatedDate
             )
             val newProductData = hashMapOf(
@@ -76,6 +79,7 @@ object ProductsService {
                 "quantity" to newProduct.quantity,
                 "price" to newProduct.price,
                 "status" to newProduct.status,
+                "mjernaJedinica" to newProduct.mjernaJedinica,
                 "createdAt" to Date(),
                 "updatedAt" to updatedDate
             )
@@ -100,6 +104,7 @@ object ProductsService {
                 "quantity" to quantity,
                 "price" to price,
                 "status" to status,
+                "mjernaJedinica" to mjernaJedinica,
                 "updatedAt" to updatedDate
             )
             db.collection("products").document(product.id).update(editedProductData).addOnSuccessListener {
@@ -110,6 +115,7 @@ object ProductsService {
                 products[index].quantity = quantity
                 products[index].price = price
                 products[index].status = status
+                products[index].mjernaJedinica = mjernaJedinica
                 products[index].updatedAt = updatedDate
                 LoggingService.addLog(LogAction.UPDATE, "Ažuriran proizvod ${name}"){}
                 callback(true, "EDIT")
@@ -143,6 +149,7 @@ object ProductsService {
                         document.data["quantity"].toString().toInt(),
                         document.data["price"]?.toString()?.toDouble() ?: 0.0,
                         document.data["status"].toString(),
+                        document.data["mjernaJedinica"]?.toString(),
                         (document.data["updatedAt"] as com.google.firebase.Timestamp).toDate()
                     ))
                 }
@@ -322,6 +329,7 @@ object ProductsService {
                         document.data["quantity"].toString().toInt(),
                     document.data["price"]?.toString()?.toDouble() ?: 0.0,
                         document.data["status"].toString(),
+                    document.data["mjernaJedinica"]?.toString(),
                        (document.data["updatedAt"] as com.google.firebase.Timestamp).toDate()
                    // (document.data["createdAt"] as com.google.firebase.Timestamp).toDate()
                     )
