@@ -25,11 +25,12 @@ class AddProductActivity : AppCompatActivity() {
     private lateinit var addProductNameField: TextInputEditText
     private lateinit var addProductQuantityField: TextInputEditText
     private lateinit var addProductPriceField: TextInputEditText
-
+    private lateinit var addProductMjernaJedinicaSpinner: Spinner
     private lateinit var addProductPoslovnicaSpinner: Spinner
     private lateinit var addProductPdvSpinner: Spinner
     private lateinit var addProductStatusSpinner: Spinner
     private lateinit var addProductSaveDugme: MaterialButton
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +39,7 @@ class AddProductActivity : AppCompatActivity() {
         addProductNameField = findViewById(R.id.addProductNameField)
         addProductQuantityField = findViewById(R.id.addProductQuantityField)
         addProductPriceField = findViewById(R.id.addProductPriceField)
+        addProductMjernaJedinicaSpinner = findViewById(R.id.addProductMjernaJedinicaSpinner)
         addProductPoslovnicaSpinner = findViewById(R.id.addProductPoslovnicaSpinner)
         addProductPdvSpinner = findViewById(R.id.addProductPdvSpinner)
         addProductStatusSpinner = findViewById(R.id.addProductStatusSpinner)
@@ -130,6 +132,7 @@ class AddProductActivity : AppCompatActivity() {
              addProductQuantityField.text.toString().toInt(),
             roundedPrice.replace(",", ".").toDouble(),
             (addProductStatusSpinner.selectedItem as String).lowercase(),
+            (addProductMjernaJedinicaSpinner.selectedItem as String),
         ) {
             result, mode ->
             if(result) {
@@ -194,6 +197,16 @@ class AddProductActivity : AppCompatActivity() {
             PdvCategoriesService.pdvCategories.indexOfFirst { category ->
                 category.name == product.pdvCategoryName!! }+1
         )
+
+        when (product.mjernaJedinica) {
+            "kg" -> addProductMjernaJedinicaSpinner.setSelection(0)
+            "g" -> addProductMjernaJedinicaSpinner.setSelection(1)
+            "l" -> addProductMjernaJedinicaSpinner.setSelection(2)
+            "ml" -> addProductMjernaJedinicaSpinner.setSelection(3)
+            else -> {
+                addProductMjernaJedinicaSpinner.setSelection(4)
+            }
+        }
 
         //POVEZATI I addProductPoslovnicaSpinner sa produt.poslovnicaName
         //Trenutno su dummy vrijednosti u spinneru
