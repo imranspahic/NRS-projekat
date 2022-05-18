@@ -338,5 +338,19 @@ object ProductsService {
      callback(listafilter)
     }
 
+    fun updateProductQuantity(id: String, newQuantity: Int) {
+        val editProductQuantity = mapOf(
+            "quantity" to newQuantity
+        )
+        db.collection("products").document(id).update(editProductQuantity).addOnSuccessListener {}
+    }
+
+    fun updateProductStatus(id: String, newStatus: String) {
+        val editProductStatus = mapOf(
+            "status" to newStatus
+        )
+        db.collection("products").document(id).update(editProductStatus).addOnSuccessListener {}
+    }
+
 
 }
