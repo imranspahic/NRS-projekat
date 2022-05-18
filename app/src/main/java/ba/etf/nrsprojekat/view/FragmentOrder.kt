@@ -20,7 +20,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ba.etf.nrsprojekat.R
 import ba.etf.nrsprojekat.data.models.Narudzba
+import ba.etf.nrsprojekat.services.LoginService
 import ba.etf.nrsprojekat.services.OrderServices
+import ba.etf.nrsprojekat.services.UserService
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.button.MaterialButton
@@ -58,11 +60,12 @@ class FragmentOrder() : Fragment() {
             //bottomNavigation.selectedItemId = R.id.proizvodi
      //   }
         narudzbeRecyclerView.layoutManager = LinearLayoutManager(view.context)
-        OrderServices.getOrders { it->
+        OrderServices.getOrders(LoginService.logovaniKorisnik!!.getID().toString()) { it->
             ordersList = it
             brojNarudzbi.text = ordersList.size.toString()
             var adapterZaRecycler = OrderListAdapter(ordersList, requireContext(), requireActivity(), productActivityLauncher)
             narudzbeRecyclerView.adapter = adapterZaRecycler
+            //println(OrderServices!!.imeTrenutneNarudzbe?.toString())
 
         }
 

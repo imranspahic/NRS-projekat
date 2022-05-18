@@ -32,7 +32,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-
             android:id="@+id/emailTextInputLayout"
             android:hint="Unesi email"
             app:layout_constraintBottom_toTopOf="@id/passwordTextInputLayout"

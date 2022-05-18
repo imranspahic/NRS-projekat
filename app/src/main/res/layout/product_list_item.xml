@@ -230,12 +230,14 @@
 
                 <EditText
                     android:id="@+id/quantityEdit"
-                    android:layout_width="0dp"
+                    android:layout_width="15dp"
                     android:layout_height="wrap_content"
                     android:textSize="14sp"
                     android:layout_weight="0"
                     android:enabled="false"
                     android:ems="10"
+                    android:text="0"
+                    android:layout_marginRight="8dp"
                     android:inputType="none" />
 
                 <com.google.android.material.button.MaterialButton

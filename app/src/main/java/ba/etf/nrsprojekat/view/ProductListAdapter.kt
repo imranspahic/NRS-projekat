@@ -40,7 +40,7 @@ class ProductListAdapter(
     private val mListener: IHide
 
 ) : RecyclerView.Adapter<ProductListAdapter.ProductViewHolder>() {
-    val mapaProizvodaZaNarudzbu = mutableMapOf<String, Any>()
+    var mapaProizvodaZaNarudzbu = mutableMapOf<String, Any>()
     private val noDecimalFormat: NumberFormat = DecimalFormat.getInstance()
 
     init {
@@ -61,13 +61,17 @@ class ProductListAdapter(
         holder.productPoslovnica.text = product.poslovnicaName
         holder.productQuantity.text = product.quantity.toString()
         holder.productStatus.text = product.status
-
         holder.productPrice.text = String.format("%.2f", product.price) + " KM"
+
+        if(product.quantity == 0) {
+            product.status = "nema na stanju"
+            holder.productStatus.text = product.status
+            ProductsService.updateProductStatus(product.id, "nema na stanju")
+        }
 
         if(product.status.lowercase() != "dostupno") {
             holder.productDivider.setBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.red))
             holder.productStatus.setTextColor(ColorStateList.valueOf(ContextCompat.getColor(holder.itemView.context, R.color.red)))
-
         }
         else {
             holder.productDivider.setBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.main_green))
@@ -101,9 +105,7 @@ class ProductListAdapter(
             holder.substractProductToOrderDugme.visibility = View.GONE
             holder.quantityEdit.visibility = View.GONE
 
-         //   addNarudzbaDugme.
-         //       holder.addProductToOrderDugme.visibility = View.VISIBLE
-         //   }
+
         }
         if(OrderServices.imeTrenutneNarudzbe != null && product.status == "dostupno") {
             holder.addProductToOrderDugme.visibility = View.VISIBLE
@@ -133,34 +135,9 @@ class ProductListAdapter(
             }
         }
 
-     /*   holder.quantityEdit.addTextChangedListener(object : TextWatcher {
 
-            override fun afterTextChanged(s: Editable) {}
-
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                var trenutnaVrijednost = holder.quantityEdit.text.toString().toInt()
-                if(trenutnaVrijednost < 0 || trenutnaVrijednost > product.quantity) {
-                    holder.quantityEdit.setTextColor(Color.RED)
-                }
-                else {
-                    holder.quantityEdit.setTextColor(Color.BLACK)
-                }
-
-            }
-        }) */
         saveOrderDugme.setOnClickListener {
-            for(item in products)
-                if(item.kolicinaNarudzbe != 0)
-                mapaProizvodaZaNarudzbu.put(item.id, item.kolicinaNarudzbe)
-                OrderServices.addOrder(OrderServices.imeTrenutneNarudzbe.toString(), "pending", mapaProizvodaZaNarudzbu)
-                OrderServices.imeTrenutneNarudzbe = null
-                mListener.HideBtn()
-                notifyDataSetChanged()
-
-
+            showConfirmationDialogForOrderFinish()
 
         }
     }
@@ -226,19 +203,28 @@ class ProductListAdapter(
         }
     }
 
-    private fun showConfirmationDialogForOrderFinish(productID: String) {
-        val product: Product = ProductsService.products.firstOrNull { product -> product.id == productID } ?: return
+    private fun showConfirmationDialogForOrderFinish() {
         MaterialAlertDialogBuilder(context)
             .setIconAttribute(android.R.attr.alertDialogIcon)
-            .setTitle("Izbriši proizvod?")
-            .setMessage("Da li želite izbrisati proizvod ${product.name}?")
+            .setTitle("Pošalji narudžbu?")
+            .setMessage("Da li želite poslati narudžbu?")
 
             .setNegativeButton("Odustani") { dialog, which ->
                 dialog.dismiss()
             }
-            .setPositiveButton("Izbriši") { dialog, which ->
-                onDeleteProduct(productID, dialog)
-
+            .setPositiveButton("Pošalji") { dialog, which ->
+                for(item in products)
+                    if(item.kolicinaNarudzbe != 0) {
+                        mapaProizvodaZaNarudzbu.put(item.id, item.kolicinaNarudzbe)
+                        ProductsService.updateProductQuantity(item.id, item.quantity - item.kolicinaNarudzbe)
+                        item.quantity = item.quantity - item.kolicinaNarudzbe
+                        item.kolicinaNarudzbe = 0
+                    }
+                OrderServices.addOrder(OrderServices.imeTrenutneNarudzbe.toString(), "pending", LoginService.logovaniKorisnik!!.getID().toString(), mapaProizvodaZaNarudzbu)
+                OrderServices.imeTrenutneNarudzbe = null
+                mListener.HideBtn()
+                mapaProizvodaZaNarudzbu = mutableMapOf<String, Any>()
+                notifyDataSetChanged()
             }
             .show()
     }

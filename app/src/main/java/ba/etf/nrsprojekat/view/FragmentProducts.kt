@@ -19,11 +19,9 @@ import androidx.recyclerview.widget.RecyclerView
 import ba.etf.nrsprojekat.AddProductActivity
 import ba.etf.nrsprojekat.PdvCategoriesActivity
 import ba.etf.nrsprojekat.R
-import ba.etf.nrsprojekat.services.LoginService
-import ba.etf.nrsprojekat.services.OrderServices
-import ba.etf.nrsprojekat.services.PdvCategoriesService
-import ba.etf.nrsprojekat.services.ProductsService
+import ba.etf.nrsprojekat.services.*
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 
 
@@ -129,15 +127,17 @@ class FragmentProducts : Fragment(), ProductListAdapter.IHide {
         super.onViewCreated(view, savedInstanceState)
         addOrderDugme.setOnClickListener {
             var imeNarudzbe = showdialog()
+        }
             discardOrderDugme.setOnClickListener {
-                addOrderDugme.visibility = View.VISIBLE
+                showDeleteConfirmation()
+           /*     addOrderDugme.visibility = View.VISIBLE
                 saveOrderDugme.visibility = View.GONE
-                brojProizvodaLabel.text = "Broj proizvoda:"
+               brojProizvodaLabel.text = "Broj proizvoda:"
                 brojProizvodaText.text = ProductsService.products.size.toString()
                 discardOrderDugme.visibility = View.GONE
                 OrderServices.imeTrenutneNarudzbe = null
-              //  productListAdapter.notifyDataSetChanged()
-                onResume()
+           //   //  productListAdapter.notifyDataSetChanged()
+                onResume() */
             }
         /*    if(OrderServices.imeTrenutneNarudzbe == null) {
                 discardOrderDugme.visibility = View.GONE
@@ -154,7 +154,8 @@ class FragmentProducts : Fragment(), ProductListAdapter.IHide {
 
 
         }
-    }
+
+
 
     private fun otvoriPdvKategorije() {
         val intent = Intent(activity, PdvCategoriesActivity::class.java)
@@ -180,24 +181,53 @@ class FragmentProducts : Fragment(), ProductListAdapter.IHide {
         input.inputType = InputType.TYPE_CLASS_TEXT
         builder.setView(input)
         builder.setPositiveButton("Sačuvaj", DialogInterface.OnClickListener { dialog, which ->
-            // Here you get get input text from the Edittext
             m_Text = input.text.toString()
             addOrderDugme.visibility = View.GONE
             discardOrderDugme.visibility = View.VISIBLE
             saveOrderDugme.visibility = View.VISIBLE
             brojProizvodaLabel.text="Ime narudžbe: "
-            brojProizvodaText.text=m_Text
+            brojProizvodaText.text = m_Text
             OrderServices.imeTrenutneNarudzbe = m_Text
-           // productListAdapter.notifyDataSetChanged()
-            onResume()
+            productListAdapter.notifyDataSetChanged()
+            dialog.dismiss()
         })
         builder.setNegativeButton("Odustani", DialogInterface.OnClickListener {
                 dialog, which -> dialog.cancel()
-            m_Text = "00000000"
         })
         builder.show()
         return m_Text
     }
+
+    //////////////
+
+
+        private fun showDeleteConfirmation() {
+            MaterialAlertDialogBuilder(requireContext())
+                .setIconAttribute(android.R.attr.alertDialogIcon)
+                .setTitle("Poništi narudžbu?")
+                .setMessage("Da li želite poništiti trenutnu narudžbu?")
+
+                .setNegativeButton("Odustani") { dialog, which ->
+                    dialog.dismiss()
+                }
+                .setPositiveButton("Poništi") { dialog, which ->
+                            addOrderDugme.visibility = View.VISIBLE
+                            saveOrderDugme.visibility = View.GONE
+                            brojProizvodaLabel.text = "Broj proizvoda:"
+                            brojProizvodaText.text = ProductsService.products.size.toString()
+                            discardOrderDugme.visibility = View.GONE
+                            OrderServices.imeTrenutneNarudzbe = null
+                            productListAdapter.notifyDataSetChanged()
+                            dialog.dismiss()
+                          //  onResume()
+                        //    Snackbar.make(brojKorisnikaTextView, "Korisnik uspješno obrisan!", Snackbar.LENGTH_LONG)
+                         //       .setAction("OK") { }
+                         //       .show()
+                    }
+                .show()
+                }
+
+  /////////////////////////
 
 
 

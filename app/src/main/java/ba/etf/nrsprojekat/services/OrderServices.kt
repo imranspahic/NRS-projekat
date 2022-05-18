@@ -14,13 +14,13 @@ object OrderServices {
     private val db = Firebase.firestore
     var imeTrenutneNarudzbe: String? = null
    // var neispravnaKolicina: Boolean? = null
-    fun getOrders(callback: (result: MutableList<Narudzba>) -> Unit) {
+    fun getOrders(id: String, callback: (result: MutableList<Narudzba>) -> Unit) {
         var lista: MutableList<Narudzba> = mutableListOf()
         db.collection("orders")
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
-                    if(document.data["isDeleted"].toString().toBoolean() == false)
+                    if(document.data["isDeleted"].toString().toBoolean() == false && document.data["idKupca"] == id)
                    // val mapa: MutableList<MutableMap<String, Any>> = document.data["listaProizvoda"] as MutableList<MutableMap<String, Any>>
                    // for(item in mapa) println("ITEM U MAPI ----------------->" + item)
                   //  var niz: ArrayMap<String, Int> = (ArrayMap<String, Int>()) (document.data("listaProizvoda"))
@@ -43,7 +43,7 @@ object OrderServices {
             }
     }
 
-    fun addOrder(nazivNarudzbe: String, status: String, /*idKupca: String,*/ mapa: MutableMap<String, Any>) {
+    fun addOrder(nazivNarudzbe: String, status: String, idKupca: String, mapa: MutableMap<String, Any>) {
         val documentReference = OrderServices.db.collection("orders").document()
         /*
         val user = hashMapOf(
@@ -62,6 +62,7 @@ object OrderServices {
             "nazivNarudzbe" to nazivNarudzbe,
             "statusNarudzbe" to status,
             "isDeleted" to false,
+            "idKupca" to idKupca,
             "listaProizvoda" to mapa
         )
         documentReference.set(order)
