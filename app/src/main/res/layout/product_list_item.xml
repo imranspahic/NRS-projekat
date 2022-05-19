@@ -225,19 +225,20 @@
                     app:icon="@drawable/ic_minus"
                     app:iconTint="@color/black"
                     app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Circle"
-                    android:layout_marginRight="8dp"
+                    android:layout_marginRight="4dp"
                     />
 
                 <EditText
                     android:id="@+id/quantityEdit"
-                    android:layout_width="15dp"
+                    android:layout_width="25dp"
                     android:layout_height="wrap_content"
                     android:textSize="14sp"
                     android:layout_weight="0"
                     android:enabled="false"
                     android:ems="10"
                     android:text="0"
-                    android:layout_marginRight="8dp"
+                    android:layout_marginRight="4dp"
+                    android:gravity="center"
                     android:inputType="none" />
 
                 <com.google.android.material.button.MaterialButton

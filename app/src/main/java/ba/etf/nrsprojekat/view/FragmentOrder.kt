@@ -52,6 +52,7 @@ class FragmentOrder() : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         narudzbeRecyclerView = view.findViewById(R.id.narudzbeRecyclerView)
         brojNarudzbi = view.findViewById(R.id.brojNarudzbi)
+
        // btnDodajOrder = view.findViewById<MaterialButton>(R.id.addNarudzbuDugme)
       //  bottomNavigation = view.findViewById(R.id.bottom_nav)
       //  btnDodajOrder.setOnClickListener {
@@ -68,10 +69,6 @@ class FragmentOrder() : Fragment() {
             //println(OrderServices!!.imeTrenutneNarudzbe?.toString())
 
         }
-
-
-
-
     }
 
 

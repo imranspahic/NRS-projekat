@@ -44,7 +44,7 @@ object OrderServices {
     }
 
     fun addOrder(nazivNarudzbe: String, status: String, idKupca: String, mapa: MutableMap<String, Any>) {
-        val documentReference = OrderServices.db.collection("orders").document()
+        val documentReference = db.collection("orders").document()
         /*
         val user = hashMapOf(
             "id" to documentReference.id,
