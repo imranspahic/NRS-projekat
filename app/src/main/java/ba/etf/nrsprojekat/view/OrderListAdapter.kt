@@ -2,6 +2,7 @@ package ba.etf.nrsprojekat.view
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,6 +44,8 @@ class OrderListAdapter(
                 holder.datumNarucivanja.text = DateFormat.getDateInstance()
                     .format(orders[position].datumNarucivanja)
             }
+
+        Log.d("orders", orders[position].proizvodi.toString())
 
         holder.deleteOrderButton.setOnClickListener {
         OrderServices.updateOrder(orders[position].id)

@@ -5,6 +5,7 @@ import android.util.ArrayMap
 import android.util.Log
 import ba.etf.nrsprojekat.data.models.Korisnik
 import ba.etf.nrsprojekat.data.models.Narudzba
+import ba.etf.nrsprojekat.data.models.Product
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -30,7 +31,7 @@ object OrderServices {
                                 document.data["nazivNarudzbe"].toString(),
                                 document.data["statusNarudzbe"].toString(),
                                 document.data["idKupca"].toString(),
-                                document.data["listaProizvoda"] as MutableMap<String, Any>,
+                                document.data["listaProizvoda"] as List<MutableMap<String, Any>>,
                                 (document.data["datumNarudzbe"] as com.google.firebase.Timestamp).toDate()
                         )
                             )
@@ -45,17 +46,19 @@ object OrderServices {
 
     fun addOrder(nazivNarudzbe: String, status: String, idKupca: String, mapa: MutableMap<String, Any>) {
         val documentReference = db.collection("orders").document()
-        /*
-        val user = hashMapOf(
-            "id" to documentReference.id,
-            "email" to email,
-            "password" to password,
-            "isAdmin" to isAdmin,
-            "createdAt" to  Date(),
-            "updatedAt" to Date(),
-            "isLogged" to true
-        )
-         */
+
+        val itemMapList = mapa.map { m ->
+            val proizvod: Product = ProductsService.products.first { p -> p.id == m.key }
+            hashMapOf(
+                "productID" to m.key,
+                "quantity" to m.value,
+                "productName" to proizvod.name,
+                "productPrice" to proizvod.price,
+                "productPdvCategory" to proizvod.pdvCategoryName,
+                "productUnit" to proizvod.mjernaJedinica,
+                "productPoslovnica" to proizvod.poslovnicaName
+            )
+        }
         val order = hashMapOf(
             "id" to documentReference.id,
             "datumNarudzbe" to Date(),
@@ -63,7 +66,7 @@ object OrderServices {
             "statusNarudzbe" to status,
             "isDeleted" to false,
             "idKupca" to idKupca,
-            "listaProizvoda" to mapa
+            "listaProizvoda" to itemMapList
         )
         documentReference.set(order)
     }
@@ -76,14 +79,4 @@ object OrderServices {
         }
 
     }
-
-/*
-    var id: String,
-    var nazivNarudzbe: String,
-    var status: String,
-    var idKupca: String,
-    var nizMapa: ArrayMap<String, Int>
- */
-
-
 }
