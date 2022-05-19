@@ -25,12 +25,9 @@ class ViewPagerAdapter (fragmentManager: FragmentManager,lifecycle: Lifecycle) :
                 FragmentPrimljeni()
             }
             2->{
-                Fragment()
                    FragmentPoslani()
-
             }
             3->{
-                Fragment()
                   FragmentIsporuceni()
             }
             else->{
