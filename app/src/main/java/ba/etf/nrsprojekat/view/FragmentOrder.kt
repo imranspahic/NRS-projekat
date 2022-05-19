@@ -52,14 +52,6 @@ class FragmentOrder() : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         narudzbeRecyclerView = view.findViewById(R.id.narudzbeRecyclerView)
         brojNarudzbi = view.findViewById(R.id.brojNarudzbi)
-
-       // btnDodajOrder = view.findViewById<MaterialButton>(R.id.addNarudzbuDugme)
-      //  bottomNavigation = view.findViewById(R.id.bottom_nav)
-      //  btnDodajOrder.setOnClickListener {
-     //   var dialog = FragmentAddOrderDialog()
-     //   dialog.show(requireActivity().supportFragmentManager, "customDialog")
-            //bottomNavigation.selectedItemId = R.id.proizvodi
-     //   }
         narudzbeRecyclerView.layoutManager = LinearLayoutManager(view.context)
         OrderServices.getOrders(LoginService.logovaniKorisnik!!.getID().toString()) { it->
             ordersList = it

@@ -27,6 +27,7 @@ import ba.etf.nrsprojekat.services.ProductsService
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
+import com.google.firestore.v1.StructuredQuery
 import java.text.DecimalFormat
 import java.text.NumberFormat
 
@@ -111,7 +112,9 @@ class ProductListAdapter(
             holder.addProductToOrderDugme.visibility = View.VISIBLE
             holder.substractProductToOrderDugme.visibility = View.VISIBLE
             holder.quantityEdit.visibility = View.VISIBLE
-            holder.quantityEdit.setText("0")
+            brojProizvodaTextView.text = OrderServices.imeTrenutneNarudzbe
+            product.kolicinaNarudzbe = OrderServices.mapaZaNarudzbu.get(product.id).toString().toInt()
+            holder.quantityEdit.setText(OrderServices.mapaZaNarudzbu.get(product.id).toString())
         }
         else {
             holder.addProductToOrderDugme.visibility = View.GONE
@@ -124,6 +127,7 @@ class ProductListAdapter(
             else {
                 holder.quantityEdit.setText((++trenutnaVrijednost).toString())
                 product.kolicinaNarudzbe = trenutnaVrijednost
+                OrderServices.mapaZaNarudzbu.put(product.id, product.kolicinaNarudzbe)
             }
         }
         holder.substractProductToOrderDugme.setOnClickListener {
@@ -132,6 +136,7 @@ class ProductListAdapter(
             else {
                 holder.quantityEdit.setText((--trenutnaVrijednost).toString())
                 product.kolicinaNarudzbe = trenutnaVrijednost
+                OrderServices.mapaZaNarudzbu.put(product.id, product.kolicinaNarudzbe)
             }
         }
 
@@ -224,6 +229,9 @@ class ProductListAdapter(
                 OrderServices.imeTrenutneNarudzbe = null
                 mListener.HideBtn()
                 mapaProizvodaZaNarudzbu = mutableMapOf<String, Any>()
+                OrderServices.mapaZaNarudzbu = mutableMapOf<String, Any>()
+                OrderServices.lokacija = null
+                OrderServices.mjesto = null
                 notifyDataSetChanged()
             }
             .show()
@@ -232,5 +240,10 @@ class ProductListAdapter(
     interface IHide {
         fun HideBtn()
     }
+
+    /*
+    val pdvCategoryBottomSheet = PdvCategoryBottomSheetFragment(null, brojKategorijaText, pdvCategoriesListAdapter)
+        pdvCategoryBottomSheet.show(supportFragmentManager, PdvCategoryBottomSheetFragment.TAG)
+     */
 
 }
