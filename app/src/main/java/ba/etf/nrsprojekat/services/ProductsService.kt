@@ -352,5 +352,4 @@ object ProductsService {
         db.collection("products").document(id).update(editProductStatus).addOnSuccessListener {}
     }
 
-
 }
