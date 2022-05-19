@@ -81,7 +81,7 @@ class PdvCategoryBottomSheetFragment(
         var pdvCategoryPercentCondition =  categoryPercentField.text?.isNotEmpty() ?: false &&
                 !categoryPercentField.text.toString().startsWith("0") &&
                 categoryPercentField.text.toString().toDouble() <100
-        saveDugme.isEnabled = pdvCategoryNameCondition && pdvCategoryPercentCondition
+                saveDugme.isEnabled = pdvCategoryNameCondition && pdvCategoryPercentCondition
     }
 
     private fun initializePdvCategoryData(pdvCategoryID: String) {

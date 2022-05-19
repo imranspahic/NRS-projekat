@@ -14,6 +14,10 @@ import java.util.*
 object OrderServices {
     private val db = Firebase.firestore
     var imeTrenutneNarudzbe: String? = null
+    var mapaZaNarudzbu = mutableMapOf<String, Any>()
+    var lokacija: String? = null
+    var mjesto: String? = null
+
    // var neispravnaKolicina: Boolean? = null
     fun getOrders(id: String, callback: (result: MutableList<Narudzba>) -> Unit) {
         var lista: MutableList<Narudzba> = mutableListOf()
@@ -32,7 +36,9 @@ object OrderServices {
                                 document.data["statusNarudzbe"].toString(),
                                 document.data["idKupca"].toString(),
                                 document.data["listaProizvoda"] as List<MutableMap<String, Any>>,
-                                (document.data["datumNarudzbe"] as com.google.firebase.Timestamp).toDate()
+                                (document.data["datumNarudzbe"] as com.google.firebase.Timestamp).toDate(),
+                                document.data["lokacija"].toString(),
+                                document.data["mjesto"].toString()
                         )
                             )
                     //  Log.d(TAG, "${document.id} => ${document.data}")
@@ -66,7 +72,9 @@ object OrderServices {
             "statusNarudzbe" to status,
             "isDeleted" to false,
             "idKupca" to idKupca,
-            "listaProizvoda" to itemMapList
+            "listaProizvoda" to itemMapList,
+            "lokacija" to lokacija,
+            "mjesto" to mjesto
         )
         documentReference.set(order)
     }
@@ -78,5 +86,18 @@ object OrderServices {
 
         }
 
+    }
+
+    fun setMapa() {
+        for(item in ProductsService.products)
+            if(item.quantity != 0)
+                mapaZaNarudzbu.put(item.id, 0)
+
+       // println(mapaZaNarudzbu)
+    }
+
+    fun resetKolicinaProducts() {
+        for(item in ProductsService.products)
+            if(item.kolicinaNarudzbe != 0) item.kolicinaNarudzbe = 0
     }
 }

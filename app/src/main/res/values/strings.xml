@@ -15,4 +15,20 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+    <string-array name="mjesta">
+        <item>Mjesto 1</item>
+        <item>Mjesto 2</item>
+        <item>Mjesto 3</item>
+        <item>Mjesto 4</item>
+    </string-array>
+
+    <string-array name="lokacije">
+        <item>Sarajevo</item>
+        <item>Travnik</item>
+        <item>Mostar</item>
+        <item>Cazin</item>
+        <item>Donji Vakuf</item>
+        <item>Banja Luka</item>
+    </string-array>
 </resources>
