@@ -1,15 +1,13 @@
 package ba.etf.nrsprojekat.services
 
 import android.content.ContentValues
-import android.util.ArrayMap
 import android.util.Log
-import ba.etf.nrsprojekat.data.models.Korisnik
 import ba.etf.nrsprojekat.data.models.Narudzba
 import ba.etf.nrsprojekat.data.models.Product
-import com.google.firebase.Timestamp
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.util.*
+
 
 object OrderServices {
     private val db = Firebase.firestore
@@ -75,8 +73,67 @@ object OrderServices {
             "isDeleted" to true
         )
         db.collection("orders").document(id).update(updateOrder).addOnSuccessListener {
-
         }
-
     }
+    fun getOrder(id: String?, callback: (result: MutableList<Narudzba>) -> Unit)  {
+        var finalPrice : Double = 0.0
+        var lista: MutableList<Narudzba> = mutableListOf()
+        db.collection("orders")
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                     val mapa: MutableList<MutableMap<String, Any>> = document.data["listaProizvoda"] as MutableList<MutableMap<String, Any>>
+                    if(document["id"] == id) {
+                        lista.add(
+                            Narudzba(
+                                document.data["id"].toString(),
+                                document.data["nazivNarudzbe"].toString(),
+                                document.data["statusNarudzbe"].toString(),
+                                document.data["idKupca"].toString(),
+                                document.data["listaProizvoda"] as List<MutableMap<String, Any>>,
+                                (document.data["datumNarudzbe"] as com.google.firebase.Timestamp).toDate()
+                            )
+                        )
+                    }
+                }
+                callback(lista)
+            }
+            .addOnFailureListener { exception ->
+                Log.w(ContentValues.TAG, "Error getting orders.", exception)
+            }
 }
+    fun getFinalPriceByOrder(id: String?, callback: (result: Double) -> Unit)  {
+        var finalPrice : Double = 0.0
+        var lista: MutableList<Narudzba> = mutableListOf()
+        db.collection("orders")
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                        val mapa: MutableList<MutableMap<String, Any>> = document.data["listaProizvoda"] as MutableList<MutableMap<String, Any>>
+
+                    if(document["id"] == id) {
+                        lista.add(
+                            Narudzba(
+                                document.data["id"].toString(),
+                                document.data["nazivNarudzbe"].toString(),
+                                document.data["statusNarudzbe"].toString(),
+                                document.data["idKupca"].toString(),
+                                document.data["listaProizvoda"] as List<MutableMap<String, Any>>,
+                                (document.data["datumNarudzbe"] as com.google.firebase.Timestamp).toDate()
+                            )
+                        )
+                        var brojac=0
+
+                        while(brojac <= lista[0].proizvodi.size-1) {
+                            finalPrice += lista[0].proizvodi[brojac].get("productPrice").toString().toDouble() * lista[0].proizvodi[brojac].get("quantity").toString().toDouble()
+                            brojac++
+                        }
+                    }
+                }
+                callback(finalPrice)
+            }
+            .addOnFailureListener { exception ->
+                Log.w(ContentValues.TAG, "Error getting orders.", exception)
+            }
+    }
+    }
