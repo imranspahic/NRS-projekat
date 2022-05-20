@@ -1,4 +1,4 @@
-# NRS-projekat
+gi# NRS-projekat
 
 Firebase project: https://console.firebase.google.com/u/0/project/nrs-projekat/overview
 Izabrati etf google account koji ima access na project

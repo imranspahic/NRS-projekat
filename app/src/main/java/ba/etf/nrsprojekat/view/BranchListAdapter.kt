@@ -11,10 +11,7 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
-import ba.etf.nrsprojekat.AddProductActivity
-import ba.etf.nrsprojekat.AddUserActivity
-import ba.etf.nrsprojekat.MainActivity2
-import ba.etf.nrsprojekat.R
+import ba.etf.nrsprojekat.*
 import ba.etf.nrsprojekat.data.models.Branch
 import ba.etf.nrsprojekat.data.models.Product
 import ba.etf.nrsprojekat.services.ProductsService
@@ -34,10 +31,21 @@ class BranchListAdapter(private var branches : List<Branch>,
 
     override fun onBindViewHolder(holder: BranchViewHolder, position: Int) {
         val branch : Branch = branches[position]
+        //val fpp : FragmentProizvodiUPoslovnicama = FragmentProizvodiUPoslovnicama()
         holder.branchName.text =branch.nazivPoslovnice
-        ProductsService.FilterProducts("Mostar"){
-            //it ->
-        }
+        holder.itemView.setOnClickListener(object : View.OnClickListener{
+            override fun onClick(v:View?){
+                // AppCompatActivity activity = (AppCompatActivity)v.getContext();
+
+                val activity=v!!.context as AppCompatActivity
+                val intent = Intent(v.getContext(), PregledUPoslovnicamaActivity::class.java)
+                //activity.supportFragmentManager.beginTransaction().replace(R.id.rec, fpp).addToBackStack(null).commit();
+                /*ProductsService.FilterProducts("Mostar"){it -> }*/
+                intent.putExtra("Poslovnice",branch.nazivPoslovnice);
+                v.getContext().startActivity(intent)
+            }
+        })
+
     }
 
 

@@ -329,13 +329,16 @@ object ProductsService {
                         document.data["quantity"].toString().toInt(),
                     document.data["price"]?.toString()?.toDouble() ?: 0.0,
                         document.data["status"].toString(),
-                    document.data["mjernaJedinica"]?.toString(),
+                        //document.data["mjernaJedinica"]?.toString(),
+                    null,
                        (document.data["updatedAt"] as com.google.firebase.Timestamp).toDate()
                    // (document.data["createdAt"] as com.google.firebase.Timestamp).toDate()
                     )
             )
+            //println(listafilter)
+            callback(listafilter)
         }
-     callback(listafilter)
+
     }
 
     fun updateProductQuantity(id: String, newQuantity: Int) {
