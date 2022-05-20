@@ -26,6 +26,11 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
+            android:name=".PregledUPoslovnicamaActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"
+            />
+        <activity
             android:name=".LoggingActivity"
             android:exported="false" />
         <activity
