@@ -54,6 +54,7 @@
         <entry key="app/src/main/res/drawable-v24/delivery.xml" value="0.225" />
         <entry key="app/src/main/res/drawable/cash_check.xml" value="0.2275" />
         <entry key="app/src/main/res/drawable/cash_plus.xml" value="0.216" />
+        <entry key="app/src/main/res/drawable/checkout.xml" value="0.2535" />
         <entry key="app/src/main/res/drawable/circle_blue.xml" value="0.2585" />
         <entry key="app/src/main/res/drawable/circle_green.xml" value="0.2585" />
         <entry key="app/src/main/res/drawable/circle_light_blue.xml" value="0.2585" />
@@ -74,19 +75,38 @@
         <entry key="app/src/main/res/layout/activity_change_password.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_logging.xml" value="0.21568627450980393" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.18679351806640626" />
+        <entry key="app/src/main/res/layout/activity_main2.xml" value="0.2749094202898551" />
+        <entry key="app/src/main/res/layout/activity_order_info.xml" value="0.2749094202898551" />
         <entry key="app/src/main/res/layout/activity_pdv_categories.xml" value="0.22871376811594202" />
+        <entry key="app/src/main/res/layout/add_order_dialog.xml" value="0.2749094202898551" />
+        <entry key="app/src/main/res/layout/branch_item.xml" value="0.2749094202898551" />
+        <entry key="app/src/main/res/layout/checkout_single_product_item.xml" value="0.2749094202898551" />
+        <entry key="app/src/main/res/layout/content_order_info.xml" value="0.2749094202898551" />
         <entry key="app/src/main/res/layout/dostava_fragment.xml" value="0.1" />
         <entry key="app/src/main/res/layout/dostava_proizvodi_fragment.xml" value="0.23505434782608695" />
         <entry key="app/src/main/res/layout/fragment_admin_opcije.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_branches.xml" value="0.2749094202898551" />
+        <entry key="app/src/main/res/layout/fragment_first.xml" value="0.2749094202898551" />
+        <entry key="app/src/main/res/layout/fragment_order.xml" value="0.2749094202898551" />
         <entry key="app/src/main/res/layout/fragment_products.xml" value="0.2213195800781249" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.23953488372093024" />
+        <entry key="app/src/main/res/layout/fragment_second.xml" value="0.2749094202898551" />
+        <entry key="app/src/main/res/layout/isporuceni_proizvodi_fragment.xml" value="0.2749094202898551" />
+        <entry key="app/src/main/res/layout/korisnici_fragment.xml" value="0.2749094202898551" />
         <entry key="app/src/main/res/layout/logs_list_item.xml" value="0.5950254096359503" />
         <entry key="app/src/main/res/layout/logs_spinner_filter_item.xml" value="0.33996683250414594" />
+        <entry key="app/src/main/res/layout/order_list_item.xml" value="0.2749094202898551" />
         <entry key="app/src/main/res/layout/pdv_category_bottom_sheet.xml" value="0.23255813953488372" />
         <entry key="app/src/main/res/layout/pdv_category_item.xml" value="0.3271133422851561" />
+        <entry key="app/src/main/res/layout/poslani_proizvodi_fragment.xml" value="0.2749094202898551" />
+        <entry key="app/src/main/res/layout/primljeni_proizvodi_fragment.xml" value="0.2749094202898551" />
         <entry key="app/src/main/res/layout/product_list_item.xml" value="0.2963806152343749" />
+        <entry key="app/src/main/res/layout/promijeni_status_dostave_activity.xml" value="0.2749094202898551" />
         <entry key="app/src/main/res/layout/promijeni_status_dostave_fragment.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/user_item.xml" value="0.10726072607260725" />
+        <entry key="app/src/main/res/layout/svi_proizvodi_fragment.xml" value="0.2749094202898551" />
+        <entry key="app/src/main/res/layout/user_item.xml" value="0.21" />
+        <entry key="app/src/main/res/menu/admin_navigacija.xml" value="0.1859375" />
+        <entry key="app/src/main/res/menu/korisnik_navigacija.xml" value="0.1859375" />
         <entry key="app/src/main/res/menu/menu.xml" value="0.1" />
       </map>
     </option>
