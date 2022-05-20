@@ -1,6 +1,7 @@
 package ba.etf.nrsprojekat
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,6 +19,10 @@ class OrderInfoActivity : AppCompatActivity() {
     private lateinit var listaRecycler : RecyclerView
     private lateinit var adapter : CheckoutAdapter
     private var iznos : Double = 0.0
+    private lateinit var datum: TextView
+    private lateinit var lokacija: TextView
+    private lateinit var mjesto: TextView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,9 +31,20 @@ class OrderInfoActivity : AppCompatActivity() {
         toolbar = findViewById(R.id.racunToolbar)
         iznosZaPlatiti = findViewById(R.id.iznosZaPlatiti)
         listaRecycler = findViewById(R.id.listaNarucenihArtikala)
+        datum = findViewById(R.id.datumRacun)
+        lokacija = findViewById(R.id.lokacijaRacun)
+        mjesto = findViewById(R.id.stoRacun)
+
         toolbar.setNavigationOnClickListener {
             onToolbarBackButton()
         }
+
+        OrderServices.getOrder(orderID) {
+            datum.text = "Datum: ${it[0].datumNarucivanja}"
+            mjesto.text = "Mjesto: ${it[0].mjesto.toString()}"
+            lokacija.text = "Lokacija: ${it[0].lokacija.toString()}"
+        }
+
         listaRecycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         OrderServices.getFinalPriceByOrder(orderID) {
             if (it != 0.0) {
@@ -44,7 +60,7 @@ class OrderInfoActivity : AppCompatActivity() {
                 var brojProizvoda = lista[0].proizvodi.size
                 var proizvodiList = lista[0].proizvodi
                 //for (proizvod in proizvodiList)
-                adapter = CheckoutAdapter(proizvodiList)
+                adapter = CheckoutAdapter(proizvodiList, lista)
                 listaRecycler.adapter = adapter
                 //Log.d("oki", proizvod.toString())
                 //}
