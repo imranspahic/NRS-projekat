@@ -1,29 +1,17 @@
 package ba.etf.nrsprojekat.view
 
-import android.content.ContentValues
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.TableLayout
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager.widget.ViewPager
+import androidx.fragment.app.FragmentTransaction
 import androidx.viewpager2.widget.ViewPager2
 import ba.etf.nrsprojekat.R
-import ba.etf.nrsprojekat.data.models.Korisnik
-import ba.etf.nrsprojekat.data.models.Product
-import com.google.firebase.firestore.FirebaseFirestore
 import ba.etf.nrsprojekat.services.ProductsService
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 class FragmentDostava : Fragment(R.layout.dostava_fragment) {
-    private lateinit var recyclerViewDostava: RecyclerView
-    private lateinit var userArrayList: ArrayList<Korisnik>
-    private lateinit var myAdapter: DostavaAdapter
     private lateinit var viewPager : ViewPager2
     private lateinit var tabLayout: TabLayout
 
@@ -50,7 +38,6 @@ class FragmentDostava : Fragment(R.layout.dostava_fragment) {
                 }
             }
         }.attach()
-
     }
 
 }

@@ -1,17 +1,24 @@
 package ba.etf.nrsprojekat.services
 
 import android.content.ContentValues
+import android.util.ArrayMap
 import android.util.Log
+import ba.etf.nrsprojekat.data.models.Korisnik
 import ba.etf.nrsprojekat.data.models.Narudzba
 import ba.etf.nrsprojekat.data.models.Product
+import ba.etf.nrsprojekat.services.OrderServices.mapaZaNarudzbu
+import com.google.firebase.Timestamp
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.util.*
 
-
 object OrderServices {
     private val db = Firebase.firestore
     var imeTrenutneNarudzbe: String? = null
+    var mapaZaNarudzbu = mutableMapOf<String, Any>()
+    var lokacija: String? = null
+    var mjesto: String? = null
+
    // var neispravnaKolicina: Boolean? = null
     fun getOrders(id: String, callback: (result: MutableList<Narudzba>) -> Unit) {
         var lista: MutableList<Narudzba> = mutableListOf()
@@ -30,7 +37,9 @@ object OrderServices {
                                 document.data["statusNarudzbe"].toString(),
                                 document.data["idKupca"].toString(),
                                 document.data["listaProizvoda"] as List<MutableMap<String, Any>>,
-                                (document.data["datumNarudzbe"] as com.google.firebase.Timestamp).toDate()
+                                (document.data["datumNarudzbe"] as com.google.firebase.Timestamp).toDate(),
+                                document.data["lokacija"].toString(),
+                                document.data["mjesto"].toString()
                         )
                             )
                     //  Log.d(TAG, "${document.id} => ${document.data}")
@@ -64,7 +73,9 @@ object OrderServices {
             "statusNarudzbe" to status,
             "isDeleted" to false,
             "idKupca" to idKupca,
-            "listaProizvoda" to itemMapList
+            "listaProizvoda" to itemMapList,
+            "lokacija" to lokacija,
+            "mjesto" to mjesto
         )
         documentReference.set(order)
     }
@@ -73,8 +84,11 @@ object OrderServices {
             "isDeleted" to true
         )
         db.collection("orders").document(id).update(updateOrder).addOnSuccessListener {
+
         }
+
     }
+
     fun getOrder(id: String?, callback: (result: MutableList<Narudzba>) -> Unit)  {
         var finalPrice : Double = 0.0
         var lista: MutableList<Narudzba> = mutableListOf()
@@ -82,7 +96,7 @@ object OrderServices {
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
-                     val mapa: MutableList<MutableMap<String, Any>> = document.data["listaProizvoda"] as MutableList<MutableMap<String, Any>>
+                    val mapa: MutableList<MutableMap<String, Any>> = document.data["listaProizvoda"] as MutableList<MutableMap<String, Any>>
                     if(document["id"] == id) {
                         lista.add(
                             Narudzba(
@@ -91,7 +105,9 @@ object OrderServices {
                                 document.data["statusNarudzbe"].toString(),
                                 document.data["idKupca"].toString(),
                                 document.data["listaProizvoda"] as List<MutableMap<String, Any>>,
-                                (document.data["datumNarudzbe"] as com.google.firebase.Timestamp).toDate()
+                                (document.data["datumNarudzbe"] as com.google.firebase.Timestamp).toDate(),
+                                        document.data["lokacija"].toString(),
+                                document.data["mjesto"].toString()
                             )
                         )
                     }
@@ -101,7 +117,7 @@ object OrderServices {
             .addOnFailureListener { exception ->
                 Log.w(ContentValues.TAG, "Error getting orders.", exception)
             }
-}
+    }
     fun getFinalPriceByOrder(id: String?, callback: (result: Double) -> Unit)  {
         var finalPrice : Double = 0.0
         var lista: MutableList<Narudzba> = mutableListOf()
@@ -109,7 +125,7 @@ object OrderServices {
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
-                        val mapa: MutableList<MutableMap<String, Any>> = document.data["listaProizvoda"] as MutableList<MutableMap<String, Any>>
+                    val mapa: MutableList<MutableMap<String, Any>> = document.data["listaProizvoda"] as MutableList<MutableMap<String, Any>>
 
                     if(document["id"] == id) {
                         lista.add(
@@ -119,7 +135,9 @@ object OrderServices {
                                 document.data["statusNarudzbe"].toString(),
                                 document.data["idKupca"].toString(),
                                 document.data["listaProizvoda"] as List<MutableMap<String, Any>>,
-                                (document.data["datumNarudzbe"] as com.google.firebase.Timestamp).toDate()
+                                (document.data["datumNarudzbe"] as com.google.firebase.Timestamp).toDate(),
+                                        document.data["lokacija"].toString(),
+                                document.data["mjesto"].toString()
                             )
                         )
                         var brojac=0
@@ -136,4 +154,16 @@ object OrderServices {
                 Log.w(ContentValues.TAG, "Error getting orders.", exception)
             }
     }
+    fun setMapa() {
+        for(item in ProductsService.products)
+            if(item.quantity != 0)
+                mapaZaNarudzbu.put(item.id, 0)
+
+       // println(mapaZaNarudzbu)
     }
+
+    fun resetKolicinaProducts() {
+        for(item in ProductsService.products)
+            if(item.kolicinaNarudzbe != 0) item.kolicinaNarudzbe = 0
+    }
+}

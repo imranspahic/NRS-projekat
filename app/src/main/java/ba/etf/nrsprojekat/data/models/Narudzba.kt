@@ -8,8 +8,11 @@ class Narudzba(
     var status: String,
     var idKupca: String,
     var proizvodi: List<MutableMap<String, Any>>,
-    var datumNarucivanja: Date
+    var datumNarucivanja: Date,
+    var lokacija: String,
+    var mjesto: String
 ) {
     var isDeleted: Boolean = false
+
 
 }

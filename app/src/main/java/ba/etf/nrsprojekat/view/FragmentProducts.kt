@@ -23,6 +23,7 @@ import ba.etf.nrsprojekat.services.*
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
+import com.google.firestore.v1.StructuredQuery
 
 
 class FragmentProducts : Fragment(), ProductListAdapter.IHide {
@@ -118,6 +119,13 @@ class FragmentProducts : Fragment(), ProductListAdapter.IHide {
             pdvCategoriesDugme.visibility = View.GONE
             addOrderDugme.visibility = View.VISIBLE
         }
+        if(OrderServices.imeTrenutneNarudzbe != null) {
+            addOrderDugme.visibility = View.GONE
+            discardOrderDugme.visibility = View.VISIBLE
+            saveOrderDugme.visibility = View.VISIBLE
+            brojProizvodaLabel.text="Ime narudžbe: "
+            brojProizvodaText.text = OrderServices.imeTrenutneNarudzbe
+        }
 
         return view
     }
@@ -128,32 +136,11 @@ class FragmentProducts : Fragment(), ProductListAdapter.IHide {
         addOrderDugme.setOnClickListener {
             var imeNarudzbe = showdialog()
         }
-            discardOrderDugme.setOnClickListener {
-                showDeleteConfirmation()
-           /*     addOrderDugme.visibility = View.VISIBLE
-                saveOrderDugme.visibility = View.GONE
-               brojProizvodaLabel.text = "Broj proizvoda:"
-                brojProizvodaText.text = ProductsService.products.size.toString()
-                discardOrderDugme.visibility = View.GONE
-                OrderServices.imeTrenutneNarudzbe = null
-           //   //  productListAdapter.notifyDataSetChanged()
-                onResume() */
-            }
-        /*    if(OrderServices.imeTrenutneNarudzbe == null) {
-                discardOrderDugme.visibility = View.GONE
-                saveOrderDugme.visibility = View.GONE
-                brojProizvodaLabel.text = "Broj proizvoda:"
-                brojProizvodaText.text = ProductsService.products.size.toString()
-                addOrderDugme.visibility = View.VISIBLE
-            }  */
-         /*   saveOrderDugme.setOnClickListener {
-                println("save order iz fragmenta")
-
-            }  */
-          //  if(OrderServices.imeTrenutneNarudzbe != null)
-
+        discardOrderDugme.setOnClickListener {
+            showDeleteConfirmation()
 
         }
+    }
 
 
 
@@ -189,7 +176,10 @@ class FragmentProducts : Fragment(), ProductListAdapter.IHide {
             brojProizvodaText.text = m_Text
             OrderServices.imeTrenutneNarudzbe = m_Text
             productListAdapter.notifyDataSetChanged()
+            OrderServices.setMapa()
             dialog.dismiss()
+            val LocationPickBottomSheetFragment = LocationPickBottomSheetFragment()
+            LocationPickBottomSheetFragment.show(parentFragmentManager, LocationPickBottomSheetFragment.tag)
         })
         builder.setNegativeButton("Odustani", DialogInterface.OnClickListener {
                 dialog, which -> dialog.cancel()
@@ -217,6 +207,10 @@ class FragmentProducts : Fragment(), ProductListAdapter.IHide {
                             brojProizvodaText.text = ProductsService.products.size.toString()
                             discardOrderDugme.visibility = View.GONE
                             OrderServices.imeTrenutneNarudzbe = null
+                            OrderServices.mapaZaNarudzbu = mutableMapOf<String, Any>()
+                            OrderServices.lokacija = null
+                            OrderServices.mjesto = null
+                            OrderServices.resetKolicinaProducts()
                             productListAdapter.notifyDataSetChanged()
                             dialog.dismiss()
                           //  onResume()

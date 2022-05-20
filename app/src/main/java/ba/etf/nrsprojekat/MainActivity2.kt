@@ -9,6 +9,7 @@ import android.view.MenuItem
 import androidx.core.view.get
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
@@ -19,6 +20,7 @@ class MainActivity2 : AppCompatActivity() {
 
     private lateinit var bottomNavigation: BottomNavigationView
     private lateinit var topNavigation: MaterialToolbar
+
     private val mOnItemSelectedListener = NavigationBarView.OnItemSelectedListener{ item ->
         when (item.itemId) {
             R.id.narudzba -> {
@@ -78,7 +80,6 @@ class MainActivity2 : AppCompatActivity() {
             bottomNavigation.selectedItemId = R.id.narudzba
             openFragment(orderFragment)
         }
-
     }
 
      fun openFragment(fragment: Fragment) {
