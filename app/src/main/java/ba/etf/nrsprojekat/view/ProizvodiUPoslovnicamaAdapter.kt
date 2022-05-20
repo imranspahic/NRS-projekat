@@ -29,6 +29,8 @@ class ProizvodiUPoslovniciAdapter(private var productList : List<Product>) : Rec
         // holder.poslovnica.text = proizvodi.poslovnicaName
         holder.kolicina.text= proizvodi.quantity.toString()
         holder.status.text = proizvodi.status
+        holder.cijena.text = proizvodi.price.toString()
+        holder.pdv.text = proizvodi.pdvCategoryName
         //ProductsService.FilterProducts("Mostar")
 
 
@@ -41,6 +43,8 @@ class ProizvodiUPoslovniciAdapter(private var productList : List<Product>) : Rec
         val name : TextView = itemView.findViewById(R.id.productNamePoslovnica)
         val kolicina : TextView = itemView.findViewById(R.id.productQuantityPoslovnica)
         val status : TextView = itemView.findViewById(R.id.productStatusPoslovnica)
+        val pdv : TextView = itemView.findViewById(R.id.productPdvNamePosl)
+        val cijena : TextView = itemView.findViewById(R.id.productPricePosl)
 
     }
 }

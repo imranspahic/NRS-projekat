@@ -26,9 +26,10 @@ class PregledUPoslovnicamaActivity  : AppCompatActivity()  {
         val proizvod1 = intent.getStringExtra("Poslovnice").toString()
         val proizvod2 = ProductsService.FilterProducts(proizvod1){
                 it ->
+            println(it)
 
             val productNiz = it
-            println(proizvod1)
+            println(productNiz)
             val adapter = ProizvodiUPoslovniciAdapter(productNiz)
             proizvod.adapter = adapter
         }

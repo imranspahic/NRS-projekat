@@ -117,7 +117,7 @@
                     android:text="PDV: " />
 
                 <TextView
-                    android:id="@+id/productPdvName"
+                    android:id="@+id/productPdvNamePosl"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
@@ -161,7 +161,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/productPrice"
+        android:id="@+id/productPricePosl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20dp"
