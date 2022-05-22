@@ -19,6 +19,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import ba.etf.nrsprojekat.AddProductActivity
 import ba.etf.nrsprojekat.R
+import ba.etf.nrsprojekat.data.models.PdvCategory
 import ba.etf.nrsprojekat.data.models.Product
 import ba.etf.nrsprojekat.services.LoginService
 import ba.etf.nrsprojekat.services.OrderServices
@@ -94,9 +95,13 @@ class ProductListAdapter(
         else {
             holder.productPdvlinear.visibility = View.VISIBLE
             holder.productPdvName.text = product.pdvCategoryName
-            holder.productPdvPercent.text = noDecimalFormat.format(
-                PdvCategoriesService.pdvCategories.first { category -> category.name == product.pdvCategoryName }.pdvPercent
-            )+ "%"
+            val pdvCategory: PdvCategory? = PdvCategoriesService.pdvCategories.firstOrNull() { category -> category.name == product.pdvCategoryName }
+            if(pdvCategory == null) holder.productPdvlinear.visibility = View.GONE
+            else {
+                holder.productPdvPercent.text = noDecimalFormat.format(
+                    pdvCategory.pdvPercent
+                )+ "%"
+            }
         }
 
         if(!LoginService.logovaniKorisnik!!.isAdmin()) {

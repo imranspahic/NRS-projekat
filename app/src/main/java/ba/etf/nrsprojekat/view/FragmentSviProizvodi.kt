@@ -9,6 +9,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import androidx.viewpager2.widget.ViewPager2
 import ba.etf.nrsprojekat.R
+import ba.etf.nrsprojekat.services.PdvCategoriesService
 import ba.etf.nrsprojekat.services.ProductsService
 
 
@@ -19,6 +20,15 @@ class FragmentSviProizvodi : Fragment(R.layout.svi_proizvodi_fragment) {
         super.onViewCreated(view, savedInstanceState)
         recyclerViewAll = view.findViewById(R.id.recyclerSviProizvodi)
         recyclerViewAll.layoutManager = LinearLayoutManager(view.context)
+
+        if(PdvCategoriesService.pdvCategories.isEmpty()) {
+                PdvCategoriesService.fetchPdvCategories {
+                    if(ProductsService.products.isEmpty()) {
+                        ProductsService.fetchProducts {  }
+                    }
+                }
+        }
+
         ProductsService.getDeliveryProducts { result ->
             val myAdapter = DostavaAdapter(result)
             recyclerViewAll.adapter = myAdapter

@@ -14,6 +14,7 @@
         android:layout_marginStart="5dp"
         android:layout_marginEnd="5dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:tabTextAppearance="@style/MineCustomTabText"
@@ -23,24 +24,30 @@
             android:id="@+id/sviProizvodi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:tabTextAppearance="@style/MineCustomTabText"
             android:text="Svi" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/primljeniProizvodi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:tabTextAppearance="@style/MineCustomTabText"
             android:text="Primljeni" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/poslaniProizvodi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:tabTextAppearance="@style/MineCustomTabText"
+
             android:text="Poslani" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/isporuceniProizvodi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:tabTextAppearance="@style/MineCustomTabText"
+
             android:text="Isporučeni" />
 
     </com.google.android.material.tabs.TabLayout>
