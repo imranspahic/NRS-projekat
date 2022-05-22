@@ -10,6 +10,7 @@ import ba.etf.nrsprojekat.data.models.Narudzba
 import ba.etf.nrsprojekat.services.OrderServices
 import ba.etf.nrsprojekat.view.CheckoutAdapter
 import com.google.android.material.appbar.MaterialToolbar
+import java.text.DateFormat
 import kotlin.math.roundToInt
 
 class OrderInfoActivity : AppCompatActivity() {
@@ -40,12 +41,12 @@ class OrderInfoActivity : AppCompatActivity() {
         }
 
         OrderServices.getOrder(orderID) {
-            datum.text = "Datum: ${it[0].datumNarucivanja}"
-            mjesto.text = "Mjesto: ${it[0].mjesto.toString()}"
-            lokacija.text = "Lokacija: ${it[0].lokacija.toString()}"
+            datum.text = DateFormat.getDateInstance().format(it[0].datumNarucivanja)
+            mjesto.text = it[0].mjesto
+            lokacija.text = it[0]?.lokacija ?: "/"
         }
 
-        listaRecycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+       listaRecycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         OrderServices.getFinalPriceByOrder(orderID) {
             if (it != 0.0) {
                 iznos = it;
