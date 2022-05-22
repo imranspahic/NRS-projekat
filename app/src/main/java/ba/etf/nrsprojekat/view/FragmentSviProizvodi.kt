@@ -19,6 +19,7 @@ class FragmentSviProizvodi : Fragment(R.layout.svi_proizvodi_fragment) {
         super.onViewCreated(view, savedInstanceState)
         recyclerViewAll = view.findViewById(R.id.recyclerSviProizvodi)
         recyclerViewAll.layoutManager = LinearLayoutManager(view.context)
+        if(ProductsService.products.isEmpty()) ProductsService.fetchProducts {  }
         ProductsService.getDeliveryProducts { result ->
             val myAdapter = DostavaAdapter(result)
             recyclerViewAll.adapter = myAdapter
