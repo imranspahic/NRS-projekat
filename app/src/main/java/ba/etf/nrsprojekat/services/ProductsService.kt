@@ -354,4 +354,11 @@ object ProductsService {
         db.collection("products").document(id).update(editProductStatus).addOnSuccessListener {}
     }
 
+    fun updateProductPdvCategory(id: String, newCategoryName: String?) {
+        val productUpdatedStatus = mapOf(
+            "pdvCategoryName" to newCategoryName
+        )
+        db.collection("products").document(id).update(productUpdatedStatus).addOnSuccessListener {}
+    }
+
 }

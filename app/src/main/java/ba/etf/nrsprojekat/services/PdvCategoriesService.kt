@@ -40,7 +40,14 @@ object PdvCategoriesService {
 
     fun deleteCategory(id: String, callback: (result: Boolean) -> Unit) {
         db.collection("pdvCategories").document(id).delete().addOnSuccessListener {
+
             val category = pdvCategories.first { category -> category.id == id  }
+            ProductsService.products.forEach { product ->
+                if(product.pdvCategoryName == category.name) {
+                    product.pdvCategoryName = null
+                    ProductsService.updateProductPdvCategory(product.id, null)
+                }
+            }
             LoggingService.addLog(LogAction.DELETE, "Izbrisana PDV kategorija ${category.name}"){}
             pdvCategories.removeIf { category -> category.id == id }
             callback(true)
@@ -87,6 +94,13 @@ object PdvCategoriesService {
         )
        db.collection("pdvCategories").document(pdvCategory.id).update(editedCategoryData).addOnSuccessListener {
             val index =  pdvCategories.indexOfFirst { c -> c.id == pdvCategory.id  }
+
+           ProductsService.products.forEach { product ->
+               if(product.pdvCategoryName == pdvCategories[index].name) {
+                   product.pdvCategoryName = name
+                   ProductsService.updateProductPdvCategory(product.id, name)
+               }
+           }
            pdvCategories[index].name = name
            pdvCategories[index].pdvPercent = percent.toDouble()
            pdvCategories[index].updatedAt = currentDate
