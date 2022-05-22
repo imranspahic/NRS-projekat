@@ -17,6 +17,7 @@ class FragmentDostava : Fragment(R.layout.dostava_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if(ProductsService.products.isEmpty()) ProductsService.fetchProducts {  }
 
         viewPager = view.findViewById(R.id.viewPager)
         tabLayout = view.findViewById(R.id.tab_layout)
