@@ -23,32 +23,17 @@ class CheckoutAdapter(
     override fun getItemCount(): Int = proizvodi.size
 
     override fun onBindViewHolder(holder: CheckoutAdapter.OrderViewHolder, position: Int) {
-        //this.orders = orders.sortedWith(compareBy<Narudzba> { it.datumNarucivanja }.reversed())
-        //if(proizvodi[position].isDeleted == false) {
-        //if(brojac < proizvodi[0].proizvodi.size) {
-        //Log.d("oki", proizvodi.get(1).get("productName").toString())
-        //Log.d("oki", proizvodi[position].quantity.toString())
-
-        //Log.d("oki", orders[0].lokacija.toString())
-
-            holder.orderNameAndQuantity.text = proizvodi.get(position).get("quantity").toString() + "x  " + proizvodi.get(position).get("productName")
-            holder.prices.text = proizvodi.get(position).get("productPrice").toString() + "       " + proizvodi.get(position).get("productPrice").toString().toDouble() * proizvodi.get(position).get("quantity").toString().toInt()
-    //           holder.datum.text = orders[0].datumNarucivanja.toString()
-   //         holder.lokacija.text = orders[0].lokacija
-     //       holder.mjesto.text = orders[0].mjesto
-    //}
-  //          holder.datumNarucivanja.text = DateFormat.getDateInstance()
-//                .format(proizvodi[position].datumNarucivanja)
-        //}
-        //Log.d("orders", orders[position].proizvodi.toString())
+        holder.imeProizvodaTextView.text = proizvodi[position].get("productName").toString()
+        holder.kolicinaTextView.text = proizvodi[position].get("quantity").toString() + "x"
+        holder.cijenaTextView.text = proizvodi[position].get("productPrice").toString() + "KM"
+        holder.ukupnaCijenaTextView.text =
+            (proizvodi[position].get("quantity").toString().toInt() * proizvodi[position].get("productPrice").toString().toDouble()).toString() + "KM"
     }
 
 inner class OrderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    val orderNameAndQuantity: TextView = itemView.findViewById(R.id.quantityAndName)
-    //val datumNarucivanja: TextView = itemView.findViewById(R.id.orderDateText)
-    val prices: TextView = itemView.findViewById(R.id.initialAndFinalPrice)
-    //val datum: TextView = itemView.findViewById(R.id.datumRacun)
-    //val lokacija : TextView = itemView.findViewById(R.id.lokacijaRacun)
-    //val mjesto : TextView = itemView.findViewById(R.id.stoRacun)
+    val imeProizvodaTextView: TextView = itemView.findViewById(R.id.imeProizvoda)
+    val kolicinaTextView: TextView = itemView.findViewById(R.id.kolicinaTextView)
+    val cijenaTextView: TextView = itemView.findViewById(R.id.cijenaTextView)
+    val ukupnaCijenaTextView: TextView = itemView.findViewById(R.id.ukupnaCijenaProizvodaTextView)
 }
 }
