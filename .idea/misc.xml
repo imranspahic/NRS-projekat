@@ -42,7 +42,6 @@
         <entry key="..\:/projektiAndroid/NRS-projekat/app/src/main/res/layout/activity_main2.xml" value="0.22826086956521738" />
         <entry key="..\:/projektiAndroid/NRS-projekat/app/src/main/res/layout/activity_order_info.xml" value="0.25416666666666665" />
         <entry key="..\:/projektiAndroid/NRS-projekat/app/src/main/res/layout/add_order_dialog.xml" value="0.25416666666666665" />
-        <entry key="..\:/projektiAndroid/NRS-projekat/app/src/main/res/layout/checkout_single_product_item.xml" value="0.25416666666666665" />
         <entry key="..\:/projektiAndroid/NRS-projekat/app/src/main/res/layout/dostava_fragment.xml" value="0.25416666666666665" />
         <entry key="..\:/projektiAndroid/NRS-projekat/app/src/main/res/layout/fragment_admin.xml" value="0.1" />
         <entry key="..\:/projektiAndroid/NRS-projekat/app/src/main/res/layout/fragment_admin_opcije.xml" value="0.22826086956521738" />
@@ -61,7 +60,6 @@
         <entry key="..\:/projektiAndroid/NRS-projekat/app/src/main/res/layout/poslani_proizvodi_fragment.xml" value="0.25416666666666665" />
         <entry key="..\:/projektiAndroid/NRS-projekat/app/src/main/res/layout/primljeni_proizvodi_fragment.xml" value="0.25416666666666665" />
         <entry key="..\:/projektiAndroid/NRS-projekat/app/src/main/res/layout/product_list_item.xml" value="0.25416666666666665" />
-        <entry key="..\:/projektiAndroid/NRS-projekat/app/src/main/res/layout/proizvod_u_posl_list_item.xml" value="0.25416666666666665" />
         <entry key="..\:/projektiAndroid/NRS-projekat/app/src/main/res/layout/user_item.xml" value="0.22826086956521738" />
         <entry key="..\:/projektiAndroid/NRS-projekat/app/src/main/res/menu/menu.xml" value="0.25416666666666665" />
         <entry key="app/src/main/res/drawable-v24/delivery.xml" value="0.225" />
@@ -87,8 +85,9 @@
         <entry key="app/src/main/res/layout/activity_change_password.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_logging.xml" value="0.21568627450980393" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.18679351806640626" />
+        <entry key="app/src/main/res/layout/activity_order_info.xml" value="0.29292277720143944" />
         <entry key="app/src/main/res/layout/activity_pdv_categories.xml" value="0.22871376811594202" />
-        <entry key="app/src/main/res/layout/dostava_fragment.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/dostava_fragment.xml" value="0.19869384765625003" />
         <entry key="app/src/main/res/layout/dostava_proizvodi_fragment.xml" value="0.23505434782608695" />
         <entry key="app/src/main/res/layout/fragment_admin_opcije.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_products.xml" value="0.2213195800781249" />

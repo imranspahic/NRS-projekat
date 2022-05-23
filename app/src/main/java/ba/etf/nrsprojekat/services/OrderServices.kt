@@ -89,7 +89,9 @@ object OrderServices {
 
     }
 
-    fun getOrder(id: String?, callback: (result: MutableList<Narudzba>) -> Unit)  {
+    fun getOrder(id: String?, callback: (result: MutableList<Narudzba>) -> Unit,
+                 failureCallback: () -> Unit
+    )  {
         var finalPrice : Double = 0.0
         var lista: MutableList<Narudzba> = mutableListOf()
         db.collection("orders")
@@ -116,9 +118,10 @@ object OrderServices {
             }
             .addOnFailureListener { exception ->
                 Log.w(ContentValues.TAG, "Error getting orders.", exception)
+                failureCallback()
             }
     }
-    fun getFinalPriceByOrder(id: String?, callback: (result: Double) -> Unit)  {
+    fun getFinalPriceByOrder(id: String?, callback: (result: Double) -> Unit, failureCallback: () -> Unit)  {
         var finalPrice : Double = 0.0
         var lista: MutableList<Narudzba> = mutableListOf()
         db.collection("orders")
@@ -152,6 +155,7 @@ object OrderServices {
             }
             .addOnFailureListener { exception ->
                 Log.w(ContentValues.TAG, "Error getting orders.", exception)
+                failureCallback()
             }
     }
     fun setMapa() {

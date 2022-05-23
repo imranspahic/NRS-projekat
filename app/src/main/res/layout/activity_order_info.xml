@@ -133,62 +133,16 @@
       app:layout_constraintTop_toBottomOf="@id/linearLayoutZaRacun"
       />
 
-
-  <!--
-
-
-  <TextView
-      android:id="@+id/datumRacun"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="157dp"
-      android:layout_marginBottom="10dp"
-      app:layout_constraintBottom_toTopOf="@+id/stoRacun"
-      app:layout_constraintTop_toBottomOf="@+id/racunToolbar"
-      tools:layout_editor_absoluteX="1dp" />
-
-  <TextView
-      android:id="@+id/stoRacun"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="16dp"
-      android:layout_marginBottom="13dp"
-      app:layout_constraintBottom_toTopOf="@+id/lokacijaRacun"
-      app:layout_constraintTop_toBottomOf="@+id/datumRacun"
-      tools:layout_editor_absoluteX="6dp" />
-
-  <TextView
-      android:id="@+id/lokacijaRacun"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="12dp"
-      android:layout_marginBottom="22dp"
-      app:layout_constraintBottom_toTopOf="@+id/listaNarucenihArtikala"
-      app:layout_constraintTop_toBottomOf="@+id/stoRacun"
-      tools:layout_editor_absoluteX="0dp" />
-
-  <TextView
-      android:id="@+id/iznosZaPlatiti"
-      android:layout_width="115dp"
-      android:layout_height="75dp"
-      android:layout_marginStart="120dp"
-      android:layout_marginTop="70dp"
-      android:layout_marginEnd="120dp"
-      android:background="@drawable/checkout"
-      android:gravity="center_horizontal"
-      android:text="0.00"
-      android:textSize="20sp"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="1.0"
+  <com.google.android.material.progressindicator.CircularProgressIndicator
+      android:id="@+id/orderLoader"
+      android:layout_width="50dp"
+      android:layout_height="50dp"
+      android:indeterminate="true"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/racunToolbar" />
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:indicatorColor="@color/main_green"
 
-  <androidx.recyclerview.widget.RecyclerView
-      android:id="@+id/listaNarucenihArtikala"
-      android:layout_width="358dp"
-      android:layout_height="437dp"
-      android:layout_marginTop="120dp"
-      app:layout_constraintTop_toBottomOf="@+id/iznosZaPlatiti"
-      tools:layout_editor_absoluteX="1dp" />
-  -->
+      />
 </androidx.constraintlayout.widget.ConstraintLayout>
