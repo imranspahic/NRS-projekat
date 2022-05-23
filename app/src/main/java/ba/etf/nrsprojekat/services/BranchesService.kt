@@ -14,7 +14,7 @@ object BranchesService {
 
     fun getBranches(callback: (result: MutableList<Branch>) -> Unit) {
         var lista: MutableList<Branch> = mutableListOf()
-        BranchesService.db.collection("branches")
+        db.collection("branches")
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
@@ -55,7 +55,8 @@ object BranchesService {
                 LoggingService.addLog(
                     LogAction.CREATE,
                     "Dodana poslovnica ${newBranch.nazivPoslovnice}"
-                ) {}
+                ){}
+                this.branches = branches.sortedWith(compareBy<Branch> { it.updatedAt }.reversed()).toMutableList()
                 callback(true, "ADD")
             }.addOnFailureListener {
                 callback(false, "ADD")
