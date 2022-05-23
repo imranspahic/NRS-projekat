@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddBranchActivity">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/addBranchToolbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="Dodaj poslovnicu"
+        app:titleTextColor="@color/white"
+        android:backgroundTint="@color/main_green_dark"
+        app:navigationIcon="@drawable/arrow_left"
+        app:navigationIconTint="@color/white"
+        />
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/addBranchNameTextInput"
+        android:layout_marginTop="32dp"
+        android:layout_marginHorizontal="16dp"
+        android:hint="Naziv poslovnice"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/addBranchToolbar">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/unosPoslovnice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/btnDodajPoslovnicu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Dodaj"
+        app:cornerRadius = "10dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginHorizontal="16dp"
+        android:paddingVertical="10dp"
+        android:enabled="true"
+        android:backgroundTint="@color/button_state_colors"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_alignParentBottom="true"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>
