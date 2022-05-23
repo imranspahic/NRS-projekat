@@ -30,13 +30,14 @@ object ProductsService {
                          data["price"]?.toString()?.toDouble() ?: 0.0,
                          data["status"].toString(),
                          data["mjernaJedinica"]?.toString(),
-                         (data["updatedAt"]  as com.google.firebase.Timestamp).toDate()
+                         (data["updatedAt"]  as com.google.firebase.Timestamp).toDate(),
+                         (data["createdAt"]  as com.google.firebase.Timestamp).toDate()
                      )
                      products.add(newProduct)
                  }
              }
              Log.d("products", querySnapshot.documents.size.toString())
-             this.products = products.sortedWith(compareBy<Product> { it.updatedAt }.reversed()) .toMutableList()
+             this.products = products.sortedWith(compareBy<Product> { it.createdAt }.reversed()).toMutableList()
              callback(true)
             }
             .addOnFailureListener {
@@ -69,7 +70,8 @@ object ProductsService {
                 price,
                 status.lowercase(),
                 mjernaJedinica,
-                updatedDate
+                updatedDate,
+                updatedDate,
             )
             val newProductData = hashMapOf(
                 "id" to newProduct.id,
@@ -80,7 +82,7 @@ object ProductsService {
                 "price" to newProduct.price,
                 "status" to newProduct.status,
                 "mjernaJedinica" to newProduct.mjernaJedinica,
-                "createdAt" to Date(),
+                "createdAt" to updatedDate,
                 "updatedAt" to updatedDate
             )
             documentReference.set(newProductData).addOnSuccessListener {
@@ -150,7 +152,8 @@ object ProductsService {
                         document.data["price"]?.toString()?.toDouble() ?: 0.0,
                         document.data["status"].toString(),
                         document.data["mjernaJedinica"]?.toString(),
-                        (document.data["updatedAt"] as com.google.firebase.Timestamp).toDate()
+                        (document.data["updatedAt"] as com.google.firebase.Timestamp).toDate(),
+                        (document.data["createdAt"] as com.google.firebase.Timestamp).toDate(),
                     ))
                 }
                 callback(lista)
@@ -330,8 +333,8 @@ object ProductsService {
                         document.data["status"].toString(),
                         //document.data["mjernaJedinica"]?.toString(),
                     null,
-                       (document.data["updatedAt"] as com.google.firebase.Timestamp).toDate()
-                   // (document.data["createdAt"] as com.google.firebase.Timestamp).toDate()
+                       (document.data["updatedAt"] as com.google.firebase.Timestamp).toDate(),
+                       (document.data["createdAt"] as com.google.firebase.Timestamp).toDate()
                     )
             )
             //println(listafilter)
