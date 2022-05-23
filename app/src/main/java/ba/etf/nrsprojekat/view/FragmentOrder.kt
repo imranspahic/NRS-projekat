@@ -31,7 +31,7 @@ import com.google.android.material.button.MaterialButton
 class FragmentOrder() : Fragment() {
     private lateinit var btnDodajOrder: MaterialButton
     private lateinit var narudzbeRecyclerView: RecyclerView
-    private lateinit var ordersList: List<Narudzba>
+    private lateinit var ordersList: MutableList<Narudzba>
     private lateinit var brojNarudzbi: TextView
     private var productActivityLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         Log.d("OK", "Okej") }
@@ -53,10 +53,10 @@ class FragmentOrder() : Fragment() {
         narudzbeRecyclerView = view.findViewById(R.id.narudzbeRecyclerView)
         brojNarudzbi = view.findViewById(R.id.brojNarudzbi)
         narudzbeRecyclerView.layoutManager = LinearLayoutManager(view.context)
-        OrderServices.getOrders(LoginService.logovaniKorisnik!!.getID().toString()) { it->
+        OrderServices.getOrders(LoginService.logovaniKorisnik!!.getID().toString()) {
             ordersList = it
             brojNarudzbi.text = ordersList.size.toString()
-            var adapterZaRecycler = OrderListAdapter(ordersList, requireContext(), requireActivity(), productActivityLauncher)
+            var adapterZaRecycler = OrderListAdapter(ordersList, requireContext(), requireActivity(), productActivityLauncher, brojNarudzbi)
             narudzbeRecyclerView.adapter = adapterZaRecycler
             //println(OrderServices!!.imeTrenutneNarudzbe?.toString())
 
