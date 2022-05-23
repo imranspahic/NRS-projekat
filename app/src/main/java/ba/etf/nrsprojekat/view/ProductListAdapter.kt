@@ -154,7 +154,7 @@ class ProductListAdapter(
 
 
     fun updateProducts(products: List<Product>) {
-        this.products = products.sortedWith(compareBy<Product> { it.updatedAt }.reversed())
+        this.products = products.sortedWith(compareBy<Product> { it.createdAt }.reversed())
         brojProizvodaTextView.text = products.size.toString()
         notifyDataSetChanged()
     }

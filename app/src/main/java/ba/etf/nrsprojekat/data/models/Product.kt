@@ -12,6 +12,7 @@ data class Product(
     var status: String,
     var mjernaJedinica: String?,
     var updatedAt: Date,
+    var createdAt: Date,
 ) {
     var kolicinaNarudzbe: Int = 0
     init {
