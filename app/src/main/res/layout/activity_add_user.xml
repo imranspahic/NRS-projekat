@@ -86,20 +86,46 @@
             android:id="@+id/addUserStatusLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0"
             android:layout_marginRight="8dp"
-            android:text="Tip: " />
+            android:layout_weight="0"
+            android:text="Tip:              " />
 
         <Spinner
             android:id="@+id/spiner"
             android:layout_width="wrap_content"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:entries="@array/admin_korisnik"
-            />
+            android:layout_weight="1"
+            android:entries="@array/admin_korisnik" />
 
     </LinearLayout>
 
+
+    <LinearLayout
+        android:id="@+id/addUserBranchLinear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="17dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addUserStatusLinearLayout">
+
+        <TextView
+            android:id="@+id/addUserBranchLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            android:layout_weight="0"
+            android:text="Poslovnica:" />
+
+        <Spinner
+            android:id="@+id/spinnerPoslovnice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/btnDodajKorisnik"
