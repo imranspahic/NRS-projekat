@@ -6,6 +6,7 @@ import ba.etf.nrsprojekat.data.enums.LogAction
 import ba.etf.nrsprojekat.data.models.*
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import java.io.StringReader
 import java.util.*
 
 object BranchesService {
@@ -22,7 +23,8 @@ object BranchesService {
                         Branch(
                             document.data["id"].toString(),
                             document.data["nazivPoslovnice"].toString(),
-                            (document.data["updatedAt"]  as com.google.firebase.Timestamp).toDate()
+                            document.data["mjesto"] as MutableList<String>,
+                            (document.data["updatedAt"] as com.google.firebase.Timestamp).toDate()
                         )
                     )
                 }
@@ -34,27 +36,25 @@ object BranchesService {
             }
     }
 
-    fun addBranch(id: String, nazivPoslovnice: String,callback: (result: Boolean, mode: String) -> Unit) {
+    fun addBranch(id: String, nazivPoslovnice: String, nazivMjesta: MutableList<String>, callback: (result: Boolean, mode: String) -> Unit) {
         val updatedDate = Date()
         if (id.isEmpty()) {
             Log.d("branches", "Dodavanje nove poslovnice")
             val documentReference = db.collection("branches").document()
-            val newBranch = Branch(
-                documentReference.id,
-                nazivPoslovnice,
-                updatedDate
-            )
-            val newBranchData = hashMapOf(
-                "id" to newBranch.id,
-                "nazivPoslovnice" to newBranch.nazivPoslovnice,
+          //  val itemList = mutableListOf<MutableList<String>>()
+           // itemList.add(nazivMjesta)
+            val place = hashMapOf(
+                "id" to documentReference.id,
+                "nazivPoslovnice" to nazivPoslovnice,
+                "mjesto" to nazivMjesta,
                 "createdAt" to Date(),
                 "updatedAt" to updatedDate
+
             )
-            documentReference.set(newBranchData).addOnSuccessListener {
-                branches.add(newBranch)
+            documentReference.set(place).addOnSuccessListener {
                 LoggingService.addLog(
                     LogAction.CREATE,
-                    "Dodana poslovnica ${newBranch.nazivPoslovnice}"
+                    "Dodana poslovnica ${nazivPoslovnice}"
                 ){}
                 this.branches = branches.sortedWith(compareBy<Branch> { it.updatedAt }.reversed()).toMutableList()
                 callback(true, "ADD")

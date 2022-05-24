@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import ba.etf.nrsprojekat.AddBranchActivity
 import ba.etf.nrsprojekat.AddProductActivity
 import ba.etf.nrsprojekat.R
+import ba.etf.nrsprojekat.data.models.Branch
+import ba.etf.nrsprojekat.data.models.Narudzba
 import ba.etf.nrsprojekat.services.BranchesService
 import ba.etf.nrsprojekat.services.ProductsService
 import ba.etf.nrsprojekat.view.BranchListAdapter
@@ -24,6 +26,7 @@ class FragmentBranches : Fragment(R.layout.fragment_branches) {
     private lateinit var addBranchButton: MaterialButton
     private lateinit var refreshBranchButton: MaterialButton
     private lateinit var brojPoslovnica : TextView
+
 
 
     private var branchActivityLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
