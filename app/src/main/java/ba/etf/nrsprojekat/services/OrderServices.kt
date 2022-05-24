@@ -170,4 +170,11 @@ object OrderServices {
         for(item in ProductsService.products)
             if(item.kolicinaNarudzbe != 0) item.kolicinaNarudzbe = 0
     }
+
+    fun resetData() {
+        imeTrenutneNarudzbe = null
+        mapaZaNarudzbu = mutableMapOf()
+        lokacija = null
+        mjesto = null
+    }
 }
