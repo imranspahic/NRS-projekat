@@ -11,6 +11,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updateLayoutParams
 import ba.etf.nrsprojekat.*
 import ba.etf.nrsprojekat.services.LoginService
+import ba.etf.nrsprojekat.services.OrderServices
 import com.google.android.material.button.MaterialButton
 
 
@@ -57,6 +58,7 @@ class FragmentProfile : Fragment() {
 
     private fun onLogout() {
         LoginService.logoutUser()
+        OrderServices.resetData()
         val intent = Intent(activity, MainActivity::class.java)
         startActivity(intent);
         activity?.finishActivity(10)

@@ -15,17 +15,20 @@ import ba.etf.nrsprojekat.OrderInfoActivity
 import ba.etf.nrsprojekat.R
 import ba.etf.nrsprojekat.data.models.Narudzba
 import ba.etf.nrsprojekat.data.models.Product
+import ba.etf.nrsprojekat.services.LoginService
 import ba.etf.nrsprojekat.services.OrderServices
+import ba.etf.nrsprojekat.services.UserService
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.text.DateFormat
 import java.time.format.DateTimeFormatter
 
 class OrderListAdapter(
-    private var orders: List<Narudzba>,
+    private var orders: MutableList<Narudzba>,
     private val context: Context,
     private val fragmentActivity: FragmentActivity,
     private val activityResultLauncher: ActivityResultLauncher<Intent>,
-   // private val brojProizvodaTextView: TextView
+    private val brojNarudzbiTextView: TextView
 ) : RecyclerView.Adapter<OrderListAdapter.OrderViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderListAdapter.OrderViewHolder {
         val view = LayoutInflater
@@ -36,21 +39,21 @@ class OrderListAdapter(
     override fun getItemCount(): Int = orders.size
 
     override fun onBindViewHolder(holder: OrderListAdapter.OrderViewHolder, position: Int) {
-        this.orders = orders.sortedWith(compareBy<Narudzba> { it.datumNarucivanja }.reversed())
-
-            if(orders[position].isDeleted == false) {
+        this.orders = orders.sortedWith(compareBy<Narudzba> { it.datumNarucivanja }.reversed()).toMutableList()
                 holder.orderName.text = orders[position].nazivNarudzbe
                 holder.orderStatus.text = orders[position].status
                 holder.datumNarucivanja.text = DateFormat.getDateInstance()
-                    .format(orders[position].datumNarucivanja)
-            }
-
-        Log.d("orders", orders[position].proizvodi.toString())
+                .format(orders[position].datumNarucivanja)
+                Log.d("orders", orders[position].proizvodi.toString())
 
         holder.deleteOrderButton.setOnClickListener {
-        OrderServices.updateOrder(orders[position].id)
-            orders[position].isDeleted = true
-            notifyDataSetChanged()
+     /*   OrderServices.updateOrder(orders[position].id)
+            OrderServices.getOrders(LoginService.logovaniKorisnik!!.getID()) {
+                val nova = it
+                updateOrders(nova)
+            } */
+            deleteOrderDialog(position)
+
         }
         holder.infoOrderButton.setOnClickListener {
             openInfoOrder(orders[position].id)
@@ -76,12 +79,60 @@ class OrderListAdapter(
         activityResultLauncher.launch(intent)
     }
 
-    fun updateOrders(products: List<Product>) {
-        this.orders = orders.sortedWith(compareBy<Narudzba> { it.datumNarucivanja }.reversed())
-      //  brojProizvodaTextView.text = products.size.toString()
+
+
+    fun updateOrders(orders: MutableList<Narudzba>) {
+        this.orders = orders.sortedWith(compareBy<Narudzba> { it.datumNarucivanja }.reversed()).toMutableList()
+        brojNarudzbiTextView.text = this.orders.size.toString()
         notifyDataSetChanged()
     }
 
+    fun deleteOrderDialog(position: Int) {
+        MaterialAlertDialogBuilder(context)
+            .setIconAttribute(android.R.attr.alertDialogIcon)
+            .setTitle("Izbriši narudžbu?")
+            .setMessage("Da li želite izbrisati narudžbu '${orders[position].nazivNarudzbe}?'")
+
+            .setNegativeButton("Odustani") { dialog, which ->
+                dialog.dismiss()
+            }
+            .setPositiveButton("Izbriši") { dialog, which ->
+                OrderServices.updateOrder(orders[position].id)
+                OrderServices.getOrders(LoginService.logovaniKorisnik!!.getID()) {
+                    val nova = it
+                    updateOrders(nova)
+                }
+                }
+            .show()
+            }
+
 
     }
+
+    /*
+     MaterialAlertDialogBuilder(context)
+            .setIconAttribute(android.R.attr.alertDialogIcon)
+            .setTitle("Izbriši korisnika?")
+            .setMessage("Da li želite izbrisati korisnika ${korisnikList[position].getEmail()}?")
+
+            .setNegativeButton("Odustani") { dialog, which ->
+                dialog.dismiss()
+            }
+            .setPositiveButton("Izbriši") { dialog, which ->
+                UserService.deleteUser(korisnikID) {result ->
+                    if(result) {
+                        dialog.dismiss()
+                        updateUsers(UserService.users)
+                        Snackbar.make(brojKorisnikaTextView, "Korisnik uspješno obrisan!", Snackbar.LENGTH_LONG)
+                            .setAction("OK") { }
+                            .show()
+                    }
+                }
+            }
+            .show()
+     */
+
+
+
+
 
