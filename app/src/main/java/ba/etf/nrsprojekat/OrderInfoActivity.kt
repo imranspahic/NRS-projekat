@@ -31,6 +31,7 @@ class OrderInfoActivity : AppCompatActivity() {
     private lateinit var orderLoader: CircularProgressIndicator
     private lateinit var linearLayoutRacun: LinearLayout
 
+    private lateinit var narudzba: Narudzba
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,37 +61,30 @@ class OrderInfoActivity : AppCompatActivity() {
        listaRecycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
         OrderServices.getOrder(orderID, {
-            var lista: MutableList<Narudzba>
-            if (!it[0].isDeleted) {
-                lista = it;
-                datum.text = DateFormat.getDateInstance().format(it[0].datumNarucivanja)
-                mjesto.text = it[0].mjesto
-                lokacija.text = it[0]?.lokacija ?: "/"
-                var brojProizvoda = lista[0].proizvodi.size
-                var proizvodiList = lista[0].proizvodi
-                //for (proizvod in proizvodiList)
-                adapter = CheckoutAdapter(proizvodiList, lista)
+            narudzba, ukupnaCijena ->
+            this.narudzba = narudzba
+                datum.text = DateFormat.getDateInstance().format(narudzba.datumNarucivanja)
+                mjesto.text = narudzba.mjesto
+                lokacija.text = narudzba?.lokacija ?: "/"
+                var brojProizvoda = narudzba.proizvodi.size
+                var proizvodiList = narudzba.proizvodi
+                adapter = CheckoutAdapter(proizvodiList, listOf(narudzba))
+
                 listaRecycler.adapter = adapter
-                OrderServices.getFinalPriceByOrder(orderID, {
-                    if (it != 0.0) {
-                        iznos = it;
+                    if (ukupnaCijena != 0.0) {
+                        iznos = ukupnaCijena;
                         iznos = (iznos * 100.0).roundToInt() / 100.0
                         iznosZaPlatiti.text = iznos.toString() + " KM"
                     }
-                   orderLoader.visibility = View.GONE
 
-                   iznosZaPlatiti.visibility = View.VISIBLE
-                    listaRecycler.visibility = View.VISIBLE
-                   linearLayoutRacun.visibility = View.VISIBLE
-                },
-                    {
-                        orderLoader.visibility = View.GONE
-                        Snackbar.make(listaRecycler, "Greška!", Snackbar.LENGTH_LONG)
-                            .setAction("OK") { }
-                            .show()
+                    if(narudzba.brojRacuna == null) {
+                        Log.d("orders", "Dohvacanje broja racuna ...")
                     }
-                )
-            }
+
+                   orderLoader.visibility = View.GONE
+                   iznosZaPlatiti.visibility = View.VISIBLE
+                   listaRecycler.visibility = View.VISIBLE
+                   linearLayoutRacun.visibility = View.VISIBLE
         },
             {
                 orderLoader.visibility = View.GONE

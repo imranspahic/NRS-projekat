@@ -10,7 +10,9 @@ class Narudzba(
     var proizvodi: List<MutableMap<String, Any>>,
     var datumNarucivanja: Date,
     var lokacija: String,
-    var mjesto: String
+    var mjesto: String,
+    var datumRacuna: Date?,
+    var brojRacuna: Int?
 ) {
     var isDeleted: Boolean = false
 
