@@ -17,6 +17,7 @@ import ba.etf.nrsprojekat.data.models.Product
 import ba.etf.nrsprojekat.services.ProductsService
 
 class BranchListAdapter(private var branches : List<Branch>,
+                        private var brojPoslovnica: TextView,
 
 
 ) : RecyclerView.Adapter<BranchListAdapter.BranchViewHolder>() {
@@ -31,24 +32,23 @@ class BranchListAdapter(private var branches : List<Branch>,
 
     override fun onBindViewHolder(holder: BranchViewHolder, position: Int) {
         val branch : Branch = branches[position]
-        //val fpp : FragmentProizvodiUPoslovnicama = FragmentProizvodiUPoslovnicama()
+
         holder.branchName.text =branch.nazivPoslovnice
+        brojPoslovnica.text = branches.size.toString()
         holder.itemView.setOnClickListener(object : View.OnClickListener{
             override fun onClick(v:View?){
-                // AppCompatActivity activity = (AppCompatActivity)v.getContext();
-
                 val activity=v!!.context as AppCompatActivity
                 val intent = Intent(v.getContext(), PregledUPoslovnicamaActivity::class.java)
-                //activity.supportFragmentManager.beginTransaction().replace(R.id.rec, fpp).addToBackStack(null).commit();
-                /*ProductsService.FilterProducts("Mostar"){it -> }*/
                 intent.putExtra("Poslovnice",branch.nazivPoslovnice);
                 v.getContext().startActivity(intent)
             }
         })
-
     }
-
-
+    fun updateBranches(branches: List<Branch>) {
+        this.branches = branches.sortedWith(compareBy<Branch> { it.updatedAt }.reversed())
+        brojPoslovnica.text = branches.size.toString()
+        notifyDataSetChanged()
+    }
 
     public class BranchViewHolder (itemView : View) : RecyclerView.ViewHolder(itemView){
         val branchName : TextView = itemView.findViewById(R.id.branchName)

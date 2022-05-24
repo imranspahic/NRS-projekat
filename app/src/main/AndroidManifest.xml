@@ -13,6 +13,9 @@
             android:name=".PdvCategoriesActivity"
             android:exported="false" />
         <activity
+            android:name=".AddBranchActivity"
+            android:exported="false" />
+        <activity
             android:name=".OrderInfoActivity"
             android:exported="false"
             android:label="@string/title_activity_order_info"
