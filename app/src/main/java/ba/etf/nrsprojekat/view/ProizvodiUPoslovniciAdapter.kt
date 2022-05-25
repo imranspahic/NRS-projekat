@@ -1,11 +1,13 @@
 package ba.etf.nrsprojekat.view
 
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import ba.etf.nrsprojekat.PromijeniStatusDostaveActivity
 import ba.etf.nrsprojekat.R
@@ -31,7 +33,24 @@ class ProizvodiUPoslovniciAdapter(private var productList : List<Product>) : Rec
         holder.status.text = proizvodi.status
         holder.cijena.text = String.format("%.2f", proizvodi.price) + " KM"
         holder.pdv.text = proizvodi.pdvCategoryName
-        //ProductsService.FilterProducts("Mostar")
+
+
+        if(proizvodi.quantity == 0) {
+            proizvodi.status = "nema na stanju"
+            holder.status.text = proizvodi.status
+            ProductsService.updateProductStatus(proizvodi.id, "nema na stanju")
+        }
+
+        if(proizvodi.status.lowercase() != "dostupno") {
+            holder.productDividerPosl.setBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.red))
+            holder.status.setTextColor(ColorStateList.valueOf(ContextCompat.getColor(holder.itemView.context, R.color.red)))
+        }
+        else {
+            holder.productDividerPosl.setBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.main_green))
+            holder.status.setTextColor(ColorStateList.valueOf(ContextCompat.getColor(holder.itemView.context, R.color.main_green)))
+        }
+
+
 
 
     }
@@ -40,6 +59,7 @@ class ProizvodiUPoslovniciAdapter(private var productList : List<Product>) : Rec
         return productList.size
     }
     public class PregledUPoslovniciViewHolder (itemView : View) : RecyclerView.ViewHolder(itemView){
+        var productDividerPosl: View = itemView.findViewById(R.id.productDividerPoslovnica)
         val name : TextView = itemView.findViewById(R.id.productNamePoslovnica)
         val kolicina : TextView = itemView.findViewById(R.id.productQuantityPoslovnica)
         val status : TextView = itemView.findViewById(R.id.productStatusPoslovnica)
