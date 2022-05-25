@@ -15,6 +15,7 @@ object BranchesService {
 
     fun getBranches(callback: (result: MutableList<Branch>) -> Unit) {
         var lista: MutableList<Branch> = mutableListOf()
+        //branches = mutableListOf()
         db.collection("branches")
             .get()
             .addOnSuccessListener { result ->
@@ -27,7 +28,14 @@ object BranchesService {
                             (document.data["updatedAt"] as com.google.firebase.Timestamp).toDate()
                         )
                     )
+                    /*branches.add(Branch(
+                        document.data["id"].toString(),
+                        document.data["nazivPoslovnice"].toString(),
+                        document.data["mjesto"] as MutableList<String>,
+                        (document.data["updatedAt"] as com.google.firebase.Timestamp).toDate()
+                    ))*/
                 }
+                branches = lista
                 callback(lista)
 
             }

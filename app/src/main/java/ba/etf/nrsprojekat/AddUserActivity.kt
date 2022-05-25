@@ -2,23 +2,26 @@ package ba.etf.nrsprojekat
 
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Spinner
+import android.view.View
+import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import ba.etf.nrsprojekat.data.models.Korisnik
+import ba.etf.nrsprojekat.services.BranchesService
 import ba.etf.nrsprojekat.services.LoginService
 import ba.etf.nrsprojekat.services.UserService
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.textfield.TextInputLayout
+import java.util.*
 import java.util.regex.Pattern
+
 
 class AddUserActivity : AppCompatActivity() {
     private lateinit var spiner: Spinner
+    private lateinit var spinerPoslovnice:Spinner
     private lateinit var unosEmail: EditText
     private lateinit var unosLozinka: EditText
     private lateinit var btnDodaj: Button
@@ -33,6 +36,7 @@ class AddUserActivity : AppCompatActivity() {
 
         toolbar = findViewById(R.id.addUserToolbar)
         spiner = findViewById(R.id.spiner)
+        spinerPoslovnice = findViewById(R.id.spinnerPoslovnice)
         unosEmail = findViewById(R.id.unosEmail)
         unosLozinka = findViewById(R.id.unosLozinka)
         btnDodaj = findViewById(R.id.btnDodajKorisnik)
@@ -81,6 +85,36 @@ class AddUserActivity : AppCompatActivity() {
                 checkButtonState(userID)
             }
         })
+
+        /*var poslovnice = mutableListOf<String>()
+        BranchesService.getBranches {
+            val list : MutableList<Branch> = it;
+            for(x in list) {
+                poslovnice.add(x.nazivPoslovnice)
+            }
+        }*/
+
+        /*val pdvCategoryList = mutableListOf<String>("Nema kategorije")
+        PdvCategoriesService.pdvCategories.forEach { category -> pdvCategoryList.add(category.toString()) }*/
+
+        val oki = mutableListOf<String>("Sarajevo")
+        BranchesService.getBranches {
+                BranchesService.branches.forEach { branch -> if(branch.nazivPoslovnice != "Sarajevo") oki.add(branch.nazivPoslovnice.toString()) }
+        }
+        //oki.removeAt()
+        val adapter = ArrayAdapter(this,
+            android.R.layout.simple_spinner_dropdown_item, oki)
+        spinerPoslovnice.adapter = adapter
+
+        spinerPoslovnice?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                //Log.d("oki", position.toString())
+            }
+
+        }
     }
 
     private fun onAddUser(userID: String?) {
