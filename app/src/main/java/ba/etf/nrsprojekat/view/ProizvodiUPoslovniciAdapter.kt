@@ -29,7 +29,7 @@ class ProizvodiUPoslovniciAdapter(private var productList : List<Product>) : Rec
         // holder.poslovnica.text = proizvodi.poslovnicaName
         holder.kolicina.text= proizvodi.quantity.toString()
         holder.status.text = proizvodi.status
-        holder.cijena.text = proizvodi.price.toString()
+        holder.cijena.text = String.format("%.2f", proizvodi.price) + " KM"
         holder.pdv.text = proizvodi.pdvCategoryName
         //ProductsService.FilterProducts("Mostar")
 
