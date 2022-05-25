@@ -21,7 +21,6 @@ class AddBranchActivity : AppCompatActivity() {
     private lateinit var btnDodajPoslovnicu : Button
     private lateinit var btnDodajMjesto : Button
     private lateinit var listaMjestaPoslovnice: MutableList<String>
-    private lateinit var listView: ListView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,7 +30,6 @@ class AddBranchActivity : AppCompatActivity() {
         nazivPoslovnice = findViewById(R.id.unosPoslovnice)
         nazivMjesta = findViewById(R.id.unosMjesta)
         btnDodajMjesto = findViewById(R.id.dodajMjesto)
-       // listView = findViewById(R.id.listaMjesta)
         listaMjestaPoslovnice = mutableListOf<String>()
         btnDodajPoslovnicu = findViewById(R.id.btnDodajPoslovnicu)
         val productID: String? = intent.getStringExtra("productID")

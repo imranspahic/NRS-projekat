@@ -9,15 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ba.etf.nrsprojekat.AddBranchActivity
-import ba.etf.nrsprojekat.AddProductActivity
 import ba.etf.nrsprojekat.R
-import ba.etf.nrsprojekat.data.models.Branch
-import ba.etf.nrsprojekat.data.models.Narudzba
 import ba.etf.nrsprojekat.services.BranchesService
-import ba.etf.nrsprojekat.services.ProductsService
 import ba.etf.nrsprojekat.view.BranchListAdapter
-import ba.etf.nrsprojekat.view.DostavaAdapter
-import ba.etf.nrsprojekat.view.ProductListAdapter
+import ba.etf.nrsprojekat.EditBranchActivity
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
 
@@ -26,6 +21,7 @@ class FragmentBranches : Fragment(R.layout.fragment_branches) {
     private lateinit var addBranchButton: MaterialButton
     private lateinit var refreshBranchButton: MaterialButton
     private lateinit var brojPoslovnica : TextView
+    private lateinit var editBranchButton: MaterialButton
 
 
 
@@ -51,6 +47,7 @@ class FragmentBranches : Fragment(R.layout.fragment_branches) {
         addBranchButton = view.findViewById(R.id.addBranchButton)
         refreshBranchButton = view.findViewById(R.id.refreshBranchButton)
         brojPoslovnica = view.findViewById(R.id.brojPoslovnica)
+     //   editBranchButton = view.findViewById(R.id.editBranchButton)
         brojPoslovnica.text = BranchesService.branches.size.toString()
 
 
@@ -58,7 +55,7 @@ class FragmentBranches : Fragment(R.layout.fragment_branches) {
         recyclerViewAll.layoutManager = LinearLayoutManager(view.context)
 
         BranchesService.getBranches{ result ->
-            val myAdapter = BranchListAdapter(result,brojPoslovnica)
+            val myAdapter = BranchListAdapter(result,brojPoslovnica,requireActivity(),branchActivityLauncher)
             recyclerViewAll.adapter = myAdapter
         }
         addBranchButton.setOnClickListener {
@@ -67,11 +64,16 @@ class FragmentBranches : Fragment(R.layout.fragment_branches) {
         }
         refreshBranchButton.setOnClickListener{
             BranchesService.getBranches { result ->
-                val myAdapter = BranchListAdapter(result,brojPoslovnica)
+                val myAdapter = BranchListAdapter(result,brojPoslovnica,requireActivity(),branchActivityLauncher)
                 recyclerViewAll.adapter = myAdapter
             }
             recyclerViewAll.adapter!!.notifyDataSetChanged()
             brojPoslovnica.text = BranchesService.branches.size.toString()
                 }
-            }
-        }
+
+      /*  editBranchButton.setOnClickListener {
+            val intent = Intent(activity, EditBranchActivity::class.java)
+            branchActivityLauncher.launch(intent)
+        }*/
+    }
+}

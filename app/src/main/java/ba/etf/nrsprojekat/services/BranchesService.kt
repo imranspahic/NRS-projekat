@@ -41,8 +41,6 @@ object BranchesService {
         if (id.isEmpty()) {
             Log.d("branches", "Dodavanje nove poslovnice")
             val documentReference = db.collection("branches").document()
-          //  val itemList = mutableListOf<MutableList<String>>()
-           // itemList.add(nazivMjesta)
             val place = hashMapOf(
                 "id" to documentReference.id,
                 "nazivPoslovnice" to nazivPoslovnice,
@@ -61,6 +59,9 @@ object BranchesService {
             }.addOnFailureListener {
                 callback(false, "ADD")
             }
+        }
+        else{
+
         }
     }
 }
