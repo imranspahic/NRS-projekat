@@ -52,6 +52,7 @@ class FragmentOrder() : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         narudzbeRecyclerView = view.findViewById(R.id.narudzbeRecyclerView)
         brojNarudzbi = view.findViewById(R.id.brojNarudzbi)
+
         narudzbeRecyclerView.layoutManager = LinearLayoutManager(view.context)
         OrderServices.getOrders(LoginService.logovaniKorisnik!!.getID().toString()) {
             ordersList = it

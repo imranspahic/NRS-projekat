@@ -58,4 +58,6 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:29.3.1')
     implementation 'com.google.firebase:firebase-firestore-ktx'
     implementation 'com.google.android.material:material:1.3.0-alpha02'
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9"
+    implementation group: 'org.simpleframework', name: 'simple-xml', version: '2.7.1'
 }
