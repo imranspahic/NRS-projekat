@@ -22,13 +22,51 @@
         <entry key="..\:/AndroidStudioProjects/NRS-projekat20/app/src/main/res/layout/activity_proizvodi_u_poslovnicama.xml" value="0.1140625" />
         <entry key="..\:/AndroidStudioProjects/NRS-projekat20/app/src/main/res/layout/product_list_item.xml" value="0.264" />
         <entry key="..\:/AndroidStudioProjects/NRS-projekat20/app/src/main/res/layout/proizvod_u_posl_list_item.xml" value="0.264" />
+        <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/activity_add_branch.xml" value="0.19791666666666666" />
+        <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/activity_add_product.xml" value="0.19791666666666666" />
+        <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/activity_add_user.xml" value="0.19791666666666666" />
+        <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/activity_change_password.xml" value="0.19791666666666666" />
+        <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/activity_edit_branch.xml" value="0.19791666666666666" />
+        <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/activity_logging.xml" value="0.19791666666666666" />
+        <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/activity_main.xml" value="0.19791666666666666" />
+        <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/activity_main2.xml" value="0.19791666666666666" />
+        <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/activity_order_info.xml" value="0.19791666666666666" />
+        <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/activity_pdv_categories.xml" value="0.19791666666666666" />
+        <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/activity_proizvodi_u_poslovnicama.xml" value="0.2115036231884058" />
+        <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/add_order_dialog.xml" value="0.19791666666666666" />
+        <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/branch_item.xml" value="0.19791666666666666" />
+        <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/checkout_single_product_item.xml" value="0.19791666666666666" />
+        <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/content_order_info.xml" value="0.19791666666666666" />
+        <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/dostava_fragment.xml" value="0.19791666666666666" />
+        <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/dostava_proizvodi_fragment.xml" value="0.19791666666666666" />
+        <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/fragment_admin.xml" value="0.19791666666666666" />
+        <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/fragment_admin_opcije.xml" value="0.19791666666666666" />
+        <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/fragment_branches.xml" value="0.19791666666666666" />
+        <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/fragment_dodaj_korisnik.xml" value="0.19791666666666666" />
+        <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/fragment_first.xml" value="0.19791666666666666" />
+        <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/fragment_order.xml" value="0.19791666666666666" />
+        <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/dostava_fragment.xml" value="0.19791666666666666" />
+        <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/dostava_proizvodi_fragment.xml" value="0.19791666666666666" />
         <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/dostava_fragment.xml" value="0.19791666666666666" />
         <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/dostava_proizvodi_fragment.xml" value="0.19791666666666666" />
         <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/fragment_products.xml" value="0.19791666666666666" />
+        <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/fragment_profile.xml" value="0.19791666666666666" />
+        <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/fragment_second.xml" value="0.19791666666666666" />
+        <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/korisnici_fragment.xml" value="0.19791666666666666" />
+        <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/location_pick_bottom_sheet.xml" value="0.19791666666666666" />
+        <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/logs_list_item.xml" value="0.19791666666666666" />
+        <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/logs_spinner_filter_item.xml" value="0.19791666666666666" />
+        <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/obrisi_fragment.xml" value="0.19791666666666666" />
+        <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/order_list_item.xml" value="0.19791666666666666" />
+        <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/pdv_category_bottom_sheet.xml" value="0.19791666666666666" />
+        <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/pdv_category_item.xml" value="0.19791666666666666" />
         <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/poslani_proizvodi_fragment.xml" value="0.2151268115942029" />
         <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/primljeni_proizvodi_fragment.xml" value="0.1" />
+        <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/product_list_item.xml" value="0.19791666666666666" />
+        <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/proizvod_u_posl_list_item.xml" value="0.2115036231884058" />
         <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/promijeni_status_dostave_activity.xml" value="0.19791666666666666" />
         <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/svi_proizvodi_fragment.xml" value="0.2151268115942029" />
+        <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/user_item.xml" value="0.19791666666666666" />
         <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat1/app/src/main/res/layout/isporuceni_proizvodi_fragment.xml" value="0.1" />
         <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat1/app/src/main/res/layout/poslani_proizvodi_fragment.xml" value="0.1" />
         <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat456/app/src/main/res/layout/promijeni_status_dostave_activity.xml" value="0.1" />
