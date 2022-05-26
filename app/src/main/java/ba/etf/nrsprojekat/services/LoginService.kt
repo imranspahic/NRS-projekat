@@ -35,6 +35,7 @@ object LoginService {
                         email,
                         password,
                         querySnapshot.documents.first()["isAdmin"].toString().toBoolean(),
+                        querySnapshot.documents.first()["poslovnica"].toString(),
                         (querySnapshot.documents.first()["updatedAt"] as com.google.firebase.Timestamp).toDate()
                     )
                 }

@@ -15,6 +15,7 @@ object BranchesService {
 
     fun getBranches(callback: (result: MutableList<Branch>) -> Unit) {
         var lista: MutableList<Branch> = mutableListOf()
+        //branches = mutableListOf()
         db.collection("branches")
             .get()
             .addOnSuccessListener { result ->
@@ -37,6 +38,7 @@ object BranchesService {
                     branches.add(newBranch)
 
                 }
+                branches = lista
                 callback(lista)
 
             }

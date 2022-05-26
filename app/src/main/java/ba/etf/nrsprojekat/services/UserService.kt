@@ -31,6 +31,7 @@ object UserService {
                                 document.data["email"].toString(),
                                 document.data["password"].toString(),
                                 document.data["isAdmin"].toString().toBoolean(),
+                                document.data["poslovnica"].toString(),
                                 (document.data["updatedAt"] as Timestamp).toDate()
                             )
                         )
@@ -44,7 +45,7 @@ object UserService {
             }
     }
 
-    fun createUser(email: String, password: String, isAdmin: Boolean, callback: (result: Boolean) -> Unit) {
+    fun createUser(email: String, password: String, isAdmin: Boolean, poslovnica:String, callback: (result: Boolean) -> Unit) {
         val documentReference = db.collection("users").document()
         val createdAt = Date()
         val newUser = Korisnik(
@@ -52,6 +53,7 @@ object UserService {
             email,
             password,
             isAdmin,
+            poslovnica,
             createdAt
         )
         val user = hashMapOf(
@@ -59,6 +61,7 @@ object UserService {
             "email" to newUser.getEmail(),
             "password" to newUser.getPassword(),
             "isAdmin" to newUser.isAdmin(),
+            "poslovnica" to newUser.poslovnica(),
             "createdAt" to createdAt,
             "updatedAt" to createdAt,
             "isLogged" to true
