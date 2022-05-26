@@ -11,6 +11,7 @@ import java.util.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.w3c.dom.Element
 import org.w3c.dom.Node
 import org.w3c.dom.NodeList
@@ -157,55 +158,62 @@ object OrderServices {
         mjesto = null
     }
 
-    fun fiskalizirajRacun(narudzba: Narudzba) {
+    fun fiskalizirajRacun(narudzba: Narudzba,
+                          errorCallback: () -> Unit,
+                          successCallback: (brojFiskalnogRacuna: Int,
+                                            datumIzdavanjaRacuna: String,
+                                            vrijemeIzdavanjaRacuna: String) -> Unit) {
 
-        GlobalScope.launch(Dispatchers.IO) {
-            try {
-                val sadrzajRacuna = generisiXmlNarudzbe(narudzba)
-                val url = URL("http://192.168.100.9:8085/stampatifiskalniracun")
-                val postData = """<?xml version="1.0" encoding="UTF-8"?>
+        GlobalScope.launch {
+            var brojRacuna = 0
+            var datumRacuna = ""
+            var vrijemeRacuna = ""
+            var error = false
+            withContext(Dispatchers.IO) {
+                try {
+                    val sadrzajRacuna = generisiXmlNarudzbe(narudzba)
+                    val url = URL("http://192.168.100.9:8085/stampatifiskalniracun")
+                    val postData = """<?xml version="1.0" encoding="UTF-8"?>
 <RacunZahtjev xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <VrstaZahtjeva>0</VrstaZahtjeva>
     <NoviObjekat>
         <StavkeRacuna>
             $sadrzajRacuna
-        </StavkeRacuna>
-        <VrstePlacanja>
-            <VrstaPlacanja>
-                <Oznaka>Gotovina</Oznaka>
-                <Iznos>50</Iznos>
-            </VrstaPlacanja>
-        </VrstePlacanja>
+       dga
     </NoviObjekat>
 </RacunZahtjev>"""
-                val conn = url.openConnection() as HttpURLConnection
-                conn.requestMethod = "POST"
-                conn.doOutput = true
-                conn.setRequestProperty("Content-Type", "text/xml")
-                conn.useCaches = false
-                var result = ""
-                DataOutputStream(conn.outputStream).use { it.writeBytes(postData) }
-                BufferedReader(InputStreamReader(conn.inputStream)).use { br ->
-                    result = br.readText()
-                    Log.d("orders", "result = ${result}")
+                    val conn = url.openConnection() as HttpURLConnection
+                    conn.requestMethod = "POST"
+                    conn.doOutput = true
+                    conn.setRequestProperty("Content-Type", "text/xml")
+                    conn.useCaches = false
+                    DataOutputStream(conn.outputStream).use { it.writeBytes(postData) }
+
+                    var result = ""
+                    BufferedReader(InputStreamReader(conn.inputStream)).use { br ->
+                        result = br.readText()
+                        Log.d("orders", "result = ${result}")
+                    }
+
                     val dbFactory = DocumentBuilderFactory.newInstance()
                     val dBuilder = dbFactory.newDocumentBuilder()
                     val xmlInput = result.byteInputStream(charset("utf-8"))
-                    InputSource(StringReader(br.readText()))
+                    InputSource(StringReader(result))
                     val doc = dBuilder.parse(xmlInput)
 
                     val nVrstaOdgovoraList = doc.getElementsByTagName("VrstaOdgovora")
-
                     if(nVrstaOdgovoraList.length == 0) {
                         //ERROR
-                        //RETURN
+                        error = true
+                        return@withContext
                     }
                     else {
                         val textContent = nVrstaOdgovoraList.item(0).textContent
                         Log.d("orders", "Vrsta odgovora = ${textContent}")
-                        if(textContent == "GRESKA") {
+                        if(textContent == "Greska") {
                             //ERROR
-                            //RETURN
+                            error = true
+                            return@withContext
                         }
                     }
 
@@ -213,29 +221,51 @@ object OrderServices {
                     Log.d("orders", "Odgovori element length = ${odgovoriLista.length}")
                     if(odgovoriLista.length == 0) {
                         //ERROR
-                        //RETURN
+                        error = true
+                        return@withContext
                     }
-                        val element = odgovoriLista.item(0) as Element
-                        val odgovorLista = element.getElementsByTagName("Odgovor")
-                        Log.d("orders", "Odgovor element lista = ${odgovorLista.length}")
+                    val element = odgovoriLista.item(0) as Element
 
+                    val odgovorLista = element.getElementsByTagName("Odgovor")
+
+                    Log.d("orders", "Odgovor element lista = ${odgovorLista.length}")
                     for(i in 0..odgovorLista.length-1) {
                         val odgovorElement = odgovorLista.item(i) as Element
-
                         val nazivElement = odgovorElement.getElementsByTagName("Naziv").item(0) as Element
                         val vrijednostElement = odgovorElement.getElementsByTagName("Vrijednost").item(0) as Element
-
                         val naziv = nazivElement.textContent
                         val vrijednost = vrijednostElement.textContent
 
+                        if(naziv == "BrojFiskalnogRacuna") {
+                            brojRacuna = vrijednost.toInt()
+                        }
+
+                        if(naziv == "DatumFiskalnogRacuna") {
+                            datumRacuna = vrijednost
+                        }
+
+                        if(naziv == "VrijemeFiskalnogRacuna") {
+                            vrijemeRacuna = vrijednost
+                        }
                         Log.d("orders", "Odgovor elemement i=${i}, naziv=$naziv, vrijednost=$vrijednost")
                     }
 
+                    Log.d("orders: fiskalizirajRacun", "success result: brojRacuna=$brojRacuna, datumRacuna=$datumRacuna, vrijemeRacuna=$vrijemeRacuna")
+                    return@withContext
+                } catch(e: Exception) {
+                    Log.d("orders: fiskalizirajRacun", "error = ${e.message}")
+                    Log.d("orders: fiskalizirajRacun", "error stacktrace = ${e.stackTrace.toString()}")
+                    //ERROR
+                    error = true
+                    return@withContext
                 }
-                Log.d("orders: fiskalizirajRacun", "success result")
-            } catch(e: Exception) {
-                Log.d("orders: fiskalizirajRacun", "error = ${e.message}")
-                Log.d("orders: fiskalizirajRacun", "error stacktrace = ${e.stackTrace.toString()}")
+            }
+
+            withContext(Dispatchers.Main) {
+                if(error) {
+                    errorCallback()
+                }
+                else successCallback(brojRacuna, datumRacuna, vrijemeRacuna)
             }
 
         }

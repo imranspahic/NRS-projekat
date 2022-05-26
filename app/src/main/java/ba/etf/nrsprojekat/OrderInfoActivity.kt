@@ -79,13 +79,30 @@ class OrderInfoActivity : AppCompatActivity() {
 
                     if(narudzba.brojRacuna == null) {
                         Log.d("orders", "Dohvacanje broja racuna ...")
-                        OrderServices.fiskalizirajRacun(narudzba)
+                        OrderServices.fiskalizirajRacun(narudzba, {
+                            Log.d("orders", "Error callback pozvan")
+                            orderLoader.visibility = View.GONE
+                            iznosZaPlatiti.visibility = View.VISIBLE
+                            listaRecycler.visibility = View.VISIBLE
+                            linearLayoutRacun.visibility = View.VISIBLE
+                            Snackbar.make(listaRecycler, "Greška prilikom fiskalizacije računa!", Snackbar.LENGTH_LONG)
+                                .setAction("OK") { }
+                                .show()
+
+                        }, {brojRacuna, datumRacuna, vrijemeRacuna ->
+                            orderLoader.visibility = View.GONE
+                            iznosZaPlatiti.visibility = View.VISIBLE
+                            listaRecycler.visibility = View.VISIBLE
+                            linearLayoutRacun.visibility = View.VISIBLE
+                        })
+                    }
+            else {
+                        orderLoader.visibility = View.GONE
+                        iznosZaPlatiti.visibility = View.VISIBLE
+                        listaRecycler.visibility = View.VISIBLE
+                        linearLayoutRacun.visibility = View.VISIBLE
                     }
 
-                   orderLoader.visibility = View.GONE
-                   iznosZaPlatiti.visibility = View.VISIBLE
-                   listaRecycler.visibility = View.VISIBLE
-                   linearLayoutRacun.visibility = View.VISIBLE
         },
             {
                 orderLoader.visibility = View.GONE
