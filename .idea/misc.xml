@@ -4,6 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/AndroidStudioProjects/NRS-projekat1/app/src/main/res/layout/activity_proizvodi_u_poslovnicama.xml" value="0.11302083333333333" />
+        <entry key="..\:/AndroidStudioProjects/NRS-projekat1/app/src/main/res/layout/product_list_item.xml" value="0.25416666666666665" />
+        <entry key="..\:/AndroidStudioProjects/NRS-projekat1/app/src/main/res/layout/proizvod_u_posl_list_item.xml" value="0.11302083333333333" />
         <entry key="..\:/AndroidStudioProjects/NRS-projekat11.05/app/src/main/res/drawable/ic_branch.xml" value="0.1" />
         <entry key="..\:/AndroidStudioProjects/NRS-projekat11.05/app/src/main/res/layout/activity_add_product.xml" value="0.23867753623188406" />
         <entry key="..\:/AndroidStudioProjects/NRS-projekat11.05/app/src/main/res/layout/activity_logging.xml" value="0.23867753623188406" />
@@ -43,6 +45,8 @@
         <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/fragment_dodaj_korisnik.xml" value="0.19791666666666666" />
         <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/fragment_first.xml" value="0.19791666666666666" />
         <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/fragment_order.xml" value="0.19791666666666666" />
+        <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/dostava_fragment.xml" value="0.19791666666666666" />
+        <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/dostava_proizvodi_fragment.xml" value="0.19791666666666666" />
         <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/fragment_products.xml" value="0.19791666666666666" />
         <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/fragment_profile.xml" value="0.19791666666666666" />
         <entry key="..\:/Users/ajla_/AndroidStudioProjects/NRS-projekat/app/src/main/res/layout/fragment_second.xml" value="0.19791666666666666" />
