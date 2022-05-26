@@ -7,11 +7,8 @@ import ba.etf.nrsprojekat.data.models.Narudzba
 import ba.etf.nrsprojekat.data.models.Product
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.*
 import java.util.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import org.w3c.dom.Element
 import org.w3c.dom.Node
 import org.w3c.dom.NodeList
@@ -159,32 +156,40 @@ object OrderServices {
     }
 
     fun fiskalizirajRacun(narudzba: Narudzba,
-                          errorCallback: () -> Unit,
+                          errorCallback: (poruka: String) -> Unit,
                           successCallback: (brojFiskalnogRacuna: Int,
                                             datumIzdavanjaRacuna: String,
                                             vrijemeIzdavanjaRacuna: String) -> Unit) {
 
-        GlobalScope.launch {
+        val job = GlobalScope.launch {
             var brojRacuna = 0
             var datumRacuna = ""
             var vrijemeRacuna = ""
             var error = false
+            var errorPoruka = "Greška prilikom fiskalizacije računa!"
             withContext(Dispatchers.IO) {
                 try {
                     val sadrzajRacuna = generisiXmlNarudzbe(narudzba)
-                    val url = URL("http://192.168.100.9:8085/stampatifiskalniracun")
+                    val url = URL("http://localhost:8085/stampatifiskalniracun")
                     val postData = """<?xml version="1.0" encoding="UTF-8"?>
 <RacunZahtjev xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <VrstaZahtjeva>0</VrstaZahtjeva>
     <NoviObjekat>
         <StavkeRacuna>
             $sadrzajRacuna
-       dga
+        </StavkeRacuna>
+        <VrstePlacanja>
+            <VrstaPlacanja>
+                <Oznaka>Gotovina</Oznaka>
+                <Iznos>50</Iznos>
+            </VrstaPlacanja>
+        </VrstePlacanja>
     </NoviObjekat>
 </RacunZahtjev>"""
                     val conn = url.openConnection() as HttpURLConnection
                     conn.requestMethod = "POST"
                     conn.doOutput = true
+                    conn.connectTimeout = 10000
                     conn.setRequestProperty("Content-Type", "text/xml")
                     conn.useCaches = false
                     DataOutputStream(conn.outputStream).use { it.writeBytes(postData) }
@@ -257,18 +262,22 @@ object OrderServices {
                     Log.d("orders: fiskalizirajRacun", "error stacktrace = ${e.stackTrace.toString()}")
                     //ERROR
                     error = true
+                    if(e.message?.contains("failed to connect") == true) {
+                        errorPoruka = "Nije moguće pristupiti serveru za fiskalizaciju računa!"
+                    }
                     return@withContext
                 }
             }
 
             withContext(Dispatchers.Main) {
                 if(error) {
-                    errorCallback()
+                    errorCallback(errorPoruka)
                 }
                 else successCallback(brojRacuna, datumRacuna, vrijemeRacuna)
             }
 
         }
+
     }
 
     private fun generisiXmlNarudzbe(narudzba: Narudzba): String {

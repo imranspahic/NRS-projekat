@@ -85,11 +85,12 @@ class OrderInfoActivity : AppCompatActivity() {
                             iznosZaPlatiti.visibility = View.VISIBLE
                             listaRecycler.visibility = View.VISIBLE
                             linearLayoutRacun.visibility = View.VISIBLE
-                            Snackbar.make(listaRecycler, "Greška prilikom fiskalizacije računa!", Snackbar.LENGTH_LONG)
+                            Snackbar.make(listaRecycler, it, Snackbar.LENGTH_LONG)
                                 .setAction("OK") { }
                                 .show()
 
                         }, {brojRacuna, datumRacuna, vrijemeRacuna ->
+                            Log.d("orders", "Success callback pozvan")
                             orderLoader.visibility = View.GONE
                             iznosZaPlatiti.visibility = View.VISIBLE
                             listaRecycler.visibility = View.VISIBLE
