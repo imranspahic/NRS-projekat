@@ -88,8 +88,8 @@ class OrderInfoActivity : AppCompatActivity() {
             narudzba, ukupnaCijena ->
             this.narudzba = narudzba
                 datum.text = DateFormat.getDateInstance().format(narudzba.datumNarucivanja)
-                mjesto.text = narudzba.mjesto
-                lokacija.text = narudzba?.lokacija ?: "/"
+                mjesto.text = if (narudzba.mjesto == "null") "-" else narudzba.mjesto
+                lokacija.text = if (narudzba.lokacija == "null") "-" else narudzba.lokacija
                 var brojProizvoda = narudzba.proizvodi.size
                 var proizvodiList = narudzba.proizvodi
 
