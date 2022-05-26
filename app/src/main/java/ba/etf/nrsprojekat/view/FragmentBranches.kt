@@ -12,7 +12,6 @@ import ba.etf.nrsprojekat.AddBranchActivity
 import ba.etf.nrsprojekat.R
 import ba.etf.nrsprojekat.services.BranchesService
 import ba.etf.nrsprojekat.view.BranchListAdapter
-import ba.etf.nrsprojekat.EditBranchActivity
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
 
@@ -21,7 +20,6 @@ class FragmentBranches : Fragment(R.layout.fragment_branches) {
     private lateinit var addBranchButton: MaterialButton
     private lateinit var refreshBranchButton: MaterialButton
     private lateinit var brojPoslovnica : TextView
-    private lateinit var editBranchButton: MaterialButton
 
 
 
@@ -70,10 +68,5 @@ class FragmentBranches : Fragment(R.layout.fragment_branches) {
             recyclerViewAll.adapter!!.notifyDataSetChanged()
             brojPoslovnica.text = BranchesService.branches.size.toString()
                 }
-
-      /*  editBranchButton.setOnClickListener {
-            val intent = Intent(activity, EditBranchActivity::class.java)
-            branchActivityLauncher.launch(intent)
-        }*/
     }
 }

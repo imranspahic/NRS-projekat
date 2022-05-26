@@ -39,7 +39,7 @@ class BranchListAdapter(private var branches : List<Branch>,
         holder.branchName.text =branch.nazivPoslovnice
         brojPoslovnica.text = branches.size.toString()
         holder.editBranchButton.setOnClickListener {
-           openEditBranch(branch.id)
+            openEditProduct(branch.id)
         }
         holder.itemView.setOnClickListener(object : View.OnClickListener{
             override fun onClick(v:View?){
@@ -60,9 +60,10 @@ class BranchListAdapter(private var branches : List<Branch>,
         val branchName : TextView = itemView.findViewById(R.id.branchName)
         var editBranchButton: MaterialButton = itemView.findViewById(R.id.editBranchButton)
     }
-    private fun openEditBranch(branchID: String) {
-        val intent = Intent(fragmentActivity, EditBranchActivity::class.java).apply {
-            putExtra("branchID", branchID)
+
+    private fun openEditProduct(productID: String) {
+        val intent = Intent(fragmentActivity,AddBranchActivity::class.java).apply {
+            putExtra("branches", productID)
         }
         activityResultLauncher.launch(intent)
     }
