@@ -100,9 +100,12 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.18679351806640626" />
         <entry key="app/src/main/res/layout/activity_order_info.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_pdv_categories.xml" value="0.22871376811594202" />
+        <entry key="app/src/main/res/layout/activity_proizvodi_u_poslovnicama.xml" value="0.20742753623188406" />
+        <entry key="app/src/main/res/layout/branch_item.xml" value="0.5174886936094704" />
         <entry key="app/src/main/res/layout/dostava_fragment.xml" value="0.19869384765625003" />
         <entry key="app/src/main/res/layout/dostava_proizvodi_fragment.xml" value="0.23505434782608695" />
         <entry key="app/src/main/res/layout/fragment_admin_opcije.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_branches.xml" value="0.20742753623188406" />
         <entry key="app/src/main/res/layout/fragment_products.xml" value="0.2213195800781249" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.23953488372093024" />
         <entry key="app/src/main/res/layout/logs_list_item.xml" value="0.5950254096359503" />
@@ -110,6 +113,7 @@
         <entry key="app/src/main/res/layout/pdv_category_bottom_sheet.xml" value="0.23255813953488372" />
         <entry key="app/src/main/res/layout/pdv_category_item.xml" value="0.3271133422851561" />
         <entry key="app/src/main/res/layout/product_list_item.xml" value="0.2963806152343749" />
+        <entry key="app/src/main/res/layout/proizvod_u_posl_list_item.xml" value="0.1" />
         <entry key="app/src/main/res/layout/promijeni_status_dostave_fragment.xml" value="0.1" />
         <entry key="app/src/main/res/layout/user_item.xml" value="0.10726072607260725" />
         <entry key="app/src/main/res/menu/menu.xml" value="0.1" />

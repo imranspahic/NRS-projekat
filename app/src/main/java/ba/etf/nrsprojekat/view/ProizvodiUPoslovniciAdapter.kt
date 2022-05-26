@@ -21,7 +21,7 @@ import ba.etf.nrsprojekat.services.ProductsService
 import java.text.DecimalFormat
 import java.text.NumberFormat
 
-class ProizvodiUPoslovniciAdapter(private var productList : List<Product>) : RecyclerView.Adapter<ProizvodiUPoslovniciAdapter.PregledUPoslovniciViewHolder>()  {
+class ProizvodiUPoslovniciAdapter(private var productList : MutableList<Product>) : RecyclerView.Adapter<ProizvodiUPoslovniciAdapter.PregledUPoslovniciViewHolder>()  {
 
     private val noDecimalFormat: NumberFormat = DecimalFormat.getInstance()
 
@@ -73,6 +73,11 @@ class ProizvodiUPoslovniciAdapter(private var productList : List<Product>) : Rec
 
 
 
+    }
+
+    fun updateProizvodi(newProducts: MutableList<Product>) {
+        productList = newProducts
+        notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int {
