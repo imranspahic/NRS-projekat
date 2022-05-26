@@ -52,21 +52,22 @@ class FragmentBranches : Fragment(R.layout.fragment_branches) {
         recyclerViewAll = view.findViewById(R.id.poslovniceRecyclerView)
         recyclerViewAll.layoutManager = LinearLayoutManager(view.context)
 
+        val myAdapter = BranchListAdapter(listOf(),brojPoslovnica,requireActivity(),branchActivityLauncher)
+        recyclerViewAll.adapter = myAdapter
+
         BranchesService.getBranches{ result ->
-            val myAdapter = BranchListAdapter(result,brojPoslovnica,requireActivity(),branchActivityLauncher)
-            recyclerViewAll.adapter = myAdapter
+            myAdapter.updateBranches(result)
         }
+
         addBranchButton.setOnClickListener {
             val intent = Intent(activity, AddBranchActivity::class.java)
             branchActivityLauncher.launch(intent)
         }
+
         refreshBranchButton.setOnClickListener{
             BranchesService.getBranches { result ->
-                val myAdapter = BranchListAdapter(result,brojPoslovnica,requireActivity(),branchActivityLauncher)
-                recyclerViewAll.adapter = myAdapter
+                myAdapter.updateBranches(result)
             }
-            recyclerViewAll.adapter!!.notifyDataSetChanged()
-            brojPoslovnica.text = BranchesService.branches.size.toString()
                 }
     }
 }
