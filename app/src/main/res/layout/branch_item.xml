@@ -41,7 +41,8 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginLeft="0dp"
-                app:srcCompat="@drawable/building"
+                app:srcCompat="@drawable/store_marker"
+                app:tint="@color/grey"
                 />
 
             <TextView
@@ -51,7 +52,6 @@
                 android:textSize="18dp"
                 android:layout_marginBottom="4dp"
                 android:layout_marginLeft="8dp"
-                android:textStyle="bold"
                 android:text="Naziv poslovnice" />
 
 

@@ -93,9 +93,11 @@
         <entry key="app/src/main/res/drawable/round.xml" value="0.16" />
         <entry key="app/src/main/res/drawable/rounded_corner_dialog.xml" value="0.2345" />
         <entry key="app/src/main/res/drawable/store.xml" value="0.225" />
+        <entry key="app/src/main/res/drawable/store_edit_outline.xml" value="0.197" />
         <entry key="app/src/main/res/layout/activity_add_product.xml" value="0.35477447509765636" />
         <entry key="app/src/main/res/layout/activity_add_user.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_change_password.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_change_user_branch.xml" value="0.2779087674790534" />
         <entry key="app/src/main/res/layout/activity_logging.xml" value="0.21568627450980393" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.18679351806640626" />
         <entry key="app/src/main/res/layout/activity_order_info.xml" value="0.25" />
@@ -107,7 +109,7 @@
         <entry key="app/src/main/res/layout/fragment_admin_opcije.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_branches.xml" value="0.20742753623188406" />
         <entry key="app/src/main/res/layout/fragment_products.xml" value="0.2213195800781249" />
-        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.23953488372093024" />
+        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.37261698440207974" />
         <entry key="app/src/main/res/layout/logs_list_item.xml" value="0.5950254096359503" />
         <entry key="app/src/main/res/layout/logs_spinner_filter_item.xml" value="0.33996683250414594" />
         <entry key="app/src/main/res/layout/pdv_category_bottom_sheet.xml" value="0.23255813953488372" />

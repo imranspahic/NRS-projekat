@@ -8,7 +8,7 @@ class Korisnik {
     private var email: String
     private var password:String
     private var isAdmin:Boolean
-    private var poslovnica:String
+    var poslovnica:String
     var updatedAt: Date
 
     constructor(ID: String, Email: String, Password: String, IsAdmin:Boolean, poslovnica:String,updatedAt: Date) {

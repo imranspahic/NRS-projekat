@@ -77,18 +77,20 @@ object UserService {
         }
     }
 
-    fun updateUser(id:String, newPassword: String, newAdminState: Boolean, callback: (result: Boolean) -> Unit) {
+    fun updateUser(id:String, newPassword: String, newAdminState: Boolean, newPoslovnica: String, callback: (result: Boolean) -> Unit) {
         val user: Korisnik = users.firstOrNull { user -> user.getID() == id } ?: return
         Log.d("users", "Ažuriranje postojećeg korisnika")
         val editedUserData = mapOf(
             "password" to newPassword,
             "isAdmin" to newAdminState,
-            "updatedAt" to Date()
+            "updatedAt" to Date(),
+            "poslovnica" to newPoslovnica
         )
         db.collection("users").document(id).update(editedUserData).addOnSuccessListener {
             val index =  users.indexOfFirst { u -> u.getID() == id }
             users[index].setPassword(newPassword);
             users[index].setAdmin(newAdminState)
+            users[index].poslovnica = newPoslovnica
 
             val logText = if(newAdminState) "Ažuriran admin ${users[index].getEmail()}"
             else "Ažuriran korisnik ${users[index].getEmail()}"
@@ -110,4 +112,13 @@ object UserService {
             callback(false)
         }
         }
+
+    fun updateUserPoslovnica(id: String, newPoslovnica: String, callback: () -> Unit) {
+        val editedUserData = mapOf(
+            "poslovnica" to newPoslovnica
+        )
+        db.collection("users").document(id).update(editedUserData).addOnSuccessListener {
+            callback()
+        }
+    }
 }

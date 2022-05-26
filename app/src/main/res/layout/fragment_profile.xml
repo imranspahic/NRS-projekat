@@ -92,6 +92,30 @@
         />
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/changePoslovnicaDugme"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Promijeni poslovnicu"
+        app:cornerRadius = "10dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:paddingVertical="10dp"
+        android:enabled="true"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/main_green"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/changePasswordDugme"
+        android:layout_alignParentBottom="true"
+        app:strokeColor="@color/main_green"
+        app:icon="@drawable/store_edit_outline"
+        app:iconTint="@color/main_green_dark"
+        app:iconGravity="start"
+        app:iconPadding="-24dp"
+        app:strokeWidth="1dp"
+        />
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/loggingDugme"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -105,7 +129,7 @@
         android:textColor="@color/main_green"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/changePasswordDugme"
+        app:layout_constraintTop_toBottomOf="@id/changePoslovnicaDugme"
         android:layout_alignParentBottom="true"
         app:strokeColor="@color/main_green"
         app:icon="@drawable/history"
