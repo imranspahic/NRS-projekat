@@ -79,6 +79,7 @@ class OrderInfoActivity : AppCompatActivity() {
 
                     if(narudzba.brojRacuna == null) {
                         Log.d("orders", "Dohvacanje broja racuna ...")
+                        OrderServices.fiskalizirajRacun(narudzba)
                     }
 
                    orderLoader.visibility = View.GONE

@@ -2,11 +2,27 @@ package ba.etf.nrsprojekat.services
 
 import android.content.ContentValues
 import android.util.Log
+import android.util.Xml
 import ba.etf.nrsprojekat.data.models.Narudzba
 import ba.etf.nrsprojekat.data.models.Product
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.util.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import org.w3c.dom.Element
+import org.w3c.dom.Node
+import org.w3c.dom.NodeList
+import org.xml.sax.InputSource
+import java.io.*
+import java.net.HttpURLConnection
+import java.net.URL
+import javax.xml.parsers.DocumentBuilderFactory
+import javax.xml.stream.XMLOutputFactory
+import javax.xml.stream.XMLStreamWriter
+import javax.xml.xpath.XPathConstants
+import javax.xml.xpath.XPathFactory
 
 object OrderServices {
     private val db = Firebase.firestore
@@ -139,5 +155,115 @@ object OrderServices {
         mapaZaNarudzbu = mutableMapOf()
         lokacija = null
         mjesto = null
+    }
+
+    fun fiskalizirajRacun(narudzba: Narudzba) {
+
+        GlobalScope.launch(Dispatchers.IO) {
+            try {
+                val sadrzajRacuna = generisiXmlNarudzbe(narudzba)
+                val url = URL("http://192.168.100.9:8085/stampatifiskalniracun")
+                val postData = """<?xml version="1.0" encoding="UTF-8"?>
+<RacunZahtjev xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <VrstaZahtjeva>0</VrstaZahtjeva>
+    <NoviObjekat>
+        <StavkeRacuna>
+            $sadrzajRacuna
+        </StavkeRacuna>
+        <VrstePlacanja>
+            <VrstaPlacanja>
+                <Oznaka>Gotovina</Oznaka>
+                <Iznos>50</Iznos>
+            </VrstaPlacanja>
+        </VrstePlacanja>
+    </NoviObjekat>
+</RacunZahtjev>"""
+                val conn = url.openConnection() as HttpURLConnection
+                conn.requestMethod = "POST"
+                conn.doOutput = true
+                conn.setRequestProperty("Content-Type", "text/xml")
+                conn.useCaches = false
+                var result = ""
+                DataOutputStream(conn.outputStream).use { it.writeBytes(postData) }
+                BufferedReader(InputStreamReader(conn.inputStream)).use { br ->
+                    result = br.readText()
+                    Log.d("orders", "result = ${result}")
+                    val dbFactory = DocumentBuilderFactory.newInstance()
+                    val dBuilder = dbFactory.newDocumentBuilder()
+                    val xmlInput = result.byteInputStream(charset("utf-8"))
+                    InputSource(StringReader(br.readText()))
+                    val doc = dBuilder.parse(xmlInput)
+
+                    val nVrstaOdgovoraList = doc.getElementsByTagName("VrstaOdgovora")
+
+                    if(nVrstaOdgovoraList.length == 0) {
+                        //ERROR
+                        //RETURN
+                    }
+                    else {
+                        val textContent = nVrstaOdgovoraList.item(0).textContent
+                        Log.d("orders", "Vrsta odgovora = ${textContent}")
+                        if(textContent == "GRESKA") {
+                            //ERROR
+                            //RETURN
+                        }
+                    }
+
+                    val odgovoriLista = doc.getElementsByTagName("Odgovori")
+                    Log.d("orders", "Odgovori element length = ${odgovoriLista.length}")
+                    if(odgovoriLista.length == 0) {
+                        //ERROR
+                        //RETURN
+                    }
+                        val element = odgovoriLista.item(0) as Element
+                        val odgovorLista = element.getElementsByTagName("Odgovor")
+                        Log.d("orders", "Odgovor element lista = ${odgovorLista.length}")
+
+                    for(i in 0..odgovorLista.length-1) {
+                        val odgovorElement = odgovorLista.item(i) as Element
+
+                        val nazivElement = odgovorElement.getElementsByTagName("Naziv").item(0) as Element
+                        val vrijednostElement = odgovorElement.getElementsByTagName("Vrijednost").item(0) as Element
+
+                        val naziv = nazivElement.textContent
+                        val vrijednost = vrijednostElement.textContent
+
+                        Log.d("orders", "Odgovor elemement i=${i}, naziv=$naziv, vrijednost=$vrijednost")
+                    }
+
+                }
+                Log.d("orders: fiskalizirajRacun", "success result")
+            } catch(e: Exception) {
+                Log.d("orders: fiskalizirajRacun", "error = ${e.message}")
+                Log.d("orders: fiskalizirajRacun", "error stacktrace = ${e.stackTrace.toString()}")
+            }
+
+        }
+    }
+
+    private fun generisiXmlNarudzbe(narudzba: Narudzba): String {
+        var artikliString = ""
+
+       narudzba.proizvodi.forEach {
+           val artikalString = """
+        <RacunStavka>
+        <artikal>
+        <Sifra>${it.get("productID")}</Sifra>
+        <Naziv>${it.get("productName")}</Naziv>
+        <JM>ko</JM>
+        <Cijena>${it.get("productPrice")}</Cijena>
+        <Stopa>E</Stopa>
+        <Grupa>0</Grupa>
+        <PLU>0</PLU>
+        </artikal>
+        <Kolicina>${it.get("quantity")}</Kolicina>
+        <Rabat>0</Rabat>
+        </RacunStavka>
+        """
+           artikliString = artikliString.plus(artikalString)
+       }
+        Log.d("orders", "Artikli string = $artikliString")
+        return artikliString
+
     }
 }
