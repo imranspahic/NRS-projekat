@@ -20,20 +20,23 @@ object BranchesService {
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
-                    lista.add(
+                    /*lista.add(
                         Branch(
                             document.data["id"].toString(),
                             document.data["nazivPoslovnice"].toString(),
                             document.data["mjesto"] as MutableList<String>,
                             (document.data["updatedAt"] as com.google.firebase.Timestamp).toDate()
                         )
-                    )
-                    /*branches.add(Branch(
+                    )*/
+                    val newBranch =  Branch(
                         document.data["id"].toString(),
                         document.data["nazivPoslovnice"].toString(),
                         document.data["mjesto"] as MutableList<String>,
                         (document.data["updatedAt"] as com.google.firebase.Timestamp).toDate()
-                    ))*/
+                    )
+                    lista.add(newBranch)
+                    branches.add(newBranch)
+
                 }
                 branches = lista
                 callback(lista)
@@ -49,25 +52,47 @@ object BranchesService {
         if (id.isEmpty()) {
             Log.d("branches", "Dodavanje nove poslovnice")
             val documentReference = db.collection("branches").document()
-          //  val itemList = mutableListOf<MutableList<String>>()
-           // itemList.add(nazivMjesta)
+            val place1 = Branch(documentReference.id,nazivPoslovnice,nazivMjesta,updatedDate)
             val place = hashMapOf(
-                "id" to documentReference.id,
+                "id" to place1.id,
+                "nazivPoslovnice" to place1.nazivPoslovnice,
+                "mjesto" to place1.mjesto,
+                "createdAt" to Date(),
+                "updatedAt" to place1.updatedAt
+            )
+            documentReference.set(place).addOnSuccessListener {
+                branches.add(place1)
+                LoggingService.addLog(
+                    LogAction.CREATE,
+                    "Dodana poslovnica ${nazivPoslovnice}"
+                ) {}
+                this.branches = branches.sortedWith(compareBy<Branch> { it.updatedAt }.reversed())
+                    .toMutableList()
+                callback(true, "ADD")
+            }.addOnFailureListener {
+                callback(false, "ADD")
+            }
+        } else {
+            val branch: Branch = branches.firstOrNull { branch -> branch.id == id } ?: return
+            Log.d("branches", "Ažuriranje poslovnice")
+            val editedPlace = mapOf(
                 "nazivPoslovnice" to nazivPoslovnice,
                 "mjesto" to nazivMjesta,
                 "createdAt" to Date(),
                 "updatedAt" to updatedDate
-
             )
-            documentReference.set(place).addOnSuccessListener {
+            db.collection("branches").document(branch.id).update(editedPlace).addOnSuccessListener {
+                val index = branches.indexOfFirst { p -> p.id == branch.id }
+                branches[index].nazivPoslovnice = nazivPoslovnice
+                branches[index].mjesto = nazivMjesta
+                branches[index].updatedAt = updatedDate
                 LoggingService.addLog(
-                    LogAction.CREATE,
-                    "Dodana poslovnica ${nazivPoslovnice}"
-                ){}
-                this.branches = branches.sortedWith(compareBy<Branch> { it.updatedAt }.reversed()).toMutableList()
-                callback(true, "ADD")
+                    LogAction.UPDATE,
+                    "Ažurirana poslovnica ${nazivPoslovnice}"
+                ) {}
+                callback(true, "EDIT")
             }.addOnFailureListener {
-                callback(false, "ADD")
+                callback(false, "EDOT")
             }
         }
     }
