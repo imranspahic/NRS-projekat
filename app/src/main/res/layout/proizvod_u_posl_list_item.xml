@@ -99,7 +99,7 @@
                     android:text="Dostupno" />
             </LinearLayout>
             <LinearLayout
-                android:id="@+id/productPdvLinear"
+                android:id="@+id/productPdvLinearPosl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
