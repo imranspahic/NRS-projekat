@@ -55,21 +55,21 @@
          android:layout_marginStart="20dp"
          android:layout_weight="1"
          >
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="3dp"
+           android:text="Datum narudžbe" />
 
        <TextView
            android:id="@+id/datumRacun"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:textStyle="bold"
+           android:textColor="@color/main_green_dark"
            android:text="Test1" />
 
-       <TextView
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:layout_marginTop="3dp"
-           android:textStyle="bold"
-           android:textColor="@color/main_green_dark"
-           android:text="Datum narudžbe" />
+
 
      </LinearLayout>
 
@@ -81,19 +81,20 @@
         >
 
       <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="3dp"
+          android:text="Lokacija" />
+
+      <TextView
           android:id="@+id/stoRacun"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:textStyle="bold"
+          android:textColor="@color/main_green_dark"
           android:text="Test2" />
 
-      <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="3dp"
-          android:textStyle="bold"
-          android:textColor="@color/main_green_dark"
-          android:text="Lokacija" />
+
 
     </LinearLayout>
 
@@ -107,21 +108,140 @@
       <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:textStyle="bold"
-          android:id="@+id/lokacijaRacun"
-          android:text="Test3" />
-
+          android:layout_marginTop="3dp"
+          android:text="Mjesto" />
       <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginTop="3dp"
           android:textStyle="bold"
+          android:id="@+id/lokacijaRacun"
           android:textColor="@color/main_green_dark"
-          android:text="Mjesto" />
+          android:text="Test3" />
+
+
 
     </LinearLayout>
 
 </LinearLayout>
+
+  <View
+      android:id="@+id/racunSeparator"
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:background="@color/lightGrey"
+      android:layout_marginTop="8dp"
+      android:layout_marginHorizontal="20sp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/linearLayoutZaRacun"
+      app:layout_constraintBottom_toTopOf="@id/brojRacunaLinear"
+
+      />
+
+
+  <LinearLayout
+      android:id="@+id/brojRacunaLinear"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:paddingHorizontal="20sp"
+      android:layout_marginTop="8dp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/racunSeparator"
+      app:layout_constraintBottom_toTopOf="@id/datumRacunaLinear"
+      android:gravity="start"
+      >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/brojRacunaLabel"
+        android:text="Broj računa: " />
+
+    <TextView
+        android:id="@+id/brojRacuna"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textColor="@color/main_green_dark"
+        android:text="19931" />
+
+  </LinearLayout>
+
+  <LinearLayout
+      android:id="@+id/datumRacunaLinear"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:paddingHorizontal="20sp"
+      android:layout_marginTop="8dp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/brojRacunaLinear"
+      app:layout_constraintBottom_toTopOf="@id/vrijemeRacunaLinear"
+      android:gravity="start"
+      >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/datumRacunaLabel"
+        android:text="Datum računa: " />
+
+    <TextView
+        android:id="@+id/datumRacuna"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textColor="@color/main_green_dark"
+        android:text="25.05.2022" />
+
+  </LinearLayout>
+
+  <LinearLayout
+      android:id="@+id/vrijemeRacunaLinear"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:paddingHorizontal="20sp"
+      android:layout_marginTop="8dp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/datumRacunaLinear"
+      android:gravity="start"
+      >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/vrijemeRacunaLabel"
+        android:text="Vrijeme računa: " />
+
+    <TextView
+        android:id="@+id/vrijemeRacuna"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textColor="@color/main_green_dark"
+        android:text="21:16" />
+
+  </LinearLayout>
+
+  <View
+      android:id="@+id/racunSeparator1"
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:background="@color/lightGrey"
+      android:layout_marginTop="8dp"
+      android:layout_marginHorizontal="20sp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/vrijemeRacunaLinear"
+      app:layout_constraintBottom_toTopOf="@id/listaNarucenihArtikala"
+
+      />
 
   <androidx.recyclerview.widget.RecyclerView
       android:id="@+id/listaNarucenihArtikala"
@@ -130,7 +250,7 @@
       android:layout_marginTop="10dp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/linearLayoutZaRacun"
+      app:layout_constraintTop_toBottomOf="@id/racunSeparator1"
       app:layout_constraintBottom_toBottomOf="parent"
       />
 

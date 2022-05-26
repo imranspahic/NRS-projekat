@@ -2,23 +2,27 @@ package ba.etf.nrsprojekat
 
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Spinner
+import android.view.View
+import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.size
 import ba.etf.nrsprojekat.data.models.Korisnik
+import ba.etf.nrsprojekat.services.BranchesService
 import ba.etf.nrsprojekat.services.LoginService
 import ba.etf.nrsprojekat.services.UserService
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.textfield.TextInputLayout
+import java.util.*
 import java.util.regex.Pattern
+
 
 class AddUserActivity : AppCompatActivity() {
     private lateinit var spiner: Spinner
+    private lateinit var spinerPoslovnice:Spinner
     private lateinit var unosEmail: EditText
     private lateinit var unosLozinka: EditText
     private lateinit var btnDodaj: Button
@@ -33,11 +37,13 @@ class AddUserActivity : AppCompatActivity() {
 
         toolbar = findViewById(R.id.addUserToolbar)
         spiner = findViewById(R.id.spiner)
+        spinerPoslovnice = findViewById(R.id.spinnerPoslovnice)
         unosEmail = findViewById(R.id.unosEmail)
         unosLozinka = findViewById(R.id.unosLozinka)
         btnDodaj = findViewById(R.id.btnDodajKorisnik)
         addUserEmailTextInput = findViewById(R.id.addUserEmailTextInput)
         addUserPasswordTextInput = findViewById(R.id.addUserPasswordTextInput)
+
 
         val userID: String? = intent.getStringExtra("userID")
 
@@ -81,11 +87,27 @@ class AddUserActivity : AppCompatActivity() {
                 checkButtonState(userID)
             }
         })
+
+        val poslovnice = mutableListOf<String>("Sarajevo")
+        BranchesService.getBranches {
+                BranchesService.branches.forEach { branch -> if(branch.nazivPoslovnice != "Sarajevo") poslovnice.add(branch.nazivPoslovnice.toString()) }
+        }
+        val adapter = ArrayAdapter(this,
+            android.R.layout.simple_spinner_dropdown_item, poslovnice)
+        spinerPoslovnice.adapter = adapter
+
+        spinerPoslovnice?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            }
+        }
     }
 
     private fun onAddUser(userID: String?) {
         val admin: Boolean = spiner.selectedItem.toString().equals("Admin")
 
+        var poslovnicaKorisnik = spinerPoslovnice.selectedItem.toString();
         //DODAVANJE KORISNIKA
         if(userID == null) {
 
@@ -94,11 +116,27 @@ class AddUserActivity : AppCompatActivity() {
                 {
                     addUserEmailTextInput.isErrorEnabled = true
                     addUserEmailTextInput.error = "Email se već koristi"
-                } else {
+                } else if(admin){
                     UserService.createUser(
                         unosEmail.text.toString(),
                         unosLozinka.text.toString(),
-                        admin
+                        admin,
+                        ""
+                    ){result ->
+                        if(result) {
+                            val output = Intent().apply {
+                                putExtra("mode", "ADD")
+                            }
+                            setResult(Activity.RESULT_OK, output)
+                            finish()
+                        }
+                    }
+                } else if(!admin) {
+                    UserService.createUser(
+                        unosEmail.text.toString(),
+                        unosLozinka.text.toString(),
+                        admin,
+                        poslovnicaKorisnik
                     ){result ->
                         if(result) {
                             val output = Intent().apply {
@@ -157,6 +195,36 @@ class AddUserActivity : AppCompatActivity() {
         toolbar.title="Ažuriraj korisnika"
         btnDodaj.text="SAČUVAJ"
         btnDodaj.isEnabled = true
+
+
+        //Log.d("nesto", spinerPoslovnice.selectedItem.toString())
+        /*for(x in 0..8) {
+            if (user.poslovnica().equals(spinerPoslovnice.count)) {
+                Log.d("oki1", user.poslovnica())
+                Log.d("oki2", spinerPoslovnice.getItemAtPosition(x).toString())
+
+                spinerPoslovnice.setSelection(x);
+                break;
+            }
+        }*/
+        /*
+        val poslovnice2 = mutableListOf<String>("Sarajevo")
+        var broj=0
+        BranchesService.getBranches {
+            BranchesService.branches.forEach { branch -> if(branch.nazivPoslovnice != "Sarajevo") poslovnice2.add(branch.nazivPoslovnice.toString()) }
+            for(x in 0..poslovnice2.size) {
+                if (user.poslovnica().equals(spinerPoslovnice.getItemAtPosition(x))) {
+                    Log.d("oki1", user.poslovnica())
+                    Log.d("oki2", spinerPoslovnice.getItemAtPosition(x).toString())
+
+                    spinerPoslovnice.setSelection(x);
+                    break;
+                }
+            }
+        }*/
+
+
+
     }
 
 }

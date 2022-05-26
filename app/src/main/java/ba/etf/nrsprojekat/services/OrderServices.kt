@@ -46,8 +46,9 @@ object OrderServices {
                                 (document.data["datumNarudzbe"] as com.google.firebase.Timestamp).toDate(),
                                 document.data["lokacija"].toString(),
                                 document.data["mjesto"].toString(),
-                                (document.data["datumRacuna"] as? com.google.firebase.Timestamp)?.toDate(),
                                 document.data["brojRacuna"]?.toString()?.toInt(),
+                                document.data["datumRacuna"]?.toString(),
+                                document.data["vrijemeRacuna"]?.toString(),
                             )
                         )
                 }
@@ -83,9 +84,10 @@ object OrderServices {
             "listaProizvoda" to itemMapList,
             "lokacija" to lokacija,
             "mjesto" to mjesto,
+            "brojRacuna" to null,
             "datumRacuna" to null,
-            "brojRacuna" to null
-        )
+            "vrijemeRacuna" to null,
+            )
         documentReference.set(order)
     }
     fun updateOrder(id: String) { // staviti id
@@ -119,9 +121,10 @@ object OrderServices {
                                 (document["datumNarudzbe"] as com.google.firebase.Timestamp).toDate(),
                                 document["lokacija"].toString(),
                                 document["mjesto"].toString(),
-                                (document["datumRacuna"] as? com.google.firebase.Timestamp)?.toDate(),
                                 document["brojRacuna"]?.toString()?.toInt(),
-                                )
+                    document["datumRacuna"]?.toString(),
+                    document["vrijemeRacuna"]?.toString(),
+                )
 
                         var brojac=0
 
@@ -170,7 +173,7 @@ object OrderServices {
             withContext(Dispatchers.IO) {
                 try {
                     val sadrzajRacuna = generisiXmlNarudzbe(narudzba)
-                    val url = URL("http://localhost:8085/stampatifiskalniracun")
+                    val url = URL("http://192.168.100.9:8085/stampatifiskalniracun")
                     val postData = """<?xml version="1.0" encoding="UTF-8"?>
 <RacunZahtjev xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <VrstaZahtjeva>0</VrstaZahtjeva>
@@ -304,5 +307,15 @@ object OrderServices {
         Log.d("orders", "Artikli string = $artikliString")
         return artikliString
 
+    }
+
+    fun azurirajRacunInformacije(narudzba: Narudzba, brojRacuna: Int, datumRacuna: String, vrijemeRacuna: String) {
+        val updateOrder = mapOf(
+            "brojRacuna" to brojRacuna,
+            "datumRacuna" to datumRacuna,
+            "vrijemeRacuna" to vrijemeRacuna
+        )
+        db.collection("orders").document(narudzba.id).update(updateOrder).addOnSuccessListener {
+        }
     }
 }

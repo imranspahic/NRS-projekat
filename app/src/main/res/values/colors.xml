@@ -11,6 +11,7 @@
     <color name="main_green">#6d9110</color>
     <color name="main_green_dark">#526e0b</color>
     <color name="disabled">#9fa19c</color>
+    <color name="lightGrey">#c2c2c2</color>
     <color name="siva">#909090</color>
     <color name="red">#c20606</color>
     <color name="main_green_light500">#1fb563</color>

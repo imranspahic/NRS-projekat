@@ -11,8 +11,9 @@ class Narudzba(
     var datumNarucivanja: Date,
     var lokacija: String,
     var mjesto: String,
-    var datumRacuna: Date?,
-    var brojRacuna: Int?
+    var brojRacuna: Int?,
+    var datumRacuna: String?,
+    var vrijemeRacuna: String?
 ) {
     var isDeleted: Boolean = false
 

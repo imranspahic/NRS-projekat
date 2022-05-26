@@ -30,6 +30,14 @@ class OrderInfoActivity : AppCompatActivity() {
     private lateinit var mjesto: TextView
     private lateinit var orderLoader: CircularProgressIndicator
     private lateinit var linearLayoutRacun: LinearLayout
+    private lateinit var brojRacunaLinear: LinearLayout
+    private lateinit var datumRacunaLinear: LinearLayout
+    private lateinit var vrijemeRacunaLinear: LinearLayout
+    private lateinit var brojRacuna: TextView
+    private lateinit var datumRacuna: TextView
+    private lateinit var vrijemeRacuna: TextView
+    private lateinit var separator1: View
+    private lateinit var separator2: View
 
     private lateinit var narudzba: Narudzba
 
@@ -45,6 +53,15 @@ class OrderInfoActivity : AppCompatActivity() {
         mjesto = findViewById(R.id.stoRacun)
         orderLoader = findViewById(R.id.orderLoader)
         linearLayoutRacun = findViewById(R.id.linearLayoutZaRacun)
+        brojRacunaLinear = findViewById(R.id.brojRacunaLinear)
+        datumRacunaLinear = findViewById(R.id.datumRacunaLinear)
+        vrijemeRacunaLinear = findViewById(R.id.vrijemeRacunaLinear)
+        brojRacuna = findViewById(R.id.brojRacuna)
+        datumRacuna = findViewById(R.id.datumRacuna)
+        vrijemeRacuna = findViewById(R.id.vrijemeRacuna)
+        separator1 = findViewById(R.id.racunSeparator)
+        separator2 = findViewById(R.id.racunSeparator1)
+
 
         orderLoader.visibility = View.VISIBLE
         orderLoader.progress = 10
@@ -52,6 +69,13 @@ class OrderInfoActivity : AppCompatActivity() {
         iznosZaPlatiti.visibility = View.GONE
         listaRecycler.visibility = View.GONE
         linearLayoutRacun.visibility = View.GONE
+        brojRacunaLinear.visibility = View.GONE
+        datumRacunaLinear.visibility = View.GONE
+        vrijemeRacunaLinear.visibility = View.GONE
+        separator1.visibility = View.GONE
+        separator2.visibility = View.GONE
+
+
 
 
         toolbar.setNavigationOnClickListener {
@@ -68,6 +92,8 @@ class OrderInfoActivity : AppCompatActivity() {
                 lokacija.text = narudzba?.lokacija ?: "/"
                 var brojProizvoda = narudzba.proizvodi.size
                 var proizvodiList = narudzba.proizvodi
+
+
                 adapter = CheckoutAdapter(proizvodiList, listOf(narudzba))
 
                 listaRecycler.adapter = adapter
@@ -91,17 +117,37 @@ class OrderInfoActivity : AppCompatActivity() {
 
                         }, {brojRacuna, datumRacuna, vrijemeRacuna ->
                             Log.d("orders", "Success callback pozvan")
+                            OrderServices.azurirajRacunInformacije(narudzba, brojRacuna, datumRacuna, vrijemeRacuna)
                             orderLoader.visibility = View.GONE
                             iznosZaPlatiti.visibility = View.VISIBLE
                             listaRecycler.visibility = View.VISIBLE
                             linearLayoutRacun.visibility = View.VISIBLE
+
+                            brojRacunaLinear.visibility = View.VISIBLE
+                            datumRacunaLinear.visibility = View.VISIBLE
+                            vrijemeRacunaLinear.visibility = View.VISIBLE
+                            separator1.visibility = View.VISIBLE
+                            separator2.visibility = View.VISIBLE
+
+                            this.brojRacuna.text = brojRacuna.toString()
+                            this.datumRacuna.text = datumRacuna
+                            this.vrijemeRacuna.text = vrijemeRacuna
                         })
                     }
-            else {
-                        orderLoader.visibility = View.GONE
-                        iznosZaPlatiti.visibility = View.VISIBLE
-                        listaRecycler.visibility = View.VISIBLE
-                        linearLayoutRacun.visibility = View.VISIBLE
+                     else {
+                         orderLoader.visibility = View.GONE
+                         iznosZaPlatiti.visibility = View.VISIBLE
+                         listaRecycler.visibility = View.VISIBLE
+                         linearLayoutRacun.visibility = View.VISIBLE
+                        brojRacunaLinear.visibility = View.VISIBLE
+                        datumRacunaLinear.visibility = View.VISIBLE
+                        vrijemeRacunaLinear.visibility = View.VISIBLE
+                        separator1.visibility = View.VISIBLE
+                        separator2.visibility = View.VISIBLE
+
+                        brojRacuna.text = narudzba.brojRacuna.toString()
+                        datumRacuna.text = narudzba.datumRacuna
+                        vrijemeRacuna.text = narudzba.vrijemeRacuna
                     }
 
         },
