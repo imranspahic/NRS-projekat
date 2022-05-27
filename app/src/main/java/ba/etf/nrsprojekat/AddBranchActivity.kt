@@ -9,15 +9,19 @@ import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import ba.etf.nrsprojekat.data.models.Branch
 import ba.etf.nrsprojekat.data.models.Product
 import ba.etf.nrsprojekat.services.BranchesService
 import ba.etf.nrsprojekat.services.PdvCategoriesService
 import ba.etf.nrsprojekat.services.ProductsService
+import ba.etf.nrsprojekat.view.MjestoListAdapter
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import java.math.RoundingMode
 import java.text.DecimalFormat
 
@@ -25,17 +29,89 @@ import java.text.DecimalFormat
 class AddBranchActivity : AppCompatActivity() {
 
     private lateinit var toolbar: MaterialToolbar
-    private lateinit var nazivPoslovnice: TextView
-    private lateinit var nazivMjesta: TextView
-    private lateinit var btnDodajPoslovnicu : Button
-    private lateinit var btnDodajMjesto : Button
-    private lateinit var listaMjestaPoslovnice: MutableList<String>
-
+    private lateinit var nazivPoslovniceText: TextView
+    private lateinit var btnDodajMjesto : MaterialButton
+    private lateinit var btnSacuvaj : Button
+    private lateinit var recyclerMjesto : RecyclerView
+    private lateinit var nazivPoslovniceLayout : TextInputLayout
+    private lateinit var listaMjestaPoslovnice : MutableList<String>
+    private lateinit var adapterZaRecycler : MjestoListAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_branch)
+        toolbar = findViewById(R.id.addBranchToolbar)
+        nazivPoslovniceLayout = findViewById(R.id.addBranchNameTextInput)
+        nazivPoslovniceText = findViewById(R.id.unosPoslovnice)
+        btnDodajMjesto = findViewById(R.id.addMjestoBtn)
+        btnSacuvaj = findViewById(R.id.btnSacuvajMjesto)
+        recyclerMjesto = findViewById(R.id.mjestaRecyclerView)
+        listaMjestaPoslovnice = mutableListOf()
+        var branchID: String? = intent.getStringExtra("branches")
+        toolbar.title = "Poslovnica"
+
+        BranchesService.mjesta = mutableListOf()
+        toolbar.setNavigationOnClickListener {
+            onToolbarBackButton()
+        }
+
+        if (branchID != null) {
+            initializeBranchData(branchID)
+        }
+
+
+        else {
+        }
+
+           btnDodajMjesto.setOnClickListener {
+               listaMjestaPoslovnice.add("")
+               recyclerMjesto.layoutManager = LinearLayoutManager(this)
+               adapterZaRecycler = MjestoListAdapter(listaMjestaPoslovnice)
+               recyclerMjesto.adapter = adapterZaRecycler
+           }
+
+            btnSacuvaj.setOnClickListener {
+                if (nazivPoslovniceText.text.isEmpty()) {
+                    nazivPoslovniceLayout.isErrorEnabled = true
+                    nazivPoslovniceLayout.error = "Unesite ime poslovnice!"
+                } else {
+                    nazivPoslovniceLayout.isErrorEnabled = false
+                    /*  BranchesService.addBranch("", nazivPoslovniceText.text.toString(), mutableListOf()) {
+                          result, mode ->
+                      } */
+                    if(branchID == null) {
+
+                            BranchesService.addBranch(
+                                "",
+                                nazivPoslovniceText.text.toString(),
+                              //  listaMjestaPoslovnice
+                            BranchesService.mjesta
+                            ) { result, more ->
+                                BranchesService.getID(nazivPoslovniceText.text.toString()) {
+                                    branchID = it
+                                }
+                            }
+                    }
+                    else {
+                        BranchesService.addBranch(branchID!!, nazivPoslovniceText.text.toString(), /*listaMjestaPoslovnice*/ BranchesService.mjesta) {
+                            result, more ->
+                        }
+                    }
+                }
+            }
+
+
+
+        /*
+           btnDodajMjesto.setOnClickListener {
+                listaMjestaPoslovnice.add("")
+                BranchesService.addBranch(branch.id, nazivPoslovniceText.text.toString(), listaMjestaPoslovnice) {
+                    result, mode ->
+                }
+            }
+         */
+        /*
         toolbar = findViewById(R.id.addBranchToolbar)
         nazivPoslovnice = findViewById(R.id.unosPoslovnice)
         nazivMjesta = findViewById(R.id.unosMjesta)
@@ -131,7 +207,35 @@ class AddBranchActivity : AppCompatActivity() {
                 activity.findViewById(android.R.id.content),
                 message, Snackbar.LENGTH_SHORT
             ).show()
+        } */
+    }
+    private fun onAddBranch(branchID: String?) {
+        BranchesService.addBranch(
+            branchID ?: "",
+            nazivPoslovniceText.text.toString(),
+            listaMjestaPoslovnice
+
+        ) { result, mode ->
+            if (result) {
+                val output = Intent().apply {
+                    putExtra("mode", mode)
+                }
+                setResult(Activity.RESULT_OK, output)
+                finish()
+            }
         }
+    }
+
+    private fun onToolbarBackButton() {
+        finish()
+    }
+    private fun initializeBranchData(branchID: String) {
+        val branch: Branch = BranchesService.branches.firstOrNull { branch -> branch.id == branchID } ?: return
+        nazivPoslovniceText.setText(branch.nazivPoslovnice)
+        listaMjestaPoslovnice = branch.mjesto
+        recyclerMjesto.layoutManager = LinearLayoutManager(this)
+         adapterZaRecycler = MjestoListAdapter(branch.mjesto)
+        recyclerMjesto.adapter = adapterZaRecycler
     }
 
 }

@@ -21,6 +21,122 @@
         android:backgroundTint="@color/main_green_dark"
         app:navigationIcon="@drawable/arrow_left"
         app:navigationIconTint="@color/white"
+
+        />
+
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/addBranchNameTextInput"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/addBranchToolbar"
+        android:layout_margin="10dp"
+        android:hint="Naziv poslovnice"
+        tools:paddingLeft="5dp"
+        tools:paddingRight="5dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/unosPoslovnice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            tools:paddingLeft="0dp"
+            tools:paddingRight="0dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutZaAdd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/addBranchNameTextInput" >
+
+        <TextView
+            android:id="@+id/addMjestoLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5sp"
+            android:text="Mjesta poslovnice"
+            android:layout_weight="1"
+            android:textSize="17sp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/addMjestoBtn"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+            android:layout_width="0sp"
+            android:layout_weight="3"
+            android:layout_height="30sp"
+            app:icon="@drawable/plus"
+            app:iconTint="@color/black"
+            app:iconPadding="0dp"
+            android:insetLeft="0dp"
+            android:insetTop="0dp"
+            android:insetRight="0dp"
+            android:insetBottom="0dp"
+            app:iconGravity="textStart"
+            android:padding="0dp"
+            android:layout_marginRight="5sp"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Circle"
+            />
+
+    </LinearLayout>
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/mjestaRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutZaAdd"
+        app:layout_constraintBottom_toTopOf="@id/btnSacuvajMjesto"
+
+        />
+
+
+
+    <Button
+        android:id="@+id/btnSacuvajMjesto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sačuvaj"
+        app:cornerRadius="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/mjestaRecyclerView"
+        />
+
+
+
+ <!--
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/addBranchToolbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="Dodaj poslovnicu"
+        app:titleTextColor="@color/white"
+        android:backgroundTint="@color/main_green_dark"
+        app:navigationIcon="@drawable/arrow_left"
+        app:navigationIconTint="@color/white"
         />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -108,6 +224,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addPlaceTextInput"
         app:layout_constraintVertical_bias="0.827" />
+        -->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

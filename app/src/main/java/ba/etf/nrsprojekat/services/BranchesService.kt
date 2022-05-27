@@ -12,6 +12,7 @@ import java.util.*
 object BranchesService {
     private val db = Firebase.firestore;
     var branches: MutableList<Branch> = mutableListOf()
+    var mjesta: MutableList<String> = mutableListOf()
 
     fun getBranches(callback: (result: MutableList<Branch>) -> Unit) {
         var lista: MutableList<Branch> = mutableListOf()
@@ -96,4 +97,44 @@ object BranchesService {
             }
         }
     }
+
+    fun getID(imePoslovnice: String, callback: (result: String) -> Unit) {
+        db.collection("branches").get().addOnSuccessListener {
+            result ->
+            for(branch in result)  if(branch.data["nazivPoslovnice"].toString() == imePoslovnice) {
+                callback(branch.data["id"].toString())
+
+            }
+        }
+    }
+
+    fun getMjesta(imePoslovnice: String, callback: (result: Branch) -> Unit) {
+        var newBranch: Branch? = null
+        db.collection("branches")
+
+         //   .whereEqualTo("nazivPoslovnice", imePoslovnice)
+            .get()
+            .addOnSuccessListener {
+                result ->
+                for(document in result) {
+                    if(document.data["nazivPoslovnice"].toString() == imePoslovnice) {
+                            newBranch =  Branch(
+                            document.data["id"].toString(),
+                            document.data["nazivPoslovnice"].toString(),
+                            document.data["mjesto"] as MutableList<String>,
+                            (document.data["updatedAt"] as com.google.firebase.Timestamp).toDate()
+                        )
+                     //   println("NEWBRANCH" + newBranch)
+                        callback(newBranch!!)
+                    }
+                /*    if(newBranch != null) {
+                        println("brenc" + newBranch)
+                        callback(newBranch!!)
+                    }  */
+                }
+              //  it -> println(it.documents.first()["nazivPoslovnice"].toString())
+               // callback(it.documents.first()["mjesto"] as MutableList<String>)
+            }
+    }
+
 }
