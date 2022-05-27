@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ChangePasswordActivity">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/changePoslovnicaToolbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/userBranchLinear"
+        app:title="Promijeni poslovnicu"
+        app:titleTextColor="@color/white"
+        android:backgroundTint="@color/main_green_dark"
+        app:navigationIcon="@drawable/arrow_left"
+        app:navigationIconTint="@color/white"
+        />
+
+
+    <LinearLayout
+        android:id="@+id/userBranchLinear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/changePoslovnicaToolbar">
+
+        <TextView
+            android:id="@+id/addUserBranchLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            android:layout_weight="0"
+            android:text="Poslovnica:" />
+
+        <Spinner
+            android:id="@+id/spinnerPoslovnice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+        />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/changePoslovnicaSaveDugme"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Sačuvaj"
+        app:cornerRadius = "10dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginHorizontal="16dp"
+        android:paddingVertical="10dp"
+        android:enabled="true"
+        android:backgroundTint="@color/button_state_colors"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/userBranchLinear"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_alignParentBottom="true"
+        />
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

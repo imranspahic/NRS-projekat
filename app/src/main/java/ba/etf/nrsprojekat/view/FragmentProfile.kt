@@ -21,6 +21,7 @@ class FragmentProfile : Fragment() {
     private lateinit var changePasswordDugme: MaterialButton
     private lateinit var profileEmail: TextView
     private lateinit var loggingDugme: MaterialButton
+    private lateinit var poslovnicaDugme: MaterialButton
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,6 +33,7 @@ class FragmentProfile : Fragment() {
         profileEmail = view.findViewById(R.id.profileEmail)
         changePasswordDugme = view.findViewById(R.id.changePasswordDugme)
         loggingDugme = view.findViewById(R.id.loggingDugme)
+        poslovnicaDugme = view.findViewById(R.id.changePoslovnicaDugme)
         profileEmail.text = LoginService.logovaniKorisnik!!.getEmail()
 
         loggingDugme.setOnClickListener {
@@ -46,9 +48,19 @@ class FragmentProfile : Fragment() {
             onChangePassword()
         }
 
+        poslovnicaDugme.setOnClickListener {
+            onChangePoslovnica()
+        }
+
         if(!LoginService.logovaniKorisnik!!.isAdmin()) {
             loggingDugme.visibility = View.GONE
             logoutDugme.updateLayoutParams<ConstraintLayout.LayoutParams> {
+                topToBottom = poslovnicaDugme.id
+            }
+        }
+        else {
+            poslovnicaDugme.visibility = View.GONE
+            loggingDugme.updateLayoutParams<ConstraintLayout.LayoutParams> {
                 topToBottom = changePasswordDugme.id
             }
         }
@@ -71,6 +83,11 @@ class FragmentProfile : Fragment() {
 
     private fun onLogging() {
         val intent = Intent(activity, LoggingActivity::class.java)
+        startActivity(intent);
+    }
+
+    private fun onChangePoslovnica() {
+        val intent = Intent(activity, ChangeUserBranchActivity::class.java)
         startActivity(intent);
     }
  }

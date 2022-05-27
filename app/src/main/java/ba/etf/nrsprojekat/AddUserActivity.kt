@@ -88,13 +88,22 @@ class AddUserActivity : AppCompatActivity() {
             }
         })
 
-        val poslovnice = mutableListOf<String>("Sarajevo")
-        BranchesService.getBranches {
-                BranchesService.branches.forEach { branch -> if(branch.nazivPoslovnice != "Sarajevo") poslovnice.add(branch.nazivPoslovnice.toString()) }
-        }
         val adapter = ArrayAdapter(this,
-            android.R.layout.simple_spinner_dropdown_item, poslovnice)
+            android.R.layout.simple_spinner_dropdown_item, mutableListOf<String>())
         spinerPoslovnice.adapter = adapter
+        BranchesService.getBranches {
+            val poslovnice = mutableListOf<String>()
+            BranchesService.branches.forEach { branch -> poslovnice.add(branch.nazivPoslovnice.toString()) }
+            adapter.clear()
+            adapter.addAll(poslovnice)
+            adapter.notifyDataSetChanged()
+            if(userID != null) {
+                initializeSpinerPoslovnica(userID)
+            }
+        }
+
+
+
 
         spinerPoslovnice?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -155,7 +164,8 @@ class AddUserActivity : AppCompatActivity() {
             UserService.updateUser(
                 userID,
                 unosLozinka.text.toString(),
-                admin
+                admin,
+                spinerPoslovnice.selectedItem as String
             ) {result ->
                 if(result) {
                     val output = Intent().apply {
@@ -172,6 +182,12 @@ class AddUserActivity : AppCompatActivity() {
         var emailCondition = userID != null || emailPattern.matcher(unosEmail.text).matches()
         var passwordCondition = unosLozinka.text.length >= 8
         btnDodaj.isEnabled = emailCondition && passwordCondition
+    }
+
+    private fun initializeSpinerPoslovnica(userID: String) {
+        val user: Korisnik = UserService.users.firstOrNull { user -> user.getID() == userID } ?: return
+        Log.d("users", "Pronađen user sa id = ${userID}")
+        spinerPoslovnice.setSelection(BranchesService.branches.indexOfFirst { branch -> branch.nazivPoslovnice == user.poslovnica() })
     }
 
     private fun initializeUserData(userID: String) {

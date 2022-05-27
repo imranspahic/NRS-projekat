@@ -56,7 +56,7 @@ class BranchListAdapter(private var branches : List<Branch>,
         notifyDataSetChanged()
     }
 
-    public class BranchViewHolder (itemView : View) : RecyclerView.ViewHolder(itemView){
+    inner class BranchViewHolder (itemView : View) : RecyclerView.ViewHolder(itemView){
         val branchName : TextView = itemView.findViewById(R.id.branchName)
         var editBranchButton: MaterialButton = itemView.findViewById(R.id.editBranchButton)
     }
