@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
 import ba.etf.nrsprojekat.data.models.Product
+import ba.etf.nrsprojekat.services.BranchesService
 import ba.etf.nrsprojekat.services.PdvCategoriesService
 import ba.etf.nrsprojekat.services.ProductsService
 import com.google.android.material.appbar.MaterialToolbar
@@ -111,6 +112,16 @@ class AddProductActivity : AppCompatActivity() {
                 checkButtonState()
             }
         })
+        val adapterPoslovnice = ArrayAdapter(this,
+            android.R.layout.simple_spinner_dropdown_item, mutableListOf<String>())
+        addProductPoslovnicaSpinner.adapter = adapterPoslovnice
+        BranchesService.getBranches {
+            val poslovnice = mutableListOf<String>()
+            BranchesService.branches.forEach { branch -> poslovnice.add(branch.nazivPoslovnice.toString()) }
+            adapterPoslovnice.clear()
+            adapterPoslovnice.addAll(poslovnice)
+            adapterPoslovnice.notifyDataSetChanged()
+        }
     }
 
     private fun onToolbarBackButton() {
