@@ -23,6 +23,7 @@ import ba.etf.nrsprojekat.services.*
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
+import com.google.api.Logging
 import com.google.firestore.v1.StructuredQuery
 
 
@@ -134,7 +135,8 @@ class FragmentProducts : Fragment(), ProductListAdapter.IHide {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         addOrderDugme.setOnClickListener {
-            var imeNarudzbe = showdialog()
+          //  var imeNarudzbe =
+                showdialog()
         }
         discardOrderDugme.setOnClickListener {
             showDeleteConfirmation()
@@ -159,33 +161,42 @@ class FragmentProducts : Fragment(), ProductListAdapter.IHide {
         productListAdapter.updateProducts(ProductsService.products)
         brojProizvodaText.text = ProductsService.products.size.toString()
     }
-    fun showdialog(): String{
-        var m_Text: String = String()
+    fun showdialog(){
+      //  var m_Text: String = String()
         val builder: AlertDialog.Builder = android.app.AlertDialog.Builder(requireContext())
-        builder.setTitle("Ime narudžbe")
-        val input = EditText(requireContext())
-        input.setHint("Unesite ime narudžbe")
-        input.inputType = InputType.TYPE_CLASS_TEXT
-        builder.setView(input)
-        builder.setPositiveButton("Sačuvaj", DialogInterface.OnClickListener { dialog, which ->
-            m_Text = input.text.toString()
+        builder.setTitle("Da li želite napraviti novu narudžbu?")
+      //  val input = EditText(requireContext())
+      //  input.setHint("Unesite ime narudžbe")
+      //  input.inputType = InputType.TYPE_CLASS_TEXT
+      //  builder.setView(input)
+        builder.setPositiveButton("Napravi", DialogInterface.OnClickListener { dialog, which ->
+           // m_Text = input.text.toString()
             addOrderDugme.visibility = View.GONE
             discardOrderDugme.visibility = View.VISIBLE
             saveOrderDugme.visibility = View.VISIBLE
-            brojProizvodaLabel.text="Ime narudžbe: "
-            brojProizvodaText.text = m_Text
-            OrderServices.imeTrenutneNarudzbe = m_Text
-            productListAdapter.notifyDataSetChanged()
+          //  brojProizvodaLabel.text="Ime narudžbe: "
+          //  brojProizvodaText.text = m_Text
+          //  OrderServices.imeTrenutneNarudzbe = "Narudžba" + (brojProizvodaText.text.toString().toInt() + 1).toString()
+            OrderServices.getOrders(LoginService.logovaniKorisnik!!.getID()) {
+                OrderServices.imeTrenutneNarudzbe = "Narudžba" + (it.size + 1).toString()
+                productListAdapter.notifyDataSetChanged()
+                OrderServices.setMapa()
+                dialog.dismiss()
+                val LocationPickBottomSheetFragment = LocationPickBottomSheetFragment()
+                LocationPickBottomSheetFragment.show(parentFragmentManager, LocationPickBottomSheetFragment.tag)
+            }
+         //   OrderServices.imeTrenutneNarudzbe = "tekst"
+         /*   productListAdapter.notifyDataSetChanged()
             OrderServices.setMapa()
             dialog.dismiss()
             val LocationPickBottomSheetFragment = LocationPickBottomSheetFragment()
-            LocationPickBottomSheetFragment.show(parentFragmentManager, LocationPickBottomSheetFragment.tag)
+            LocationPickBottomSheetFragment.show(parentFragmentManager, LocationPickBottomSheetFragment.tag) */
         })
         builder.setNegativeButton("Odustani", DialogInterface.OnClickListener {
                 dialog, which -> dialog.cancel()
         })
         builder.show()
-        return m_Text
+     //   return m_Text
     }
 
     //////////////

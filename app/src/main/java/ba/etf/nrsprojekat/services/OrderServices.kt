@@ -122,8 +122,8 @@ object OrderServices {
                                 document["lokacija"].toString(),
                                 document["mjesto"].toString(),
                                 document["brojRacuna"]?.toString()?.toInt(),
-                    document["datumRacuna"]?.toString(),
-                    document["vrijemeRacuna"]?.toString(),
+                                document["datumRacuna"]?.toString(),
+                                document["vrijemeRacuna"]?.toString(),
                 )
 
                         var brojac=0
