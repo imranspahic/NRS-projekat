@@ -16,7 +16,7 @@ object UserService {
     private val db = Firebase.firestore
     var users: MutableList<Korisnik> = mutableListOf()
 
-    fun getUserData(callback: (result: Boolean) -> Unit) {
+    fun fetchUsers(callback: (result: Boolean) -> Unit) {
         db.collection("users")
             .get()
             .addOnSuccessListener { result ->
@@ -32,10 +32,12 @@ object UserService {
                                 document.data["password"].toString(),
                                 document.data["isAdmin"].toString().toBoolean(),
                                 document.data["poslovnica"].toString(),
+                                (document.data["createdAt"] as Timestamp).toDate(),
                                 (document.data["updatedAt"] as Timestamp).toDate()
                             )
                         )
                 }
+                this.users = users.sortedWith(compareBy<Korisnik> { it.createdAt }.reversed()).toMutableList()
                 callback(true)
                 Log.d("users", "Dodano u users = ${users.size}")
             }
@@ -54,6 +56,7 @@ object UserService {
             password,
             isAdmin,
             poslovnica,
+            createdAt,
             createdAt
         )
         val user = hashMapOf(

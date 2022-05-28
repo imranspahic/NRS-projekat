@@ -173,7 +173,7 @@ object OrderServices {
             withContext(Dispatchers.IO) {
                 try {
                     val sadrzajRacuna = generisiXmlNarudzbe(narudzba)
-                    val url = URL("http://localhost:8085/stampatifiskalniracun")
+                    val url = URL("http://192.168.100.9:8085/stampatifiskalniracun")
                     val postData = """<?xml version="1.0" encoding="UTF-8"?>
 <RacunZahtjev xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <VrstaZahtjeva>0</VrstaZahtjeva>

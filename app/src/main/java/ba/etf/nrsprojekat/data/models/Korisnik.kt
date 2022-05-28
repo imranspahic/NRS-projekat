@@ -8,16 +8,25 @@ class Korisnik {
     private var email: String
     private var password:String
     private var isAdmin:Boolean
-    var poslovnica:String
+    var poslovnica: String
+    var createdAt: Date
     var updatedAt: Date
 
-    constructor(ID: String, Email: String, Password: String, IsAdmin:Boolean, poslovnica:String,updatedAt: Date) {
-        email = Email
-        password = Password
-        isAdmin = IsAdmin
-        id = ID
+    constructor(id: String,
+                email: String,
+                password: String,
+                isAdmin:Boolean,
+                poslovnica:String,
+                updatedAt: Date,
+                createdAt: Date) {
+        this.id = id
+        this.email = email
+        this.password = password
+        this.isAdmin = isAdmin
+        this.poslovnica = poslovnica
         this.poslovnica = poslovnica
         this.updatedAt = updatedAt
+        this.createdAt = createdAt
     }
 
     fun getEmail():String { return email }

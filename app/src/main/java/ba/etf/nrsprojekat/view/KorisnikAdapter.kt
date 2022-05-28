@@ -54,7 +54,7 @@ class KorisnikAdapter(
     }
 
     fun updateUsers(users: List<Korisnik>) {
-        korisnikList = users
+        korisnikList = users.sortedWith(compareBy<Korisnik> { it.createdAt }.reversed()).toMutableList()
         brojKorisnikaTextView.text = users.size.toString()
         notifyDataSetChanged()
     }
