@@ -62,7 +62,7 @@ class FragmentOpcijeAdmin : Fragment() {
         recyclerGlavni.adapter = userListAdapter
         brojKorisnikaLabel.setText(UserService.users.size.toString())
 
-        UserService.getUserData() { result ->
+        UserService.fetchUsers() { result ->
             if(result) {
                 userListAdapter.updateUsers(UserService.users)
             }
