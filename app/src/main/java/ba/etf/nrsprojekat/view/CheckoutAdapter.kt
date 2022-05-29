@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ba.etf.nrsprojekat.R
 import ba.etf.nrsprojekat.data.models.Narudzba
 import org.w3c.dom.Text
+import kotlin.math.roundToInt
 
 class CheckoutAdapter(
     private var proizvodi: List<MutableMap<String, Any>>,
@@ -25,9 +26,10 @@ class CheckoutAdapter(
     override fun onBindViewHolder(holder: CheckoutAdapter.OrderViewHolder, position: Int) {
         holder.imeProizvodaTextView.text = proizvodi[position].get("productName").toString()
         holder.kolicinaTextView.text = proizvodi[position].get("quantity").toString() + "x"
-        holder.cijenaTextView.text = proizvodi[position].get("productPrice").toString() + "KM"
-        holder.ukupnaCijenaTextView.text =
-            (proizvodi[position].get("quantity").toString().toInt() * proizvodi[position].get("productPrice").toString().toDouble()).toString() + "KM"
+        holder.cijenaTextView.text = proizvodi[position].get("productPrice").toString() + " KM"
+         var iznos = (proizvodi[position].get("quantity").toString().toInt() * proizvodi[position].get("productPrice").toString().toDouble())
+            iznos = (iznos * 100.0).roundToInt() / 100.0
+          holder.ukupnaCijenaTextView.text = iznos.toString() + " KM"
     }
 
 inner class OrderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
