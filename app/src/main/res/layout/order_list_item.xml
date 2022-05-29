@@ -190,22 +190,5 @@
             android:layout_marginRight="8dp"
             />   -->
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/deleteOrderDugme"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            app:icon="@drawable/delete"
-            app:iconTint="@color/red"
-            app:iconPadding="0dp"
-            android:insetLeft="0dp"
-            android:insetTop="0dp"
-            android:insetRight="0dp"
-            android:insetBottom="0dp"
-            app:iconGravity="textStart"
-            android:padding="0dp"
-            android:layout_marginRight="8dp"
-            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Circle"
-            />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

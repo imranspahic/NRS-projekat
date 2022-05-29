@@ -46,15 +46,7 @@ class OrderListAdapter(
                 .format(orders[position].datumNarucivanja)
                 Log.d("orders", orders[position].proizvodi.toString())
 
-        holder.deleteOrderButton.setOnClickListener {
-     /*   OrderServices.updateOrder(orders[position].id)
-            OrderServices.getOrders(LoginService.logovaniKorisnik!!.getID()) {
-                val nova = it
-                updateOrders(nova)
-            } */
-            deleteOrderDialog(position)
 
-        }
         holder.infoOrderButton.setOnClickListener {
             openInfoOrder(orders[position].id)
         }
@@ -65,7 +57,6 @@ class OrderListAdapter(
     inner class OrderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val orderName: TextView = itemView.findViewById(R.id.orderName)
         val orderStatus: TextView = itemView.findViewById(R.id.orderStatus)
-        val deleteOrderButton: MaterialButton = itemView.findViewById(R.id.deleteOrderDugme)
         val infoOrderButton: MaterialButton = itemView.findViewById(R.id.InfoOrderDugme)
         val datumNarucivanja: TextView = itemView.findViewById(R.id.orderDateText)
 
@@ -87,24 +78,7 @@ class OrderListAdapter(
         notifyDataSetChanged()
     }
 
-    fun deleteOrderDialog(position: Int) {
-        MaterialAlertDialogBuilder(context)
-            .setIconAttribute(android.R.attr.alertDialogIcon)
-            .setTitle("Izbriši narudžbu?")
-            .setMessage("Da li želite izbrisati narudžbu '${orders[position].nazivNarudzbe}?'")
 
-            .setNegativeButton("Odustani") { dialog, which ->
-                dialog.dismiss()
-            }
-            .setPositiveButton("Izbriši") { dialog, which ->
-                OrderServices.updateOrder(orders[position].id)
-                OrderServices.getOrders(LoginService.logovaniKorisnik!!.getID()) {
-                    val nova = it
-                    updateOrders(nova)
-                }
-                }
-            .show()
-            }
 
 
     }
