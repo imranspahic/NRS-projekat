@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="mjerna_jedinica_spinner_array">
-        <item>kg</item>
-        <item>g</item>
-        <item>l</item>
-        <item>ml</item>
-        <item>drugo</item>
+        <item>Rinfuzna roba</item>
+        <item>Zapakovan proizvod</item>
     </string-array>
 </resources>

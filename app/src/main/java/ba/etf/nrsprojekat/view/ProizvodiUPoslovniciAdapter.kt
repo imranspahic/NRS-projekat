@@ -2,6 +2,7 @@ package ba.etf.nrsprojekat.view
 
 import android.content.Intent
 import android.content.res.ColorStateList
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,20 +29,30 @@ class ProizvodiUPoslovniciAdapter(private var productList : MutableList<Product>
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PregledUPoslovniciViewHolder {
         val itemView = LayoutInflater.from(parent.context)
             .inflate(R.layout.proizvod_u_posl_list_item,parent,false)
+        //Log.d("oki", "rinfuza")
+
         return PregledUPoslovniciViewHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: PregledUPoslovniciViewHolder, position: Int) {
         val proizvodi : Product = productList[position]
+
+        //Log.d("oki", "rinfuza")
+
         holder.name.text = proizvodi.name
         // holder.poslovnica.text = proizvodi.poslovnicaName
-        holder.kolicina.text= proizvodi.quantity.toString()
+        //holder.kolicina.text= proizvodi.quantity.toString()
+        if(proizvodi.rinfuza == "") holder.kolicina.text= proizvodi.quantity.toString()
+        else holder.kolicina.text= proizvodi.rinfuza
+
+
         holder.status.text = proizvodi.status
         holder.cijena.text = String.format("%.2f", proizvodi.price) + " KM"
 
 
 
         if(proizvodi.quantity == 0) {
+
             proizvodi.status = "nema na stanju"
             holder.status.text = proizvodi.status
             ProductsService.updateProductStatus(proizvodi.id, "nema na stanju")
@@ -77,6 +88,8 @@ class ProizvodiUPoslovniciAdapter(private var productList : MutableList<Product>
 
     fun updateProizvodi(newProducts: MutableList<Product>) {
         productList = newProducts
+        //Log.d("oki", "rinfuza")
+
         notifyDataSetChanged()
     }
 
@@ -92,6 +105,5 @@ class ProizvodiUPoslovniciAdapter(private var productList : MutableList<Product>
         var productPdvlinearPosl: LinearLayout = itemView.findViewById(R.id.productPdvLinearPosl)
         var productPdvPercent: TextView = itemView.findViewById(R.id.productPdvPercent)
         val cijena : TextView = itemView.findViewById(R.id.productPricePosl)
-
     }
 }

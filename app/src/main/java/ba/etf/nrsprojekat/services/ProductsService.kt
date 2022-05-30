@@ -30,6 +30,7 @@ object ProductsService {
                          data["price"]?.toString()?.toDouble() ?: 0.0,
                          data["status"].toString(),
                          data["mjernaJedinica"]?.toString(),
+                         data["rinfuza"]?.toString(),
                          (data["updatedAt"]  as com.google.firebase.Timestamp).toDate(),
                          (data["createdAt"]  as com.google.firebase.Timestamp).toDate()
                      )
@@ -53,6 +54,7 @@ object ProductsService {
                    price: Double,
                    status: String,
                    mjernaJedinica: String?,
+                   rinfuza:String?,
                    callback: (result: Boolean, mode: String) -> Unit) {
 
         val updatedDate = Date()
@@ -70,6 +72,7 @@ object ProductsService {
                 price,
                 status.lowercase(),
                 mjernaJedinica,
+                rinfuza,
                 updatedDate,
                 updatedDate,
             )
@@ -82,6 +85,7 @@ object ProductsService {
                 "price" to newProduct.price,
                 "status" to newProduct.status,
                 "mjernaJedinica" to newProduct.mjernaJedinica,
+                "rinfuza" to newProduct.rinfuza,
                 "createdAt" to updatedDate,
                 "updatedAt" to updatedDate
             )
@@ -152,6 +156,7 @@ object ProductsService {
                         document.data["price"]?.toString()?.toDouble() ?: 0.0,
                         document.data["status"].toString(),
                         document.data["mjernaJedinica"]?.toString(),
+                        document.data["rinfuza"]?.toString(),
                         (document.data["updatedAt"] as com.google.firebase.Timestamp).toDate(),
                         (document.data["createdAt"] as com.google.firebase.Timestamp).toDate(),
                     ))
@@ -213,7 +218,7 @@ object ProductsService {
     fun getReceivedName(name : String ) : receivedProducts{
         val test = receivedProducts("","",0,"")
         val product: Product = products.firstOrNull { product -> product.name == name }?: return test
-        val receivedProducts1 = receivedProducts(product.name,product.poslovnicaName,product.quantity,product.status)
+        val receivedProducts1 = receivedProducts(product.name,product.poslovnicaName, product.quantity,product.status)
         return receivedProducts1
 
     }
@@ -333,7 +338,7 @@ object ProductsService {
                         document.data["status"].toString(),
                         //document.data["mjernaJedinica"]?.toString(),
                     null,
-                       (document.data["updatedAt"] as com.google.firebase.Timestamp).toDate(),
+                       document.data["rinfuza"].toString(),(document.data["updatedAt"] as com.google.firebase.Timestamp).toDate(),
                        (document.data["createdAt"] as com.google.firebase.Timestamp).toDate()
                     )
             )

@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +18,7 @@ import ba.etf.nrsprojekat.services.ProductsService
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import java.math.RoundingMode
 import java.text.DecimalFormat
 
@@ -25,6 +28,9 @@ class AddProductActivity : AppCompatActivity() {
 
     private lateinit var addProductNameField: TextInputEditText
     private lateinit var addProductQuantityField: TextInputEditText
+    private lateinit var addProductQuantityLayout: TextInputLayout
+    private lateinit var addProductRinfuzaField: TextInputEditText
+    private lateinit var addProductRinfuzaLayout: TextInputLayout
     private lateinit var addProductPriceField: TextInputEditText
     private lateinit var addProductMjernaJedinicaSpinner: Spinner
     private lateinit var addProductPoslovnicaSpinner: Spinner
@@ -39,6 +45,9 @@ class AddProductActivity : AppCompatActivity() {
         toolbar = findViewById(R.id.addProductToolbar)
         addProductNameField = findViewById(R.id.addProductNameField)
         addProductQuantityField = findViewById(R.id.addProductQuantityField)
+        addProductQuantityLayout = findViewById(R.id.addProductQuantityTextInput)
+        addProductRinfuzaField = findViewById(R.id.addProductRinfuzaField)
+        addProductRinfuzaLayout = findViewById(R.id.addProductRinfuzaTextInput)
         addProductPriceField = findViewById(R.id.addProductPriceField)
         addProductMjernaJedinicaSpinner = findViewById(R.id.addProductMjernaJedinicaSpinner)
         addProductPoslovnicaSpinner = findViewById(R.id.addProductPoslovnicaSpinner)
@@ -122,6 +131,27 @@ class AddProductActivity : AppCompatActivity() {
             adapterPoslovnice.addAll(poslovnice)
             adapterPoslovnice.notifyDataSetChanged()
         }
+        addProductMjernaJedinicaSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            if(addProductMjernaJedinicaSpinner.selectedItem == "Rinfuzna roba") {
+                //addProductQuantityLayout.setVisibility(View.INVISIBLE)
+                //addProductRinfuzaLayout.setVisibility(View.VISIBLE)
+                    addProductRinfuzaField.setEnabled(true)
+                addProductQuantityField.setText("1")
+                addProductQuantityField.setEnabled(false)
+            } else {
+                //addProductQuantityLayout.setVisibility(View.VISIBLE)
+                //addProductRinfuzaLayout.setVisibility(View.INVISIBLE)
+                addProductRinfuzaField.setText("")
+                addProductRinfuzaField.setEnabled(false)
+                addProductQuantityField.setEnabled(true)
+            }
+            }
+        }
+
     }
 
     private fun onToolbarBackButton() {
@@ -144,6 +174,7 @@ class AddProductActivity : AppCompatActivity() {
             roundedPrice.replace(",", ".").toDouble(),
             (addProductStatusSpinner.selectedItem as String).lowercase(),
             (addProductMjernaJedinicaSpinner.selectedItem as String),
+            addProductRinfuzaField.text.toString()
         ) {
             result, mode ->
             if(result) {
@@ -162,7 +193,9 @@ class AddProductActivity : AppCompatActivity() {
         val quantity = addProductQuantityField.text.toString().toInt()
         if(quantity == 0) {
             addProductStatusSpinner.setSelection(1)
-        }
+        } /*else if(addProductMjernaJedinicaSpinner.selectedItem == "Rinfuzna roba") {
+                addProductQuantityField.setText("1")
+        }*/
         else {
             addProductStatusSpinner.setSelection(0)
         }
@@ -208,14 +241,15 @@ class AddProductActivity : AppCompatActivity() {
             PdvCategoriesService.pdvCategories.indexOfFirst { category ->
                 category.name == product.pdvCategoryName!! }+1
         )
-
+        addProductRinfuzaField.setText(product.rinfuza)
         when (product.mjernaJedinica) {
-            "kg" -> addProductMjernaJedinicaSpinner.setSelection(0)
-            "g" -> addProductMjernaJedinicaSpinner.setSelection(1)
-            "l" -> addProductMjernaJedinicaSpinner.setSelection(2)
-            "ml" -> addProductMjernaJedinicaSpinner.setSelection(3)
+            "Rinfuzna roba" -> addProductMjernaJedinicaSpinner.setSelection(0)
+            //"kg" -> addProductMjernaJedinicaSpinner.setSelection(0)
+            //"g" -> addProductMjernaJedinicaSpinner.setSelection(1)
+            //"l" -> addProductMjernaJedinicaSpinner.setSelection(2)
+            //"ml" -> addProductMjernaJedinicaSpinner.setSelection(3)
             else -> {
-                addProductMjernaJedinicaSpinner.setSelection(4)
+                addProductMjernaJedinicaSpinner.setSelection(1)
             }
         }
 

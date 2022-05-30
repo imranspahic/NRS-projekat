@@ -11,6 +11,7 @@ data class Product(
     var price: Double,
     var status: String,
     var mjernaJedinica: String?,
+    var rinfuza:String?,
     var updatedAt: Date,
     var createdAt: Date,
 ) {
