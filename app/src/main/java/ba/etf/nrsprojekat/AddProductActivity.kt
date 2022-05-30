@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
@@ -122,6 +124,19 @@ class AddProductActivity : AppCompatActivity() {
             adapterPoslovnice.addAll(poslovnice)
             adapterPoslovnice.notifyDataSetChanged()
         }
+        addProductMjernaJedinicaSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            if(addProductMjernaJedinicaSpinner.selectedItem == "Rinfuzna roba") {
+                addProductQuantityField.setEnabled(false)
+            } else {
+                addProductQuantityField.setEnabled(true)
+            }
+            }
+        }
+
     }
 
     private fun onToolbarBackButton() {
