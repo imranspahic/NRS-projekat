@@ -236,6 +236,8 @@ class AddBranchActivity : AppCompatActivity() {
         recyclerMjesto.layoutManager = LinearLayoutManager(this)
          adapterZaRecycler = MjestoListAdapter(branch.mjesto)
         recyclerMjesto.adapter = adapterZaRecycler
+        toolbar.title = "Ažuriraj poslovnicu"
+        btnSacuvaj.text = "SAČUVAJ"
     }
 
 }
