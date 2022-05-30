@@ -118,8 +118,14 @@ class ProductListAdapter(
             holder.substractProductToOrderDugme.visibility = View.VISIBLE
             holder.quantityEdit.visibility = View.VISIBLE
             brojProizvodaTextView.text = OrderServices.imeTrenutneNarudzbe
-            product.kolicinaNarudzbe = OrderServices.mapaZaNarudzbu.get(product.id).toString().toInt()
-            holder.quantityEdit.setText(OrderServices.mapaZaNarudzbu.get(product.id).toString())
+            if(OrderServices.mapaZaNarudzbu.get(product.id) != null) {
+                product.kolicinaNarudzbe = OrderServices.mapaZaNarudzbu.get(product.id).toString().toInt()
+                holder.quantityEdit.setText(OrderServices.mapaZaNarudzbu.get(product.id).toString())
+            }
+            else {
+                product.kolicinaNarudzbe = 0
+                holder.quantityEdit.setText("0")
+            }
         }
         else {
             holder.addProductToOrderDugme.visibility = View.GONE
@@ -216,13 +222,13 @@ class ProductListAdapter(
     private fun showConfirmationDialogForOrderFinish() {
         MaterialAlertDialogBuilder(context)
             .setIconAttribute(android.R.attr.alertDialogIcon)
-            .setTitle("Pošalji narudžbu?")
-            .setMessage("Da li želite poslati narudžbu?")
+            .setTitle("Sačuvaj narudžbu?")
+            .setMessage("Da li želite sačuvati narudžbu?")
 
             .setNegativeButton("Odustani") { dialog, which ->
                 dialog.dismiss()
             }
-            .setPositiveButton("Pošalji") { dialog, which ->
+            .setPositiveButton("Sačuvaj") { dialog, which ->
                 for(item in products)
                     if(item.kolicinaNarudzbe != 0) {
                         mapaProizvodaZaNarudzbu.put(item.id, item.kolicinaNarudzbe)
@@ -230,6 +236,10 @@ class ProductListAdapter(
                         item.quantity = item.quantity - item.kolicinaNarudzbe
                         item.kolicinaNarudzbe = 0
                     }
+                if(OrderServices.id != null) {
+                    OrderServices.deleteOrder(OrderServices.id.toString()) {}
+                //    for(item in OrderServices.mapaZaNarudzbu)
+                }
                 OrderServices.addOrder(OrderServices.imeTrenutneNarudzbe.toString(), "pending", LoginService.logovaniKorisnik!!.getID().toString(), mapaProizvodaZaNarudzbu)
                 OrderServices.imeTrenutneNarudzbe = null
                 mListener.HideBtn()
@@ -237,6 +247,7 @@ class ProductListAdapter(
                 OrderServices.mapaZaNarudzbu = mutableMapOf<String, Any>()
                 OrderServices.lokacija = null
                 OrderServices.mjesto = null
+                OrderServices.id = null
                 notifyDataSetChanged()
             }
             .show()

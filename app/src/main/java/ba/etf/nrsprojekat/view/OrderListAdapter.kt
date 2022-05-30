@@ -18,6 +18,7 @@ import ba.etf.nrsprojekat.data.models.Product
 import ba.etf.nrsprojekat.services.LoginService
 import ba.etf.nrsprojekat.services.OrderServices
 import ba.etf.nrsprojekat.services.UserService
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.text.DateFormat
@@ -50,6 +51,25 @@ class OrderListAdapter(
         holder.infoOrderButton.setOnClickListener {
             openInfoOrder(orders[position].id)
         }
+        if(orders[position].datumRacuna == null) {
+            holder.editOrderButton.visibility = View.VISIBLE
+            holder.editOrderButton.setOnClickListener {
+            //    fragmentActivity.supportFragmentManager
+            //        .beginTransaction().replace(R.id.frame, FragmentProducts()).commitNow()
+                var mapaProizvodiNarudzbe = mutableMapOf<String, Any>()
+                for(item in orders[position].proizvodi)
+                 //   println("" + item["productID"].toString() + item["quantity"].toString().toInt())
+                     mapaProizvodiNarudzbe.put(item["productID"].toString(), item["quantity"].toString())
+                     OrderServices.id = orders[position].id
+                     OrderServices.imeTrenutneNarudzbe = orders[position].nazivNarudzbe
+                     OrderServices.mapaZaNarudzbu = mapaProizvodiNarudzbe
+                     fragmentActivity.findViewById<BottomNavigationView>(R.id.bottom_nav).selectedItemId = R.id.proizvodi
+            }
+        }
+        else
+            holder.editOrderButton.visibility = View.GONE
+
+
 
     }
 
@@ -59,6 +79,7 @@ class OrderListAdapter(
         val orderStatus: TextView = itemView.findViewById(R.id.orderStatus)
         val infoOrderButton: MaterialButton = itemView.findViewById(R.id.InfoOrderDugme)
         val datumNarucivanja: TextView = itemView.findViewById(R.id.orderDateText)
+        val editOrderButton: MaterialButton = itemView.findViewById(R.id.EditOrderDugme)
 
 
     }
@@ -83,28 +104,6 @@ class OrderListAdapter(
 
     }
 
-    /*
-     MaterialAlertDialogBuilder(context)
-            .setIconAttribute(android.R.attr.alertDialogIcon)
-            .setTitle("Izbriši korisnika?")
-            .setMessage("Da li želite izbrisati korisnika ${korisnikList[position].getEmail()}?")
-
-            .setNegativeButton("Odustani") { dialog, which ->
-                dialog.dismiss()
-            }
-            .setPositiveButton("Izbriši") { dialog, which ->
-                UserService.deleteUser(korisnikID) {result ->
-                    if(result) {
-                        dialog.dismiss()
-                        updateUsers(UserService.users)
-                        Snackbar.make(brojKorisnikaTextView, "Korisnik uspješno obrisan!", Snackbar.LENGTH_LONG)
-                            .setAction("OK") { }
-                            .show()
-                    }
-                }
-            }
-            .show()
-     */
 
 
 
