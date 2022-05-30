@@ -63,10 +63,7 @@ object BranchesService {
             )
             documentReference.set(place).addOnSuccessListener {
                 branches.add(place1)
-                LoggingService.addLog(
-                    LogAction.CREATE,
-                    "Dodana poslovnica ${nazivPoslovnice}"
-                ) {}
+                LoggingService.addLog(LogAction.CREATE, "Dodana poslovnica ${nazivPoslovnice}") {}
                 this.branches = branches.sortedWith(compareBy<Branch> { it.updatedAt }.reversed())
                     .toMutableList()
                 callback(true, "ADD")
@@ -87,10 +84,7 @@ object BranchesService {
                 branches[index].nazivPoslovnice = nazivPoslovnice
                 branches[index].mjesto = nazivMjesta
                 branches[index].updatedAt = updatedDate
-                LoggingService.addLog(
-                    LogAction.UPDATE,
-                    "Ažurirana poslovnica ${nazivPoslovnice}"
-                ) {}
+                LoggingService.addLog(LogAction.UPDATE, "Ažurirana poslovnica ${nazivPoslovnice}") {}
                 callback(true, "EDIT")
             }.addOnFailureListener {
                 callback(false, "EDOT")
