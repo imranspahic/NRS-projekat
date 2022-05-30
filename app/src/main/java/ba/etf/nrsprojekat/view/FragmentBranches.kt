@@ -11,7 +11,9 @@ import androidx.recyclerview.widget.RecyclerView
 import ba.etf.nrsprojekat.AddBranchActivity
 import ba.etf.nrsprojekat.R
 import ba.etf.nrsprojekat.services.BranchesService
+import ba.etf.nrsprojekat.services.ProductsService
 import ba.etf.nrsprojekat.view.BranchListAdapter
+import ba.etf.nrsprojekat.view.ProductListAdapter
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
 
@@ -20,6 +22,7 @@ class FragmentBranches : Fragment(R.layout.fragment_branches) {
     private lateinit var addBranchButton: MaterialButton
     private lateinit var refreshBranchButton: MaterialButton
     private lateinit var brojPoslovnica : TextView
+    private lateinit var myAdapter: BranchListAdapter
 
 
 
@@ -51,7 +54,7 @@ class FragmentBranches : Fragment(R.layout.fragment_branches) {
         recyclerViewAll = view.findViewById(R.id.poslovniceRecyclerView)
         recyclerViewAll.layoutManager = LinearLayoutManager(view.context)
 
-        val myAdapter = BranchListAdapter(listOf(),brojPoslovnica,requireActivity(),branchActivityLauncher)
+        myAdapter = BranchListAdapter(listOf(),brojPoslovnica,requireActivity(),branchActivityLauncher)
         recyclerViewAll.adapter = myAdapter
 
         BranchesService.getBranches{ result ->
@@ -68,5 +71,10 @@ class FragmentBranches : Fragment(R.layout.fragment_branches) {
                 myAdapter.updateBranches(result)
             }
                 }
+    }
+    override fun onResume() {
+        super.onResume()
+        myAdapter.updateBranches(BranchesService.branches)
+        brojPoslovnica.text = BranchesService.branches.size.toString()
     }
 }
