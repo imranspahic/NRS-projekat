@@ -61,7 +61,13 @@ class ProductListAdapter(
         val product: Product = products[position]
         holder.productName.text = product.name
         holder.productPoslovnica.text = product.poslovnicaName
-        holder.productQuantity.text = product.quantity.toString()
+        if(product.rinfuza == "") {
+            holder.productQuantity.text = product.quantity.toString()
+        }
+        else {
+            holder.productQuantity.text = product.rinfuza.toString()
+        }
+
         holder.productStatus.text = product.status
         holder.productPrice.text = String.format("%.2f", product.price) + " KM"
 

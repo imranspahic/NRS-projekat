@@ -30,7 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="150dp"
         android:hint="Naziv proizvoda"
         app:layout_constraintBottom_toTopOf="@id/addProductQuantityTextInput"
         app:layout_constraintEnd_toEndOf="parent"
@@ -68,7 +68,25 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/addProductRinfuzaTextInput"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_weight="1"
+        android:hint="Količina rinfuza: "
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addProductMjernaJedinicaLinearLayout">
 
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/addProductRinfuzaField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textCapSentences" />
+
+    </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
         android:layout_weight="1"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
