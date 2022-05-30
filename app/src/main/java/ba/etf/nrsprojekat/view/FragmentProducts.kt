@@ -178,7 +178,7 @@ class FragmentProducts : Fragment(), ProductListAdapter.IHide {
           //  brojProizvodaText.text = m_Text
           //  OrderServices.imeTrenutneNarudzbe = "Narudžba" + (brojProizvodaText.text.toString().toInt() + 1).toString()
             OrderServices.getOrders(LoginService.logovaniKorisnik!!.getID()) {
-                OrderServices.imeTrenutneNarudzbe = "Narudžba" + (it.size + 1).toString()
+                OrderServices.imeTrenutneNarudzbe = "Narudžba " + (it.size + 1).toString()
                 productListAdapter.notifyDataSetChanged()
                 OrderServices.setMapa()
                 dialog.dismiss()
@@ -221,6 +221,7 @@ class FragmentProducts : Fragment(), ProductListAdapter.IHide {
                             OrderServices.mapaZaNarudzbu = mutableMapOf<String, Any>()
                             OrderServices.lokacija = null
                             OrderServices.mjesto = null
+                            OrderServices.id = null
                             OrderServices.resetKolicinaProducts()
                             productListAdapter.notifyDataSetChanged()
                             dialog.dismiss()

@@ -155,6 +155,25 @@
         </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/EditOrderDugme"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:iconPadding="0dp"
+            android:insetLeft="0dp"
+            android:insetTop="0dp"
+            android:insetRight="0dp"
+            android:insetBottom="0dp"
+            app:iconGravity="textStart"
+            android:padding="0dp"
+            app:icon="@drawable/appedit"
+            app:iconTint="@color/black"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Circle"
+            android:layout_marginRight="8dp"
+            />
+
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/InfoOrderDugme"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
             android:layout_width="40dp"
