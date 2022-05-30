@@ -57,6 +57,7 @@ class FragmentOrder() : Fragment() {
         OrderServices.getOrders(LoginService.logovaniKorisnik!!.getID().toString()) {
             ordersList = it
             brojNarudzbi.text = ordersList.size.toString()
+            //
             var adapterZaRecycler = OrderListAdapter(ordersList, requireContext(), requireActivity(), productActivityLauncher, brojNarudzbi)
             narudzbeRecyclerView.adapter = adapterZaRecycler
             //println(OrderServices!!.imeTrenutneNarudzbe?.toString())

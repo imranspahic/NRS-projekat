@@ -28,6 +28,7 @@ object OrderServices {
     var mapaZaNarudzbu = mutableMapOf<String, Any>()
     var lokacija: String? = null
     var mjesto: String? = null
+    var id: String? = null
 
     fun getOrders(id: String, callback: (result: MutableList<Narudzba>) -> Unit) {
         var lista: MutableList<Narudzba> = mutableListOf()
@@ -156,6 +157,7 @@ object OrderServices {
         mapaZaNarudzbu = mutableMapOf()
         lokacija = null
         mjesto = null
+        id = null
     }
 
     fun fiskalizirajRacun(narudzba: Narudzba,
@@ -316,6 +318,11 @@ object OrderServices {
             "vrijemeRacuna" to vrijemeRacuna
         )
         db.collection("orders").document(narudzba.id).update(updateOrder).addOnSuccessListener {
+        }
+    }
+    fun deleteOrder(id: String, callback: (result: Boolean) -> Unit) {
+        db.collection("orders").document(id).delete().addOnSuccessListener {
+            callback(true)
         }
     }
 }
