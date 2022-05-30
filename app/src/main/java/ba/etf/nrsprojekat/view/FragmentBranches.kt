@@ -45,7 +45,6 @@ class FragmentBranches : Fragment(R.layout.fragment_branches) {
         addBranchButton = view.findViewById(R.id.addBranchButton)
         refreshBranchButton = view.findViewById(R.id.refreshBranchButton)
         brojPoslovnica = view.findViewById(R.id.brojPoslovnica)
-     //   editBranchButton = view.findViewById(R.id.editBranchButton)
         brojPoslovnica.text = BranchesService.branches.size.toString()
 
 
