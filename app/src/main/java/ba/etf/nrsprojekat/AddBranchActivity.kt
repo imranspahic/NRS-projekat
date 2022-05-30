@@ -91,14 +91,29 @@ class AddBranchActivity : AppCompatActivity() {
                                 BranchesService.getID(nazivPoslovniceText.text.toString()) {
                                     branchID = it
                                 }
+                                if (result) {
+                                    val output = android.content.Intent().apply {
+                                        putExtra("branches", more)
+                                    }
+                                    setResult(Activity.RESULT_OK, output)
+                                    finish()
+                                }
                             }
                     }
                     else {
                         BranchesService.addBranch(branchID!!, nazivPoslovniceText.text.toString(), /*listaMjestaPoslovnice*/ BranchesService.mjesta) {
                             result, more ->
+                            if (result) {
+                                val output = android.content.Intent().apply {
+                                    putExtra("branches", more)
+                                }
+                                setResult(Activity.RESULT_OK, output)
+                                finish()
+                            }
                         }
                     }
                 }
+
             }
 
 
@@ -209,22 +224,7 @@ class AddBranchActivity : AppCompatActivity() {
             ).show()
         } */
     }
-    private fun onAddBranch(branchID: String?) {
-        BranchesService.addBranch(
-            branchID ?: "",
-            nazivPoslovniceText.text.toString(),
-            listaMjestaPoslovnice
 
-        ) { result, mode ->
-            if (result) {
-                val output = Intent().apply {
-                    putExtra("mode", mode)
-                }
-                setResult(Activity.RESULT_OK, output)
-                finish()
-            }
-        }
-    }
 
     private fun onToolbarBackButton() {
         finish()
@@ -236,6 +236,8 @@ class AddBranchActivity : AppCompatActivity() {
         recyclerMjesto.layoutManager = LinearLayoutManager(this)
          adapterZaRecycler = MjestoListAdapter(branch.mjesto)
         recyclerMjesto.adapter = adapterZaRecycler
+        toolbar.title = "Ažuriraj poslovnicu"
+        btnSacuvaj.text = "SAČUVAJ"
     }
 
 }
