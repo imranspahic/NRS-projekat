@@ -102,7 +102,7 @@
         <entry key="app/src/main/res/drawable/rounded_corner_dialog.xml" value="0.2345" />
         <entry key="app/src/main/res/drawable/store.xml" value="0.225" />
         <entry key="app/src/main/res/drawable/store_edit_outline.xml" value="0.197" />
-        <entry key="app/src/main/res/layout/activity_add_product.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/activity_add_product.xml" value="0.25754310344827586" />
         <entry key="app/src/main/res/layout/activity_add_user.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_change_password.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_change_user_branch.xml" value="0.2779087674790534" />

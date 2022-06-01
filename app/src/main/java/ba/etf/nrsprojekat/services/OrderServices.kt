@@ -194,7 +194,7 @@ object OrderServices {
                     val conn = url.openConnection() as HttpURLConnection
                     conn.requestMethod = "POST"
                     conn.doOutput = true
-                    conn.connectTimeout = 10000
+                    conn.connectTimeout = 5000
                     conn.setRequestProperty("Content-Type", "text/xml")
                     conn.useCaches = false
                     DataOutputStream(conn.outputStream).use { it.writeBytes(postData) }
