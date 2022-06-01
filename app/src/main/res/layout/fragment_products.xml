@@ -84,7 +84,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             app:icon="@drawable/ic_add_order"
-            app:iconTint="@color/black"
+            app:iconTint="@color/grey"
             app:iconPadding="0dp"
             android:insetLeft="0dp"
             android:insetTop="0dp"

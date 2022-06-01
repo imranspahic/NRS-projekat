@@ -137,17 +137,19 @@ class AddProductActivity : AppCompatActivity() {
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
             if(addProductMjernaJedinicaSpinner.selectedItem == "Rinfuzna roba") {
-                //addProductQuantityLayout.setVisibility(View.INVISIBLE)
-                //addProductRinfuzaLayout.setVisibility(View.VISIBLE)
-                    addProductRinfuzaField.setEnabled(true)
+                addProductRinfuzaLayout.isEnabled = true
+                addProductRinfuzaField.isEnabled = true
+
+                addProductQuantityLayout.isEnabled = false
+                addProductQuantityField.isEnabled = false
                 addProductQuantityField.setText("1")
-                addProductQuantityField.setEnabled(false)
             } else {
-                //addProductQuantityLayout.setVisibility(View.VISIBLE)
-                //addProductRinfuzaLayout.setVisibility(View.INVISIBLE)
+                addProductRinfuzaLayout.isEnabled = false
+                addProductRinfuzaField.isEnabled = false
                 addProductRinfuzaField.setText("")
-                addProductRinfuzaField.setEnabled(false)
-                addProductQuantityField.setEnabled(true)
+
+                addProductQuantityLayout.isEnabled = true
+                addProductQuantityField.isEnabled = true
             }
             }
         }
