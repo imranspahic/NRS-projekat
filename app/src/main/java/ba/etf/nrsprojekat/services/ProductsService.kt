@@ -111,6 +111,7 @@ object ProductsService {
                 "price" to price,
                 "status" to status,
                 "mjernaJedinica" to mjernaJedinica,
+                "rinfuza" to rinfuza,
                 "updatedAt" to updatedDate
             )
             db.collection("products").document(product.id).update(editedProductData).addOnSuccessListener {
@@ -122,6 +123,7 @@ object ProductsService {
                 products[index].price = price
                 products[index].status = status
                 products[index].mjernaJedinica = mjernaJedinica
+                products[index].rinfuza = rinfuza
                 products[index].updatedAt = updatedDate
                 LoggingService.addLog(LogAction.UPDATE, "Ažuriran proizvod ${name}"){}
                 callback(true, "EDIT")
