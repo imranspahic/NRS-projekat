@@ -165,9 +165,9 @@ class ProductListAdapter(
     }
 
 
-    fun updateProducts(products: List<Product>) {
+    fun updateProducts(products: List<Product>, updateBrojProizvodaText: Boolean = true) {
         this.products = products.sortedWith(compareBy<Product> { it.createdAt }.reversed())
-        brojProizvodaTextView.text = products.size.toString()
+        if(updateBrojProizvodaText) brojProizvodaTextView.text = products.size.toString()
         notifyDataSetChanged()
     }
     inner class ProductViewHolder(itemView: View, mListener: IHide) : RecyclerView.ViewHolder(itemView) {
