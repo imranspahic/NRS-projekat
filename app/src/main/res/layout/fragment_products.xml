@@ -155,13 +155,43 @@
 
     </LinearLayout>
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/searchProductsLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="8dp"
+        android:hint="Pretraga"
+        app:startIconDrawable="@drawable/magnify"
+        app:startIconTint="@color/grey"
+        app:boxStrokeColor="@color/box_stroke_color"
+        app:boxStrokeWidth="1dp"
+        app:boxStrokeWidthFocused="1dp"
+        app:endIconMode="clear_text"
+        app:endIconTint="@color/grey"
+        app:endIconDrawable="@drawable/close"
+        app:startIconContentDescription="Pretraga"
+        app:layout_constraintBottom_toTopOf="@id/proizvodiRecyclerView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/proizvodiLinearLayoutStatus">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/searchProductsField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textCapSentences" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/proizvodiRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/proizvodiLinearLayoutStatus"
+        app:layout_constraintTop_toBottomOf="@id/searchProductsLayout"
         app:layout_constraintBottom_toBottomOf="parent"
         />
 
