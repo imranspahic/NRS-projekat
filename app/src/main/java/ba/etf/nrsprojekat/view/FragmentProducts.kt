@@ -28,6 +28,7 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.*
 
 
@@ -44,7 +45,7 @@ class FragmentProducts : Fragment(), ProductListAdapter.IHide {
     private lateinit var pdvCategoriesDugme: MaterialButton
     private lateinit var brojProizvodaLabel: TextView
     private lateinit var searchProductsField: TextInputEditText
-    private var searchJob: Job? = null
+    private lateinit var searchProductsLayout: TextInputLayout
 
     private var productActivityLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
 
@@ -78,6 +79,7 @@ class FragmentProducts : Fragment(), ProductListAdapter.IHide {
         saveOrderDugme = view.findViewById(R.id.saveOrderDugme)
         pdvCategoriesDugme = view.findViewById(R.id.pdvCategoriesDugme)
         searchProductsField = view.findViewById(R.id.searchProductsField)
+        searchProductsLayout = view.findViewById(R.id.searchProductsLayout)
 
         if(PdvCategoriesService.pdvCategories.isEmpty()) {
             PdvCategoriesService.fetchPdvCategories {  }
@@ -94,7 +96,8 @@ class FragmentProducts : Fragment(), ProductListAdapter.IHide {
             productActivityLauncher,
             brojProizvodaText,
             saveOrderDugme,
-            this
+            this,
+            searchProductsField
         )
         brojProizvodaText.text = ProductsService.products.size.toString()
         proizvodiRecyclerView.adapter = productListAdapter
@@ -110,6 +113,14 @@ class FragmentProducts : Fragment(), ProductListAdapter.IHide {
                 if(result) {
                     productListAdapter.updateProducts(ProductsService.products)
                     brojProizvodaText.text = ProductsService.products.size.toString()
+                    if(searchProductsField.text.toString().isNotEmpty()) {
+                        val searchedProducts: List<Product> = ProductsService.products.filter {
+                                p ->
+                            Log.d("search", "product = ${p.name.lowercase()}")
+                            p.name.lowercase().contains(searchProductsField.text.toString().lowercase()) }
+                        Log.d("search", "Broj proizvoda = ${searchedProducts.size}")
+                        productListAdapter.updateProducts(searchedProducts, updateBrojProizvodaText = false)
+                    }
                 }
             }
         }
@@ -164,6 +175,19 @@ class FragmentProducts : Fragment(), ProductListAdapter.IHide {
             }
         }
 
+        searchProductsLayout.setEndIconOnClickListener {
+            if(searchProductsField.isFocused) {
+                val inputManager: InputMethodManager =
+                    requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                inputManager.hideSoftInputFromWindow(
+                    searchProductsField.findFocus().getWindowToken(),
+                    InputMethodManager.HIDE_NOT_ALWAYS
+                )
+                searchProductsField.setText("")
+                searchProductsField.clearFocus()
+            }
+        }
+
         return view
     }
     // ON VIEW CREATED ---------------------------------------------------------------
@@ -194,8 +218,19 @@ class FragmentProducts : Fragment(), ProductListAdapter.IHide {
 
     override fun onResume() {
         super.onResume()
-        productListAdapter.updateProducts(ProductsService.products)
         brojProizvodaText.text = ProductsService.products.size.toString()
+        if(searchProductsField.text.toString().isEmpty()) {
+            Log.d("search", "reseting products, size = ${ProductsService.products.size}")
+            productListAdapter.updateProducts(ProductsService.products)
+        }
+        else {
+            val searchedProducts: List<Product> = ProductsService.products.filter {
+                    p ->
+                Log.d("search", "product = ${p.name.lowercase()}")
+                p.name.lowercase().contains(searchProductsField.text.toString().lowercase()) }
+            Log.d("search", "Broj proizvoda = ${searchedProducts.size}")
+            productListAdapter.updateProducts(searchedProducts, updateBrojProizvodaText = false)
+        }
     }
     fun showdialog(){
       //  var m_Text: String = String()
@@ -282,9 +317,7 @@ class FragmentProducts : Fragment(), ProductListAdapter.IHide {
     private fun onSearchProducts() {
         Log.d("search", "onSearchProducts()")
         Log.d("search", "search text: ${searchProductsField.text}")
-        if(searchJob != null) searchJob!!.cancel()
-        searchJob = GlobalScope.launch(Dispatchers.Main) {
-            delay(1000)
+     GlobalScope.launch(Dispatchers.Main) {
             Log.d("search", "searching...  ${searchProductsField.text}")
             if(searchProductsField.text.toString().isEmpty()) {
                 Log.d("search", "reseting products, size = ${ProductsService.products.size}")
