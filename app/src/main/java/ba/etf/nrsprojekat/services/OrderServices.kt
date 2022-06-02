@@ -24,6 +24,7 @@ import javax.xml.stream.XMLOutputFactory
 import javax.xml.stream.XMLStreamWriter
 import javax.xml.xpath.XPathConstants
 import javax.xml.xpath.XPathFactory
+import kotlin.math.roundToInt
 
 object OrderServices {
     private val db = Firebase.firestore
@@ -139,10 +140,8 @@ object OrderServices {
                     else{
 
                         val pdvCategory: PdvCategory? = PdvCategoriesService.pdvCategories.firstOrNull() { category -> category.name == narudzba.proizvodi[brojac].get("productPdvCategory").toString() }
-                        println("pdvCategory order: "+ pdvCategory)
                         if(pdvCategory == null) {
                             finalPrice += narudzba.proizvodi[brojac].get("productPrice").toString().toDouble() * narudzba.proizvodi[brojac].get("quantity").toString().toDouble()
-
                         }
                         else{
                             var izvucipdv =
@@ -151,7 +150,7 @@ object OrderServices {
 
                             finalPrice += narudzba.proizvodi[brojac].get("productPrice").toString().toDouble() * narudzba.proizvodi[brojac].get("quantity").toString().toDouble()
 
-                            var pdv = (finalPrice * izvucipdv)/100
+                            var pdv = (finalPrice * izvucipdv).roundToInt()/100.0
                             finalPrice += pdv
 
 

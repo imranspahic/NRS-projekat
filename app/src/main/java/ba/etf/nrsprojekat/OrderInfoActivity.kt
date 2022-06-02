@@ -100,7 +100,7 @@ class OrderInfoActivity : AppCompatActivity() {
                     if (ukupnaCijena != 0.0) {
                         iznos = ukupnaCijena;
                         iznos = (iznos * 100.0).roundToInt() / 100.0
-                        iznosZaPlatiti.text = iznos.toString() + " KM"
+                        iznosZaPlatiti.text = String.format("%.2f", iznos).replace(".",",") + " KM"
                     }
 
                     if(narudzba.brojRacuna == null) {

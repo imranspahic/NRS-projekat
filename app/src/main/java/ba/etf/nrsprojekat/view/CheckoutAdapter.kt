@@ -36,10 +36,10 @@ class CheckoutAdapter(
 
         holder.imeProizvodaTextView.text = proizvodi[position].get("productName").toString()
         holder.kolicinaTextView.text = proizvodi[position].get("quantity").toString() + "x"
-        holder.cijenaTextView.text = proizvodi[position].get("productPrice").toString() + " KM"
+        holder.cijenaTextView.text = String.format("%.2f",proizvodi[position].get("productPrice")).replace(".",",") + " KM"
         var iznos = (proizvodi[position].get("quantity").toString().toInt() * proizvodi[position].get("productPrice").toString().toDouble())
         iznos = (iznos * 100.0).roundToInt() / 100.0
-        holder.ukupnaCijenaTextView.text = iznos.toString() + " KM"
+        holder.ukupnaCijenaTextView.text = String.format("%.2f", iznos).replace(".",",") + " KM"
 
         if( proizvodi[position].get("productPdvCategory").toString() == null) {
             holder.productPdvlinear.visibility = View.GONE
@@ -53,7 +53,7 @@ class CheckoutAdapter(
                 holder.productPdvlinear.visibility = View.GONE
                 holder.cijenaBezPdvLinear.visibility = View.GONE
                 holder.PdvOdCijeneLinear.visibility = View.GONE
-                holder.ukupnaCijenaSaPDVTextView.text = iznos.toString() + " KM"
+                holder.ukupnaCijenaSaPDVTextView.text = String.format("%.2f", iznos).replace(".",",") + " KM"
             }
             else {
                 holder.PDVprocenat.text = noDecimalFormat.format(
@@ -62,9 +62,10 @@ class CheckoutAdapter(
 
                 var iznospdv = (iznos * noDecimalFormat.format(pdvCategory.pdvPercent).toString().toInt())/100
                 iznospdv = (iznospdv * 100.0).roundToInt() / 100.0
-                holder.iznosPDVa.text = iznospdv.toString() + " KM"
+                holder.iznosPDVa.text = String.format("%.2f", iznospdv).replace(".",",") + " KM"
                 var iznosSaPdv = iznos + iznospdv
-                holder.ukupnaCijenaSaPDVTextView.text = iznosSaPdv.toString() + " KM"
+                iznosSaPdv = (iznosSaPdv * 100.0).roundToInt() / 100.0
+                holder.ukupnaCijenaSaPDVTextView.text = String.format("%.2f", iznosSaPdv).replace(".",",") + " KM"
             }
         }
 
