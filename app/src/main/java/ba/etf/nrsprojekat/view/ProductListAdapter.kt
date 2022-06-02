@@ -7,6 +7,7 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,6 +29,7 @@ import ba.etf.nrsprojekat.services.ProductsService
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.textfield.TextInputEditText
 import com.google.firestore.v1.StructuredQuery
 import java.text.DecimalFormat
 import java.text.NumberFormat
@@ -39,7 +41,8 @@ class ProductListAdapter(
     private val activityResultLauncher: ActivityResultLauncher<Intent>,
     private val brojProizvodaTextView: TextView,
     private val saveOrderDugme: MaterialButton,
-    private val mListener: IHide
+    private val mListener: IHide,
+    private val searchProductsField: TextInputEditText,
 
 ) : RecyclerView.Adapter<ProductListAdapter.ProductViewHolder>() {
     var mapaProizvodaZaNarudzbu = mutableMapOf<String, Any>()
@@ -165,9 +168,9 @@ class ProductListAdapter(
     }
 
 
-    fun updateProducts(products: List<Product>) {
+    fun updateProducts(products: List<Product>, updateBrojProizvodaText: Boolean = true) {
         this.products = products.sortedWith(compareBy<Product> { it.createdAt }.reversed())
-        brojProizvodaTextView.text = products.size.toString()
+        if(updateBrojProizvodaText) brojProizvodaTextView.text = products.size.toString()
         notifyDataSetChanged()
     }
     inner class ProductViewHolder(itemView: View, mListener: IHide) : RecyclerView.ViewHolder(itemView) {
@@ -218,6 +221,17 @@ class ProductListAdapter(
             if(result) {
                 dialog.dismiss()
                 updateProducts(ProductsService.products)
+                if(searchProductsField.text.toString().isEmpty()) {
+                    Log.d("search", "reseting products, size = ${ProductsService.products.size}")
+                }
+                else {
+                    val searchedProducts: List<Product> = ProductsService.products.filter {
+                            p ->
+                        Log.d("search", "product = ${p.name.lowercase()}")
+                        p.name.lowercase().contains(searchProductsField.text.toString().lowercase()) }
+                    Log.d("search", "Broj proizvoda = ${searchedProducts.size}")
+                    updateProducts(searchedProducts, updateBrojProizvodaText = false)
+                }
                 Snackbar.make(brojProizvodaTextView, "Proizvod uspješno obrisan!", Snackbar.LENGTH_LONG)
                     .setAction("OK") { }
                     .show()
