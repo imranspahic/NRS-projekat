@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.util.Log
 import android.util.Xml
 import ba.etf.nrsprojekat.data.models.Narudzba
+import ba.etf.nrsprojekat.data.models.PdvCategory
 import ba.etf.nrsprojekat.data.models.Product
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -16,6 +17,8 @@ import org.xml.sax.InputSource
 import java.io.*
 import java.net.HttpURLConnection
 import java.net.URL
+import java.text.DecimalFormat
+import java.text.NumberFormat
 import javax.xml.parsers.DocumentBuilderFactory
 import javax.xml.stream.XMLOutputFactory
 import javax.xml.stream.XMLStreamWriter
@@ -104,6 +107,7 @@ object OrderServices {
                  failureCallback: () -> Unit
     )  {
         var finalPrice : Double = 0.0
+        val noDecimalFormat: NumberFormat = DecimalFormat.getInstance()
         lateinit var narudzba: Narudzba
         db.collection("orders").document(id!!)
             .get()
@@ -112,27 +116,51 @@ object OrderServices {
                     failureCallback()
                     return@addOnSuccessListener
                 }
-                    val mapa: MutableList<MutableMap<String, Any>> = document["listaProizvoda"] as MutableList<MutableMap<String, Any>>
+                val mapa: MutableList<MutableMap<String, Any>> = document["listaProizvoda"] as MutableList<MutableMap<String, Any>>
                 narudzba = Narudzba(
-                                document["id"].toString(),
-                                document["nazivNarudzbe"].toString(),
-                                document["statusNarudzbe"].toString(),
-                                document["idKupca"].toString(),
-                                document["listaProizvoda"] as List<MutableMap<String, Any>>,
-                                (document["datumNarudzbe"] as com.google.firebase.Timestamp).toDate(),
-                                document["lokacija"].toString(),
-                                document["mjesto"].toString(),
-                                document["brojRacuna"]?.toString()?.toInt(),
-                                document["datumRacuna"]?.toString(),
-                                document["vrijemeRacuna"]?.toString(),
+                    document["id"].toString(),
+                    document["nazivNarudzbe"].toString(),
+                    document["statusNarudzbe"].toString(),
+                    document["idKupca"].toString(),
+                    document["listaProizvoda"] as List<MutableMap<String, Any>>,
+                    (document["datumNarudzbe"] as com.google.firebase.Timestamp).toDate(),
+                    document["lokacija"].toString(),
+                    document["mjesto"].toString(),
+                    document["brojRacuna"]?.toString()?.toInt(),
+                    document["datumRacuna"]?.toString(),
+                    document["vrijemeRacuna"]?.toString(),
                 )
 
-                        var brojac=0
+                var brojac=0
+                while(brojac <= narudzba.proizvodi.size-1) {
+                    if(narudzba.proizvodi[brojac].get("productPdvCategory").toString() == null){
+                        finalPrice += narudzba.proizvodi[brojac].get("productPrice").toString().toDouble() * narudzba.proizvodi[brojac].get("quantity").toString().toDouble()
+                    }
+                    else{
 
-                        while(brojac <= narudzba.proizvodi.size-1) {
+                        val pdvCategory: PdvCategory? = PdvCategoriesService.pdvCategories.firstOrNull() { category -> category.name == narudzba.proizvodi[brojac].get("productPdvCategory").toString() }
+                        println("pdvCategory order: "+ pdvCategory)
+                        if(pdvCategory == null) {
                             finalPrice += narudzba.proizvodi[brojac].get("productPrice").toString().toDouble() * narudzba.proizvodi[brojac].get("quantity").toString().toDouble()
-                            brojac++
+
                         }
+                        else{
+                            var izvucipdv =
+                                noDecimalFormat.format(pdvCategory.pdvPercent).toString()
+                                    .toInt()
+
+                            finalPrice += narudzba.proizvodi[brojac].get("productPrice").toString().toDouble() * narudzba.proizvodi[brojac].get("quantity").toString().toDouble()
+
+                            var pdv = (finalPrice * izvucipdv)/100
+                            finalPrice += pdv
+
+
+                        }
+
+                    }
+                    brojac++
+
+                }
                 callback(narudzba, finalPrice)
             }
             .addOnFailureListener { exception ->
