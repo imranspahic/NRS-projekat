@@ -14,6 +14,10 @@ object BranchesService {
     var branches: MutableList<Branch> = mutableListOf()
     var mjesta: MutableList<String> = mutableListOf()
 
+    fun getFiskalniInfo(id: String, callback: (result: Boolean) -> Unit) {
+
+    }
+
     fun getBranches(callback: (result: MutableList<Branch>) -> Unit) {
         var lista: MutableList<Branch> = mutableListOf()
         //branches = mutableListOf()
