@@ -2,15 +2,18 @@ package ba.etf.nrsprojekat.view
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
-import android.text.InputType
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
@@ -19,12 +22,14 @@ import androidx.recyclerview.widget.RecyclerView
 import ba.etf.nrsprojekat.AddProductActivity
 import ba.etf.nrsprojekat.PdvCategoriesActivity
 import ba.etf.nrsprojekat.R
+import ba.etf.nrsprojekat.data.models.Product
 import ba.etf.nrsprojekat.services.*
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
-import com.google.api.Logging
-import com.google.firestore.v1.StructuredQuery
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
+import kotlinx.coroutines.*
 
 
 class FragmentProducts : Fragment(), ProductListAdapter.IHide {
@@ -39,6 +44,8 @@ class FragmentProducts : Fragment(), ProductListAdapter.IHide {
     private lateinit var saveOrderDugme: MaterialButton
     private lateinit var pdvCategoriesDugme: MaterialButton
     private lateinit var brojProizvodaLabel: TextView
+    private lateinit var searchProductsField: TextInputEditText
+    private lateinit var searchProductsLayout: TextInputLayout
 
     private var productActivityLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
 
@@ -71,6 +78,8 @@ class FragmentProducts : Fragment(), ProductListAdapter.IHide {
         discardOrderDugme = view.findViewById(R.id.discardOrderDugme)
         saveOrderDugme = view.findViewById(R.id.saveOrderDugme)
         pdvCategoriesDugme = view.findViewById(R.id.pdvCategoriesDugme)
+        searchProductsField = view.findViewById(R.id.searchProductsField)
+        searchProductsLayout = view.findViewById(R.id.searchProductsLayout)
 
         if(PdvCategoriesService.pdvCategories.isEmpty()) {
             PdvCategoriesService.fetchPdvCategories {  }
@@ -87,7 +96,8 @@ class FragmentProducts : Fragment(), ProductListAdapter.IHide {
             productActivityLauncher,
             brojProizvodaText,
             saveOrderDugme,
-            this
+            this,
+            searchProductsField
         )
         brojProizvodaText.text = ProductsService.products.size.toString()
         proizvodiRecyclerView.adapter = productListAdapter
@@ -103,6 +113,14 @@ class FragmentProducts : Fragment(), ProductListAdapter.IHide {
                 if(result) {
                     productListAdapter.updateProducts(ProductsService.products)
                     brojProizvodaText.text = ProductsService.products.size.toString()
+                    if(searchProductsField.text.toString().isNotEmpty()) {
+                        val searchedProducts: List<Product> = ProductsService.products.filter {
+                                p ->
+                            Log.d("search", "product = ${p.name.lowercase()}")
+                            p.name.lowercase().contains(searchProductsField.text.toString().lowercase()) }
+                        Log.d("search", "Broj proizvoda = ${searchedProducts.size}")
+                        productListAdapter.updateProducts(searchedProducts, updateBrojProizvodaText = false)
+                    }
                 }
             }
         }
@@ -126,6 +144,48 @@ class FragmentProducts : Fragment(), ProductListAdapter.IHide {
             saveOrderDugme.visibility = View.VISIBLE
             brojProizvodaLabel.text="Ime narudžbe: "
             brojProizvodaText.text = OrderServices.imeTrenutneNarudzbe
+        }
+
+        searchProductsField.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                onSearchProducts()
+            }
+        })
+
+        searchProductsField.setOnEditorActionListener { textView, actionId, keyEvent ->
+            return@setOnEditorActionListener when (actionId) {
+                EditorInfo.IME_ACTION_SEARCH -> {
+                    Log.d("search", "on IME_ACTION_SEARCH pressed")
+                    val inputManager: InputMethodManager =
+                        requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    inputManager.hideSoftInputFromWindow(
+                       searchProductsField.findFocus().getWindowToken(),
+                        InputMethodManager.HIDE_NOT_ALWAYS
+                    )
+                    searchProductsField.clearFocus()
+                    true
+                }
+                else -> false
+            }
+        }
+
+        searchProductsLayout.setEndIconOnClickListener {
+            if(searchProductsField.isFocused) {
+                val inputManager: InputMethodManager =
+                    requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                inputManager.hideSoftInputFromWindow(
+                    searchProductsField.findFocus().getWindowToken(),
+                    InputMethodManager.HIDE_NOT_ALWAYS
+                )
+                searchProductsField.setText("")
+                searchProductsField.clearFocus()
+            }
         }
 
         return view
@@ -158,8 +218,19 @@ class FragmentProducts : Fragment(), ProductListAdapter.IHide {
 
     override fun onResume() {
         super.onResume()
-        productListAdapter.updateProducts(ProductsService.products)
         brojProizvodaText.text = ProductsService.products.size.toString()
+        if(searchProductsField.text.toString().isEmpty()) {
+            Log.d("search", "reseting products, size = ${ProductsService.products.size}")
+            productListAdapter.updateProducts(ProductsService.products)
+        }
+        else {
+            val searchedProducts: List<Product> = ProductsService.products.filter {
+                    p ->
+                Log.d("search", "product = ${p.name.lowercase()}")
+                p.name.lowercase().contains(searchProductsField.text.toString().lowercase()) }
+            Log.d("search", "Broj proizvoda = ${searchedProducts.size}")
+            productListAdapter.updateProducts(searchedProducts, updateBrojProizvodaText = false)
+        }
     }
     fun showdialog(){
       //  var m_Text: String = String()
@@ -235,14 +306,34 @@ class FragmentProducts : Fragment(), ProductListAdapter.IHide {
 
   /////////////////////////
 
-
-
     override fun HideBtn() {
         discardOrderDugme.visibility = View.GONE
         saveOrderDugme.visibility = View.GONE
         brojProizvodaLabel.text = "Broj proizvoda:"
         brojProizvodaText.text = ProductsService.products.size.toString()
         addOrderDugme.visibility = View.VISIBLE
+    }
+
+    private fun onSearchProducts() {
+        Log.d("search", "onSearchProducts()")
+        Log.d("search", "search text: ${searchProductsField.text}")
+     GlobalScope.launch(Dispatchers.Main) {
+            Log.d("search", "searching...  ${searchProductsField.text}")
+            if(searchProductsField.text.toString().isEmpty()) {
+                Log.d("search", "reseting products, size = ${ProductsService.products.size}")
+                productListAdapter.updateProducts(ProductsService.products)
+
+            }
+            else {
+                val searchedProducts: List<Product> = ProductsService.products.filter {
+                        p ->
+                    Log.d("search", "product = ${p.name.lowercase()}")
+                    p.name.lowercase().contains(searchProductsField.text.toString().lowercase()) }
+                Log.d("search", "Broj proizvoda = ${searchedProducts.size}")
+                productListAdapter.updateProducts(searchedProducts, updateBrojProizvodaText = false)
+
+            }
+        }
     }
 
 }
