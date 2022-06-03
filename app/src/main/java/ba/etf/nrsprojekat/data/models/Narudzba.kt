@@ -15,7 +15,7 @@ class Narudzba(
     var datumRacuna: String?,
     var vrijemeRacuna: String?
 ) {
-    var isDeleted: Boolean = false
+    var imaFiskalni: Boolean = false
 
 
 }

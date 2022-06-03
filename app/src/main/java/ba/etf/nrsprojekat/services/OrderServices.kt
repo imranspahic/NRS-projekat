@@ -84,6 +84,7 @@ object OrderServices {
             "datumNarudzbe" to Date(),
             "nazivNarudzbe" to nazivNarudzbe,
             "statusNarudzbe" to status,
+            "imaFiskalni" to false,
             "isDeleted" to false,
             "idKupca" to idKupca,
             "listaProizvoda" to itemMapList,
@@ -172,6 +173,13 @@ object OrderServices {
         for(item in ProductsService.products)
             if(item.quantity != 0)
                 mapaZaNarudzbu.put(item.id, 0)
+    }
+
+    fun updateRacun(id: String) {
+        val updateOrder = mapOf(
+            "imaFiskalni" to true
+        )
+        db.collection("orders").document(id).update(updateOrder).addOnSuccessListener {}
     }
 
     fun resetKolicinaProducts() {
@@ -351,5 +359,12 @@ object OrderServices {
         db.collection("orders").document(id).delete().addOnSuccessListener {
             callback(true)
         }
+    }
+    fun getRacunStatus(id: String, callback: (result: Boolean) -> Unit) {
+        db.collection("orders")
+            .document(id).get()
+            .addOnSuccessListener {
+                callback(it["imaFiskalni"] as Boolean)
+            }
     }
 }

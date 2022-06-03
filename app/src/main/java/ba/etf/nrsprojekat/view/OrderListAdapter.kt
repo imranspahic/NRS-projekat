@@ -49,9 +49,36 @@ class OrderListAdapter(
 
 
         holder.infoOrderButton.setOnClickListener {
+            orders[position].imaFiskalni = true
+            OrderServices.updateRacun(orders[position].id)
+            notifyDataSetChanged()
             openInfoOrder(orders[position].id)
         }
-        if(orders[position].datumRacuna == null) {
+        OrderServices.getRacunStatus(orders[position].id) {
+            if(!it) {
+                holder.editOrderButton.visibility = View.VISIBLE
+                holder.editOrderButton.setOnClickListener {
+                    //    fragmentActivity.supportFragmentManager
+                    //        .beginTransaction().replace(R.id.frame, FragmentProducts()).commitNow()
+                    var mapaProizvodiNarudzbe = mutableMapOf<String, Any>()
+                    for(item in orders[position].proizvodi)
+                    //   println("" + item["productID"].toString() + item["quantity"].toString().toInt())
+                        mapaProizvodiNarudzbe.put(item["productID"].toString(), item["quantity"].toString())
+                    OrderServices.id = orders[position].id
+                    OrderServices.imeTrenutneNarudzbe = orders[position].nazivNarudzbe
+                    OrderServices.mapaZaNarudzbu = mapaProizvodiNarudzbe
+                    fragmentActivity.findViewById<BottomNavigationView>(R.id.bottom_nav).selectedItemId = R.id.proizvodi
+
+
+                }
+
+            }
+            else
+                holder.editOrderButton.visibility = View.GONE
+        }
+
+            /*
+
             holder.editOrderButton.visibility = View.VISIBLE
             holder.editOrderButton.setOnClickListener {
             //    fragmentActivity.supportFragmentManager
@@ -64,10 +91,10 @@ class OrderListAdapter(
                      OrderServices.imeTrenutneNarudzbe = orders[position].nazivNarudzbe
                      OrderServices.mapaZaNarudzbu = mapaProizvodiNarudzbe
                      fragmentActivity.findViewById<BottomNavigationView>(R.id.bottom_nav).selectedItemId = R.id.proizvodi
-            }
+
         }
         else
-            holder.editOrderButton.visibility = View.GONE
+            holder.editOrderButton.visibility = View.GONE */
 
 
 
