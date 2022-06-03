@@ -123,10 +123,35 @@ class ProductListAdapter(
 
         }
         if(OrderServices.imeTrenutneNarudzbe != null && product.status == "dostupno") {
-            holder.addProductToOrderDugme.visibility = View.VISIBLE
-            holder.substractProductToOrderDugme.visibility = View.VISIBLE
-            holder.quantityEdit.visibility = View.VISIBLE
-            brojProizvodaTextView.text = OrderServices.imeTrenutneNarudzbe
+
+            if(product.rinfuza != "") {
+                holder.quantityEdit.visibility = View.VISIBLE
+                holder.quantityEdit.addTextChangedListener(object: TextWatcher {
+                    override fun afterTextChanged(s: Editable?) {
+                    }
+
+                    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                    }
+
+                    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                        var trenutnaVrijednost = holder.quantityEdit.text.toString()
+                     //   if(trenutnaVrijednost > product.quantity || trenutnaVrijednost < 0) holder.quantityEdit.setText(product.quantity.toString())
+                     //   else
+                     //   holder.quantityEdit.setText(trenutnaVrijednost.toString())
+                        if(trenutnaVrijednost != "") {
+                            product.kolicinaNarudzbe = trenutnaVrijednost.toInt()
+                            OrderServices.mapaZaNarudzbu.put(product.id, product.kolicinaNarudzbe)
+                        }
+
+                    }
+                })
+            }
+            else {
+                holder.addProductToOrderDugme.visibility = View.VISIBLE
+                holder.substractProductToOrderDugme.visibility = View.VISIBLE
+                holder.quantityEdit.visibility = View.VISIBLE
+                brojProizvodaTextView.text = OrderServices.imeTrenutneNarudzbe
+            }
             if(OrderServices.mapaZaNarudzbu.get(product.id) != null) {
                 product.kolicinaNarudzbe = OrderServices.mapaZaNarudzbu.get(product.id).toString().toInt()
                 holder.quantityEdit.setText(OrderServices.mapaZaNarudzbu.get(product.id).toString())
@@ -159,6 +184,8 @@ class ProductListAdapter(
                 OrderServices.mapaZaNarudzbu.put(product.id, product.kolicinaNarudzbe)
             }
         }
+
+       // println("---------------------- " + product.name + product.rinfuza)
 
 
         saveOrderDugme.setOnClickListener {
@@ -252,9 +279,21 @@ class ProductListAdapter(
                 for(item in products)
                     if(item.kolicinaNarudzbe != 0) {
                         mapaProizvodaZaNarudzbu.put(item.id, item.kolicinaNarudzbe)
-                        ProductsService.updateProductQuantity(item.id, item.quantity - item.kolicinaNarudzbe)
-                        item.quantity = item.quantity - item.kolicinaNarudzbe
-                        item.kolicinaNarudzbe = 0
+                        if(item.rinfuza == "") {
+                            ProductsService.updateProductQuantity(
+                                item.id,
+                                item.quantity - item.kolicinaNarudzbe
+                            )
+                            item.quantity = item.quantity - item.kolicinaNarudzbe
+                            item.kolicinaNarudzbe = 0
+                        }
+                        else {
+                            var broj = item.rinfuza?.filter {it.isDigit()}?.toInt()
+                            var mjernaJedinica = item.rinfuza?.substring(broj.toString().length)
+                            ProductsService.updateProductRinf(item.id, (broj!! - item.kolicinaNarudzbe).toString() + mjernaJedinica)
+                            item.rinfuza = (broj!! - item.kolicinaNarudzbe).toString() + mjernaJedinica
+                            item.kolicinaNarudzbe = 0
+                        }
                     }
                 if(OrderServices.id != null) {
                     OrderServices.deleteOrder(OrderServices.id.toString()) {}
