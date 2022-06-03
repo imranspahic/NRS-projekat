@@ -45,58 +45,6 @@
                 android:textStyle="bold"
                 android:text="Naziv narudžbe" />
 
-            <!--
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="4dp"
-                >
-
-                <TextView
-                    android:id="@+id/productQuantityLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:layout_marginRight="8dp"
-                    android:textColor="@color/disabled"
-                    android:textSize="15dp"
-                    android:text="Količina: " />
-
-                <TextView
-                    android:id="@+id/productQuantity"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="15dp"
-                    android:layout_weight="1"
-                    android:text="TextView" />
-            </LinearLayout> -->
-            <!--
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/productPoslovnicaLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:layout_marginRight="8dp"
-                    android:textSize="15dp"
-                    android:textColor="@color/disabled"
-                    android:text="Poslovnica: " />
-
-                <TextView
-                    android:id="@+id/productPoslovnica"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="15dp"
-                    android:layout_weight="1"
-                    android:text="Naziv poslovnice" />
-            </LinearLayout>   -->
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -190,24 +138,7 @@
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Circle"
             android:layout_marginRight="8dp"
             />
-        <!--
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/editOrderDugme"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            app:iconPadding="0dp"
-            android:insetLeft="0dp"
-            android:insetTop="0dp"
-            android:insetRight="0dp"
-            android:insetBottom="0dp"
-            app:iconGravity="textStart"
-            android:padding="0dp"
-            app:icon="@drawable/pencil"
-            app:iconTint="@color/main_green_dark"
-            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Circle"
-            android:layout_marginRight="8dp"
-            />   -->
+
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

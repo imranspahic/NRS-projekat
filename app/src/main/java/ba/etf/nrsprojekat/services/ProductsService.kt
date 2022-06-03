@@ -356,6 +356,12 @@ object ProductsService {
         )
         db.collection("products").document(id).update(editProductQuantity).addOnSuccessListener {}
     }
+    fun updateProductRinf(id: String, newQuantity: String) {
+        val editProductRinf = mapOf(
+            "rinfuza" to newQuantity
+        )
+        db.collection("products").document(id).update(editProductRinf).addOnSuccessListener { }
+    }
 
     fun updateProductStatus(id: String, newStatus: String) {
         val editProductStatus = mapOf(

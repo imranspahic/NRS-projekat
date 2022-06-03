@@ -230,16 +230,18 @@
 
                 <EditText
                     android:id="@+id/quantityEdit"
-                    android:layout_width="25dp"
+                    android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:textSize="14sp"
                     android:layout_weight="0"
-                    android:enabled="false"
                     android:ems="10"
                     android:text="0"
                     android:layout_marginRight="4dp"
-                    android:gravity="center"
-                    android:inputType="none" />
+                    android:inputType="number"
+                    android:gravity="center" />
+                   <!-- android:enabled="false" -->
+
+
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/addProductToOrderDugme"
