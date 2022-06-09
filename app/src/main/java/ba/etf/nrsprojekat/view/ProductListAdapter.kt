@@ -31,6 +31,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firestore.v1.StructuredQuery
+import org.simpleframework.xml.Order
 import java.text.DecimalFormat
 import java.text.NumberFormat
 
@@ -135,9 +136,6 @@ class ProductListAdapter(
 
                     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                         var trenutnaVrijednost = holder.quantityEdit.text.toString()
-                     //   if(trenutnaVrijednost > product.quantity || trenutnaVrijednost < 0) holder.quantityEdit.setText(product.quantity.toString())
-                     //   else
-                     //   holder.quantityEdit.setText(trenutnaVrijednost.toString())
                         if(trenutnaVrijednost != "") {
                             product.kolicinaNarudzbe = trenutnaVrijednost.toInt()
                             OrderServices.mapaZaNarudzbu.put(product.id, product.kolicinaNarudzbe)
@@ -184,10 +182,6 @@ class ProductListAdapter(
                 OrderServices.mapaZaNarudzbu.put(product.id, product.kolicinaNarudzbe)
             }
         }
-
-       // println("---------------------- " + product.name + product.rinfuza)
-
-
         saveOrderDugme.setOnClickListener {
             showConfirmationDialogForOrderFinish()
 
@@ -276,6 +270,18 @@ class ProductListAdapter(
                 dialog.dismiss()
             }
             .setPositiveButton("Sačuvaj") { dialog, which ->
+                if(OrderServices.edit == true) {
+                    for(item in OrderServices.editMapa) {
+                    ProductsService.getProduct(item.key) {
+                        for(proiz in products) if(proiz.id == item.key) proiz.quantity = it + item.value.toString().toInt()
+                        notifyDataSetChanged()
+                        ProductsService.updateProductQuantity(item.key, (it + item.value.toString().toInt()))
+
+                    }
+                    }
+                        OrderServices.edit = false
+                        OrderServices.editMapa = mutableMapOf<String, Any>()
+                }
                 for(item in products)
                     if(item.kolicinaNarudzbe != 0) {
                         mapaProizvodaZaNarudzbu.put(item.id, item.kolicinaNarudzbe)

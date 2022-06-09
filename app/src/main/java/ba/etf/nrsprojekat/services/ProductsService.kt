@@ -377,4 +377,23 @@ object ProductsService {
         db.collection("products").document(id).update(productUpdatedStatus).addOnSuccessListener {}
     }
 
-}
+    fun getProduct(id: String, callback: (result: Int) -> Unit) {
+        var kolicina: Int = 0
+        db.collection("products").
+        get().
+        addOnSuccessListener {
+          /*  it -> for(document in it) {
+                kolicina = document.data["quantity"].toString().toInt()
+            println("IMEPROIZ" + document.data["name"]) */
+            for(document in it)
+                if(document.data["id"] == id) {
+                    println("AAAAAAAAAAAAAAAA" + document.data["name"])
+                    callback(document.data["quantity"].toString().toInt())
+                }
+        }
+
+           //callback(kolicina)
+        }
+
+    }
+

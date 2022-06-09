@@ -55,49 +55,37 @@ class OrderListAdapter(
             openInfoOrder(orders[position].id)
         }
         OrderServices.getRacunStatus(orders[position].id) {
-            if(!it) {
+            if (!it) {
                 holder.editOrderButton.visibility = View.VISIBLE
                 holder.editOrderButton.setOnClickListener {
-                    //    fragmentActivity.supportFragmentManager
-                    //        .beginTransaction().replace(R.id.frame, FragmentProducts()).commitNow()
+                    OrderServices.edit = true
                     var mapaProizvodiNarudzbe = mutableMapOf<String, Any>()
-                    for(item in orders[position].proizvodi)
-                    //   println("" + item["productID"].toString() + item["quantity"].toString().toInt())
-                        mapaProizvodiNarudzbe.put(item["productID"].toString(), item["quantity"].toString())
+                    for (item in orders[position].proizvodi) {
+                        mapaProizvodiNarudzbe.put(
+                            item["productID"].toString(),
+                            item["quantity"].toString()
+                        )
+                    }
                     OrderServices.id = orders[position].id
                     OrderServices.imeTrenutneNarudzbe = orders[position].nazivNarudzbe
                     OrderServices.mapaZaNarudzbu = mapaProizvodiNarudzbe
-                    fragmentActivity.findViewById<BottomNavigationView>(R.id.bottom_nav).selectedItemId = R.id.proizvodi
+                    OrderServices.lokacija = orders[position].lokacija
+                    OrderServices.mjesto = orders[position].mjesto
+                    /*
+                    val original = hashMapOf(1 to "x")
+                     val copy = HashMap(original)
+                     */
+
+                    OrderServices.editMapa = HashMap(mapaProizvodiNarudzbe)
+                    fragmentActivity.findViewById<BottomNavigationView>(R.id.bottom_nav).selectedItemId =
+                        R.id.proizvodi
 
 
                 }
 
-            }
-            else
+            } else
                 holder.editOrderButton.visibility = View.GONE
         }
-
-            /*
-
-            holder.editOrderButton.visibility = View.VISIBLE
-            holder.editOrderButton.setOnClickListener {
-            //    fragmentActivity.supportFragmentManager
-            //        .beginTransaction().replace(R.id.frame, FragmentProducts()).commitNow()
-                var mapaProizvodiNarudzbe = mutableMapOf<String, Any>()
-                for(item in orders[position].proizvodi)
-                 //   println("" + item["productID"].toString() + item["quantity"].toString().toInt())
-                     mapaProizvodiNarudzbe.put(item["productID"].toString(), item["quantity"].toString())
-                     OrderServices.id = orders[position].id
-                     OrderServices.imeTrenutneNarudzbe = orders[position].nazivNarudzbe
-                     OrderServices.mapaZaNarudzbu = mapaProizvodiNarudzbe
-                     fragmentActivity.findViewById<BottomNavigationView>(R.id.bottom_nav).selectedItemId = R.id.proizvodi
-
-        }
-        else
-            holder.editOrderButton.visibility = View.GONE */
-
-
-
     }
 
 
