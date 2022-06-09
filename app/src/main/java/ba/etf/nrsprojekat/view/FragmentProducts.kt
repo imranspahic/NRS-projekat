@@ -233,21 +233,13 @@ class FragmentProducts : Fragment(), ProductListAdapter.IHide {
         }
     }
     fun showdialog(){
-      //  var m_Text: String = String()
         val builder: AlertDialog.Builder = android.app.AlertDialog.Builder(requireContext())
         builder.setTitle("Da li želite napraviti novu narudžbu?")
-      //  val input = EditText(requireContext())
-      //  input.setHint("Unesite ime narudžbe")
-      //  input.inputType = InputType.TYPE_CLASS_TEXT
-      //  builder.setView(input)
         builder.setPositiveButton("Napravi", DialogInterface.OnClickListener { dialog, which ->
-           // m_Text = input.text.toString()
             addOrderDugme.visibility = View.GONE
             discardOrderDugme.visibility = View.VISIBLE
             saveOrderDugme.visibility = View.VISIBLE
-          //  brojProizvodaLabel.text="Ime narudžbe: "
-          //  brojProizvodaText.text = m_Text
-          //  OrderServices.imeTrenutneNarudzbe = "Narudžba" + (brojProizvodaText.text.toString().toInt() + 1).toString()
+            OrderServices.editMapa = mutableMapOf<String, Any>()
             OrderServices.getOrders(LoginService.logovaniKorisnik!!.getID()) {
                 OrderServices.imeTrenutneNarudzbe = "Narudžba " + (it.size + 1).toString()
                 productListAdapter.notifyDataSetChanged()
@@ -256,18 +248,11 @@ class FragmentProducts : Fragment(), ProductListAdapter.IHide {
                 val LocationPickBottomSheetFragment = LocationPickBottomSheetFragment()
                 LocationPickBottomSheetFragment.show(parentFragmentManager, LocationPickBottomSheetFragment.tag)
             }
-         //   OrderServices.imeTrenutneNarudzbe = "tekst"
-         /*   productListAdapter.notifyDataSetChanged()
-            OrderServices.setMapa()
-            dialog.dismiss()
-            val LocationPickBottomSheetFragment = LocationPickBottomSheetFragment()
-            LocationPickBottomSheetFragment.show(parentFragmentManager, LocationPickBottomSheetFragment.tag) */
         })
         builder.setNegativeButton("Odustani", DialogInterface.OnClickListener {
                 dialog, which -> dialog.cancel()
         })
         builder.show()
-     //   return m_Text
     }
 
     //////////////
@@ -293,6 +278,10 @@ class FragmentProducts : Fragment(), ProductListAdapter.IHide {
                             OrderServices.lokacija = null
                             OrderServices.mjesto = null
                             OrderServices.id = null
+                            OrderServices.editMapa = mutableMapOf<String, Any>()
+                            // novo
+                            OrderServices.edit = false
+                            OrderServices.editMapa = mutableMapOf<String, Any>()
                             OrderServices.resetKolicinaProducts()
                             productListAdapter.notifyDataSetChanged()
                             dialog.dismiss()

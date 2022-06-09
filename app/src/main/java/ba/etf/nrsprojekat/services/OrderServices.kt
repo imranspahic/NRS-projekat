@@ -33,6 +33,8 @@ object OrderServices {
     var lokacija: String? = null
     var mjesto: String? = null
     var id: String? = null
+    var edit: Boolean = false
+    var editMapa = mutableMapOf<String, Any>()
 
     fun getOrders(id: String, callback: (result: MutableList<Narudzba>) -> Unit) {
         var lista: MutableList<Narudzba> = mutableListOf()
